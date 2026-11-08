@@ -6,7 +6,7 @@ Northbridge Lending (fictional) is a consumer lender with 50,000 unsecured perso
 The credit team wants to know **which borrowers and loans default, whether the lender's grade prices that risk, what a
 July 2023 policy change did, how much the economy matters, and how big the IFRS 9 loss allowance should be**.
 
-**Live summary page:** https://loan-default-risk-ifrs9.vercel.app (source in [`site/index.html`](site/index.html))
+**Summary page:** [`site/index.html`](site/index.html)
 
 ![Power BI: Portfolio page](images/dashboard_portfolio.png)
 
