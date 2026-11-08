@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "b7d5f1b520855bff8c18",
   "position": {
-    "x": 224,
+    "x": 200,
     "y": 192,
-    "z": 5500,
+    "z": 5400,
     "height": 262,
-    "width": 1040,
-    "tabOrder": 5500
+    "width": 1064,
+    "tabOrder": 5400
   },
   "visual": {
     "visualType": "lineClusteredColumnComboChart",
@@ -81,13 +81,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "DPD Color"
+                    "Literal": {
+                      "Value": "'#F0934F'"
                     }
                   }
                 }
@@ -95,13 +90,6 @@
             }
           },
           "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
             "metadata": "_Measures.Month DPD"
           }
         },
@@ -112,7 +100,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1F4A57'"
+                      "Value": "'#22D3EE'"
                     }
                   }
                 }

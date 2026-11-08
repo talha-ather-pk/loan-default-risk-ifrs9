@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "e27d9839003a5a0bbde2",
   "position": {
-    "x": 224,
-    "y": 10,
-    "z": 2900,
-    "height": 38,
+    "x": 200,
+    "y": 12,
+    "z": 2800,
+    "height": 34,
     "width": 760,
-    "tabOrder": 2900
+    "tabOrder": 2800
   },
   "visual": {
     "visualType": "textbox",
@@ -23,9 +23,10 @@
                   {
                     "value": "What Drives Default",
                     "textStyle": {
-                      "fontSize": "20pt",
-                      "color": "#FFFFFF",
-                      "fontFamily": "Georgia"
+                      "fontSize": "19pt",
+                      "color": "#E6EDF7",
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontWeight": "bold"
                     }
                   }
                 ]

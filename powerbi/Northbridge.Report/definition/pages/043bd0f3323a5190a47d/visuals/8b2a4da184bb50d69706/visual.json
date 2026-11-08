@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "8b2a4da184bb50d69706",
   "position": {
-    "x": 28,
-    "y": 153,
-    "z": 700,
+    "x": 24,
+    "y": 138,
+    "z": 800,
     "height": 20,
-    "width": 160,
-    "tabOrder": 700
+    "width": 144,
+    "tabOrder": 800
   },
   "visual": {
     "visualType": "textbox",
@@ -23,8 +23,8 @@
                   {
                     "value": "Risk Drivers",
                     "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#A7B8B4",
+                      "fontSize": "9.5pt",
+                      "color": "#8A9AB4",
                       "fontFamily": "Segoe UI"
                     }
                   }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "5a67d50e492658ff9d63",
   "position": {
-    "x": 442.4,
+    "x": 423.2,
     "y": 96,
-    "z": 3700,
+    "z": 3600,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 3700
+    "width": 187.2,
+    "tabOrder": 3600
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "INTEREST RATE",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "93ada6bdf0595130b11d",
   "position": {
-    "x": 28,
-    "y": 305,
-    "z": 1700,
+    "x": 24,
+    "y": 282,
+    "z": 1800,
     "height": 20,
-    "width": 160,
-    "tabOrder": 1700
+    "width": 144,
+    "tabOrder": 1800
   },
   "visual": {
     "visualType": "textbox",
@@ -23,8 +23,8 @@
                   {
                     "value": "Data Quality",
                     "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#A7B8B4",
+                      "fontSize": "9.5pt",
+                      "color": "#8A9AB4",
                       "fontFamily": "Segoe UI"
                     }
                   }

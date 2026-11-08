@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "30f29937ad7a51509641",
   "position": {
-    "x": 836,
+    "x": 812,
     "y": 192,
-    "z": 5800,
+    "z": 5700,
     "height": 240,
-    "width": 428,
-    "tabOrder": 5800
+    "width": 452,
+    "tabOrder": 5700
   },
   "visual": {
     "visualType": "pivotTable",
@@ -152,6 +152,22 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "49.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Roll Rate"
           }
         }
       ]

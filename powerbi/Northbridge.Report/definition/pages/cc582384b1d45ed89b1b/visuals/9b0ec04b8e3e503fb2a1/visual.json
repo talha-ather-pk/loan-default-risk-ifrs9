@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "9b0ec04b8e3e503fb2a1",
   "position": {
-    "x": 1073.6,
+    "x": 1068.8,
     "y": 96,
-    "z": 5400,
+    "z": 5300,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 5400
+    "width": 187.2,
+    "tabOrder": 5300
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "UNEMPLOYMENT EFFECT",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

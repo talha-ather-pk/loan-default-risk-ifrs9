@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "b1e33880801e5bc8bd16",
   "position": {
-    "x": 28,
-    "y": 191,
-    "z": 1100,
+    "x": 24,
+    "y": 174,
+    "z": 1200,
     "height": 20,
-    "width": 160,
-    "tabOrder": 1100
+    "width": 144,
+    "tabOrder": 1200
   },
   "visual": {
     "visualType": "textbox",
@@ -23,7 +23,7 @@
                   {
                     "value": "Vintages & Economy",
                     "textStyle": {
-                      "fontSize": "10pt",
+                      "fontSize": "9.5pt",
                       "color": "#FFFFFF",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "80aa01e582d4503c9bcd",
   "position": {
-    "x": 20,
-    "y": 90,
-    "z": 400,
+    "x": 16,
+    "y": 78,
+    "z": 500,
     "height": 16,
-    "width": 168,
-    "tabOrder": 400
+    "width": 152,
+    "tabOrder": 500
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "REPORTS",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7E948F",
+                      "color": "#6B7D98",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

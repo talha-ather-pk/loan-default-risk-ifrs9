@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "63c210bc577652fd918a",
   "position": {
-    "x": 224,
+    "x": 200,
     "y": 454,
-    "z": 5900,
+    "z": 5800,
     "height": 250,
     "width": 500,
-    "tabOrder": 5900
+    "tabOrder": 5800
   },
   "visual": {
     "visualType": "pivotTable",
@@ -159,6 +159,22 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "57.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Migration Share"
           }
         }
       ]

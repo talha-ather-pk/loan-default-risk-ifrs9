@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "f43e61371e77501fb5a7",
   "position": {
-    "x": 836,
+    "x": 812,
     "y": 454,
-    "z": 6000,
+    "z": 5900,
     "height": 250,
-    "width": 428,
-    "tabOrder": 6000
+    "width": 452,
+    "tabOrder": 5900
   },
   "visual": {
     "visualType": "tableEx",
@@ -91,6 +91,77 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "129.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "truth_check.effect_label"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "84.6D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.True Effect"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "84.6D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Estimated Effect"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "109.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "truth_check.same_sign"
           }
         }
       ]

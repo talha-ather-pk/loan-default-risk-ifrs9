@@ -2,29 +2,73 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "7b4788c697c156a2afa3",
   "position": {
-    "x": 12,
-    "y": 268,
-    "z": 1400,
+    "x": 10,
+    "y": 247,
+    "z": 1500,
     "height": 16,
     "width": 3,
-    "tabOrder": 1400
+    "tabOrder": 1500
   },
   "visual": {
-    "visualType": "textbox",
+    "visualType": "card",
     "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Blank Text"
+                }
+              },
+              "queryRef": "_Measures.Blank Text",
+              "nativeQueryRef": "Blank Text"
+            }
+          ]
+        }
+      }
+    },
     "objects": {
-      "general": [
+      "labels": [
         {
           "properties": {
-            "paragraphs": [
-              {
-                "textRuns": [
-                  {
-                    "value": ""
-                  }
-                ]
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
               }
-            ]
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2DD4BF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]
@@ -45,7 +89,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#B8945A'"
+                      "Value": "'#2DD4BF'"
                     }
                   }
                 }
@@ -76,7 +120,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#B8945A'"
+                      "Value": "'#2DD4BF'"
                     }
                   }
                 }

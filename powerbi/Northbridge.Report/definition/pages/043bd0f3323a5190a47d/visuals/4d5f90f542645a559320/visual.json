@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "4d5f90f542645a559320",
   "position": {
-    "x": 272,
+    "x": 248,
     "y": 14,
-    "z": 2700,
+    "z": 2600,
     "height": 34,
     "width": 900,
-    "tabOrder": 2700
+    "tabOrder": 2600
   },
   "visual": {
     "visualType": "card",
@@ -43,7 +43,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#173A3F'"
+                      "Value": "'#0A1222'"
                     }
                   }
                 }
@@ -176,7 +176,7 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'Georgia'"
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             },

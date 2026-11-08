@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "fe95fef38785510aa891",
   "position": {
-    "x": 232.0,
+    "x": 208.0,
     "y": 96,
-    "z": 3200,
+    "z": 3100,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 3200
+    "width": 187.2,
+    "tabOrder": 3100
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "LOAN AMOUNT",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "19c84aa3b6265c75971f",
   "position": {
-    "x": 20,
-    "y": 48,
-    "z": 200,
-    "height": 18,
-    "width": 180,
-    "tabOrder": 200
+    "x": 30,
+    "y": 42,
+    "z": 400,
+    "height": 16,
+    "width": 144,
+    "tabOrder": 400
   },
   "visual": {
     "visualType": "textbox",
@@ -21,10 +21,10 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "LENDING  ·  CREDIT RISK PACK",
+                    "value": "CREDIT RISK INTELLIGENCE",
                     "textStyle": {
-                      "fontSize": "7pt",
-                      "color": "#B8945A",
+                      "fontSize": "6.5pt",
+                      "color": "#2DD4BF",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "89cc70571bbd5fde8383",
   "position": {
-    "x": 666,
+    "x": 642,
     "y": 466,
-    "z": 5700,
+    "z": 5600,
     "height": 238,
-    "width": 598,
-    "tabOrder": 5700
+    "width": 622,
+    "tabOrder": 5600
   },
   "visual": {
     "visualType": "tableEx",
@@ -124,6 +124,91 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122.2D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_month.month_label"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fact_loan_month.status"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "79.9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Month DPD"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136.3D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Month Paid"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136.3D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Month Balance"
           }
         }
       ]

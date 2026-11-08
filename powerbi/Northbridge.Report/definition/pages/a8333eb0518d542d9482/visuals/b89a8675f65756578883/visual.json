@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "b89a8675f65756578883",
   "position": {
-    "x": 836,
+    "x": 812,
     "y": 192,
-    "z": 5800,
+    "z": 5700,
     "height": 250,
-    "width": 428,
-    "tabOrder": 5800
+    "width": 452,
+    "tabOrder": 5700
   },
   "visual": {
     "visualType": "tableEx",
@@ -126,6 +126,91 @@
             }
           }
         }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107.2D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "model_metrics.model"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "90.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "model_metrics.sample"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AUC"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Gini"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.KS"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -142,7 +227,27 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Gradient boosting overfits: best in development, not on 2023 loans'"
+                  "Value": "'Model comparison · boosting overfits'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Best in development, not on 2023 loans'"
                 }
               }
             }

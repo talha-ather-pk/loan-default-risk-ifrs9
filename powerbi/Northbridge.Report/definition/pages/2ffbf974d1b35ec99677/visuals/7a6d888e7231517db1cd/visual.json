@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "7a6d888e7231517db1cd",
   "position": {
-    "x": 736,
+    "x": 712,
     "y": 454,
-    "z": 6000,
+    "z": 5900,
     "height": 250,
-    "width": 528,
-    "tabOrder": 6000
+    "width": 552,
+    "tabOrder": 5900
   },
   "visual": {
     "visualType": "tableEx",
@@ -154,6 +154,119 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "30.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.ECL Rank"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "73.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.loan_id"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "73.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.sub_grade"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "73.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.stage_2025"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "96.9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.EAD"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "63.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.PD 12m (EAD-weighted)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "96.9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.ECL"
           }
         }
       ]

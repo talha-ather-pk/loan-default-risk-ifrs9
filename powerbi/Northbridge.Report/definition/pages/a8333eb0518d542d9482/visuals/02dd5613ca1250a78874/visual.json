@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "02dd5613ca1250a78874",
   "position": {
-    "x": 224,
+    "x": 200,
     "y": 454,
-    "z": 5900,
+    "z": 5800,
     "height": 250,
     "width": 600,
-    "tabOrder": 5900
+    "tabOrder": 5800
   },
   "visual": {
     "visualType": "tableEx",
@@ -139,6 +139,105 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "scorecard.feature_label"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "scorecard.bin_label"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Bin Loans"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "89.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Bin Bad Rate"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.WoE"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Points"
           }
         }
       ]

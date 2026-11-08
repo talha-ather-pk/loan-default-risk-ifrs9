@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "38faa104ee925d27a3c7",
   "position": {
-    "x": 20,
-    "y": 670,
-    "z": 2600,
+    "x": 16,
+    "y": 672,
+    "z": 2700,
     "height": 40,
-    "width": 184,
-    "tabOrder": 2600
+    "width": 164,
+    "tabOrder": 2700
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "Synthetic data · 50,000 loans",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7E948F",
+                      "color": "#6B7D98",
                       "fontFamily": "Segoe UI"
                     }
                   }
@@ -37,7 +37,7 @@
                     "value": "Right-click a loan to drill through",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7E948F",
+                      "color": "#6B7D98",
                       "fontFamily": "Segoe UI"
                     }
                   }

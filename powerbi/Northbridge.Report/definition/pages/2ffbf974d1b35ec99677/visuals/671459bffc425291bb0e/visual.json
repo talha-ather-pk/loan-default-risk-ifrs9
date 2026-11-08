@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "671459bffc425291bb0e",
   "position": {
-    "x": 28,
-    "y": 229,
-    "z": 1100,
+    "x": 24,
+    "y": 210,
+    "z": 1200,
     "height": 20,
-    "width": 160,
-    "tabOrder": 1100
+    "width": 144,
+    "tabOrder": 1200
   },
   "visual": {
     "visualType": "textbox",
@@ -23,8 +23,8 @@
                   {
                     "value": "Scorecard",
                     "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#A7B8B4",
+                      "fontSize": "9.5pt",
+                      "color": "#8A9AB4",
                       "fontFamily": "Segoe UI"
                     }
                   }

@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "Northbridge_Executive.json",
+      "name": "Northbridge_Midnight.json",
       "reportVersionAtImport": {
         "visual": "2.4.0",
         "report": "3.0.0",
@@ -37,8 +37,8 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "Northbridge_Executive.json",
-          "path": "Northbridge_Executive.json",
+          "name": "Northbridge_Midnight.json",
+          "path": "Northbridge_Midnight.json",
           "type": "CustomTheme"
         }
       ]

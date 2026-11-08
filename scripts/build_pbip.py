@@ -26,32 +26,33 @@ DATA_FOLDER = str(ROOT / "data_clean" / "powerbi") + "\\"
 BASE_THEME = "CY26SU04"
 THEME_SRC = Path(r"C:\Program Files\Microsoft Power BI Desktop\bin\WebView2Resources"
                  r"\minerva\sharedresources\BaseThemes") / f"{BASE_THEME}.json"
-CUSTOM_THEME = "Northbridge_Executive.json"
+CUSTOM_THEME = "Northbridge_Midnight.json"
 SCHEMA = "https://developer.microsoft.com/json-schemas/fabric"
 V_VISUAL, V_PAGE, V_REPORT = "2.4.0", "2.0.0", "3.0.0"
 
 # =========================================================================
 # Design system
 # =========================================================================
-# "Risk pack" identity for a lender: deep teal-ink, brass, warm ivory; green / amber / red keep one meaning
-# everywhere (within appetite / watch / breach; Stage 1 / 2 / 3; current / late / defaulted)
-NAVY = "#0F2A2E"        # sidebar
-NAVY_2 = "#1C3E43"      # active nav item
-INK = "#14201F"
-SLATE = "#5E6B68"
-SLATE_2 = "#93A3A0"
-MIST = "#C9D4D1"
-LINE = "#E4E0D6"
-CANVAS = "#E6EDEA"       # soft sage page background
-BAND = "#173A3F"         # teal header band
+# Midnight banking palette: navy surfaces, teal / cyan accents; green / amber / red keep one meaning everywhere
+NAVY = "#070D19"        # sidebar (darker than the canvas)
+NAVY_2 = "#12203A"      # active nav item
+INK = "#E6EDF7"         # primary text (light on dark)
+SLATE = "#9FB0C8"       # secondary text
+SLATE_2 = "#6B7D98"     # tertiary text
+MIST = "#C5D2E4"
+LINE = "#1F2E47"        # hairlines and card borders
+CANVAS = "#0A1222"      # page background
+SURFACE = "#111C2E"     # cards, charts, tables
+SURFACE_2 = "#0F1A2B"   # table headers, slicer fields
 WHITE = "#FFFFFF"
-GOLD = "#B8945A"        # brass accent
-PRIMARY = "#1F4A57"     # petrol: main series
-COMPARE = "#C3CBC8"     # comparison series
-GOOD, WARN, BAD, NEUTRAL = "#2F7D5B", "#C9902E", "#B0413E", "#93A3A0"
-AMBER = "#D27032"
-DATA_COLORS = [PRIMARY, GOLD, GOOD, "#7D8F8C", BAD, "#4E7C88", "#8A6F9E", WARN]
-SERIF = "Georgia"
+GOLD = "#2DD4BF"        # accent (teal); name kept so shared layout code picks it up
+CYAN = "#22D3EE"
+PRIMARY = "#2A9DB0"     # main data series (muted cyan)
+COMPARE = "#4A5D7E"     # comparison series
+GOOD, WARN, BAD, NEUTRAL = "#3BB98B", "#F2B84B", "#F2706B", "#6B7D98"
+AMBER = "#F0934F"
+DATA_COLORS = [PRIMARY, CYAN, GOOD, "#7C8DB5", WARN, BAD, "#A78BFA", "#5EEAD4"]
+SERIF = "Segoe UI Semibold"   # one type family throughout
 FONT, FONT_SB, FONT_LIGHT = "Segoe UI", "Segoe UI Semibold", "Segoe UI Light"
 
 
@@ -264,9 +265,9 @@ m("Roll 60 to 90", roll("60 DPD", "90+ DPD"), PCT, "3 Vintages")
 m("Cure from 30", roll("30 DPD", "Current"), PCT, "3 Vintages")
 m("Roll Current to 30", roll("Current", "30 DPD"), PCT2, "3 Vintages")
 m("Unemployment Sensitivity", f"EXP ( {finding('unemployment_beta')} ) - 1", SPCT, "3 Vintages")
-m("Roll Heat", 'VAR r = [Roll Rate] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.6, "#1F4A57", r > 0.3, "#4F7680", '
-  'r > 0.1, "#93AEB3", r > 0.01, "#D3DFE0", "#F4F6F5" )', None, "8 Formatting", hidden=True)
-m("Roll Heat Font", 'IF ( [Roll Rate] > 0.3, "#FFFFFF", "#14201F" )', None, "8 Formatting", hidden=True)
+m("Roll Heat", 'VAR r = [Roll Rate] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.6, "#1E8A9A", r > 0.3, "#19697A", '
+  'r > 0.1, "#164A5C", r > 0.01, "#13324A", "#101E33" )', None, "8 Formatting", hidden=True)
+m("Roll Heat Font", 'IF ( [Roll Rate] > 0.3, "#FFFFFF", "#C5D2E4" )', None, "8 Formatting", hidden=True)
 # 4 Scorecard ---------------------------------------------------------------------------
 m("Gini Scorecard", finding("gini_scorecard_oot"), DEC2, "4 Scorecard")
 m("Gini Grade", finding("gini_grade_oot"), DEC2, "4 Scorecard")
@@ -315,7 +316,7 @@ for s_ in (1, 2, 3):
 m("Scenario ECL", 'SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", [ECL Upside], "Base", [ECL Base], '
   '"Downside", [ECL Downside], "Weighted", [ECL] )', CUR, "5 IFRS 9")
 m("Scenario Color", f'SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", "{GOOD}", "Downside", "{BAD}", '
-  f'"Weighted", "{NAVY}", "{COMPARE}" )', None, "8 Formatting", hidden=True)
+  f'"Weighted", "{CYAN}", "{COMPARE}" )', None, "8 Formatting", hidden=True)
 m("Backtest Expected", "SUM ( ecl_backtest[predicted_weighted] )", INT, "5 IFRS 9")
 m("Backtest Actual", "SUM ( ecl_backtest[actual] )", INT, "5 IFRS 9")
 m("Backtest Actual Unemployment", "SUM ( ecl_backtest[predicted_actual_unemployment] )", INT, "5 IFRS 9")
@@ -323,9 +324,9 @@ m("Backtest Ratio", "DIVIDE ( [Backtest Expected], [Backtest Actual] )", '0.00"x
 m("Migration Loans", "SUM ( fact_stage_migration[loans] )", INT, "5 IFRS 9")
 m("Migration Share", "DIVIDE ( [Migration Loans], CALCULATE ( [Migration Loans], REMOVEFILTERS ( fact_stage_migration[to_state], "
   "fact_stage_migration[to_order] ) ) )", PCT, "5 IFRS 9")
-m("Migration Heat", 'VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1F4A57", r > 0.2, "#4F7680", '
-  'r > 0.08, "#93AEB3", r > 0.02, "#D3DFE0", "#F4F6F5" )', None, "8 Formatting", hidden=True)
-m("Migration Heat Font", 'IF ( [Migration Share] > 0.2, "#FFFFFF", "#14201F" )', None, "8 Formatting", hidden=True)
+m("Migration Heat", 'VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1E8A9A", r > 0.2, "#19697A", '
+  'r > 0.08, "#164A5C", r > 0.02, "#13324A", "#101E33" )', None, "8 Formatting", hidden=True)
+m("Migration Heat Font", 'IF ( [Migration Share] > 0.2, "#FFFFFF", "#C5D2E4" )', None, "8 Formatting", hidden=True)
 m("ECL Rank", "IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan[loan_id] ), [ECL], , DESC, DENSE ) )", INT, "5 IFRS 9")
 # 6 Data quality ------------------------------------------------------------------------
 m("DQ Rows", "SUM ( dq_log[rows_affected] )", INT, "6 Data quality")
@@ -442,10 +443,10 @@ rag("S2", "DIVIDE ( [EAD Stage 2], [EAD] )", "v < 0.12", "v < 0.18", 'FORMAT ( v
 rag("BT", "[Backtest Ratio]", "v >= 0.9 && v <= 1.1", "v >= 0.8 && v <= 1.3",
     '"Actual " & FORMAT ( [Backtest Actual], "#,0" ) & " · " & ' + status("v >= 0.9 && v <= 1.1", "v >= 0.8 && v <= 1.3", "accurate", "prudent", "recalibrate"))
 rag("Vintage", "[Vintage 2023 at 24m]", "v < 0.09", "v < 0.11", status("v < 0.09", "v < 0.11", "2023 loans · within 9%", "2023 loans · watch", "2023 loans · breach"))
-m("Heat D24", f'VAR v = [Default Rate 24m] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.04, "#E2EFE7", v < 0.08, "#EEF2EC", '
-  f'v < 0.12, "#F7ECD6", v < 0.2, "#F3D9CB", "#EBC0B8" )', None, "8 Formatting", hidden=True)
-m("Heat Cov", f'VAR v = [Coverage] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.02, "#E2EFE7", v < 0.035, "#EEF2EC", '
-  f'v < 0.05, "#F7ECD6", v < 0.08, "#F3D9CB", "#EBC0B8" )', None, "8 Formatting", hidden=True)
+m("Heat D24", f'VAR v = [Default Rate 24m] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.04, "#16382F", v < 0.08, "#172E33", '
+  f'v < 0.12, "#3E3418", v < 0.2, "#4A2A1E", "#5A2228" )', None, "8 Formatting", hidden=True)
+m("Heat Cov", f'VAR v = [Coverage] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.02, "#16382F", v < 0.035, "#172E33", '
+  f'v < 0.05, "#3E3418", v < 0.08, "#4A2A1E", "#5A2228" )', None, "8 Formatting", hidden=True)
 
 
 def q(name):
@@ -903,85 +904,249 @@ def kpi_tiles(p, tiles, y=76, h=104):
 
 
 # =========================================================================
-# Risk-pack chrome (overrides the shared sidebar and header)
+# Midnight chrome: theme, sidebar, header and cards (override the shared design code)
 # =========================================================================
-def serif(text, size, color, align="left"):
-    t = textbox([[(text, size, color, False)]], align=align)
-    t["objects"]["general"][0]["properties"]["paragraphs"][0]["textRuns"][0]["textStyle"]["fontFamily"] = SERIF
-    return t
+SIDEBAR_W = 184
+X0, X1 = 200, 1264               # content area: 16 px from the sidebar and from the right edge
+BAND = CANVAS                    # no header band on the dark design
+GRID = "#1A2840"                 # gridlines
+
+
+def sc(c):
+    return {"solid": {"color": c}}
+
+
+THEME = {
+    "name": "Northbridge Midnight",
+    "dataColors": DATA_COLORS,
+    "foreground": INK, "foregroundNeutralSecondary": SLATE, "foregroundNeutralTertiary": SLATE_2,
+    "background": SURFACE, "backgroundLight": "#13203A", "backgroundNeutral": LINE,
+    "tableAccent": CYAN, "good": GOOD, "neutral": WARN, "bad": BAD,
+    "maximum": CYAN, "center": "#1E6F80", "minimum": "#13324A", "null": SURFACE,
+    "hyperlink": CYAN, "visitedHyperlink": CYAN,
+    "textClasses": {
+        "callout": {"fontSize": 24, "fontFace": FONT_SB, "color": INK},
+        "title": {"fontSize": 11, "fontFace": FONT_SB, "color": INK},
+        "header": {"fontSize": 10, "fontFace": FONT_SB, "color": MIST},
+        "label": {"fontSize": 9, "fontFace": FONT, "color": SLATE},
+    },
+    "visualStyles": {
+        "*": {"*": {
+            "background": [{"show": True, "color": sc(SURFACE), "transparency": 0}],
+            "border": [{"show": True, "color": sc(LINE), "radius": 10, "width": 1}],
+            "dropShadow": [{"show": False}],
+            "padding": [{"top": 12, "bottom": 10, "left": 14, "right": 14}],
+            "title": [{"show": True, "fontColor": sc(INK), "fontSize": 11, "fontFamily": FONT_SB, "titleWrap": True}],
+            "subTitle": [{"fontColor": sc(SLATE_2), "fontSize": 9, "fontFamily": FONT}],
+            "categoryAxis": [{"showAxisTitle": False, "gridlineStyle": "dotted", "labelColor": sc(SLATE), "fontSize": 9,
+                              "concatenateLabels": False, "axisLineColor": sc(LINE)}],
+            "valueAxis": [{"showAxisTitle": False, "gridlineStyle": "dotted", "gridlineColor": sc(GRID),
+                           "labelColor": sc(SLATE), "fontSize": 9}],
+            "legend": [{"show": True, "position": "TopLeft", "labelColor": sc(SLATE), "fontSize": 9, "showTitle": False}],
+            "labels": [{"color": sc(INK), "fontSize": 9}],
+            "lineStyles": [{"strokeWidth": 3}],
+            "visualTooltip": [{"titleFontColor": sc(SLATE), "valueFontColor": sc(INK), "background": sc("#0D1729")}],
+            "visualHeader": [{"background": sc(SURFACE), "border": sc(LINE), "foreground": sc(SLATE), "transparency": 0}],
+            "outspacePane": [{"backgroundColor": sc(SURFACE), "foregroundColor": sc(INK), "transparency": 0,
+                              "border": True, "borderColor": sc(LINE)}],
+            "filterCard": [{"$id": "Applied", "backgroundColor": sc(SURFACE_2), "foregroundColor": sc(INK), "transparency": 0},
+                           {"$id": "Available", "backgroundColor": sc(SURFACE), "foregroundColor": sc(INK), "transparency": 0}],
+        }},
+        "page": {"*": {"background": [{"color": sc(CANVAS), "transparency": 0}],
+                       "outspace": [{"color": sc("#060B16"), "transparency": 0}]}},
+        "card": {"*": {"labels": [{"color": sc(INK), "fontSize": 24, "fontFamily": FONT_SB}],
+                       "categoryLabels": [{"show": False}],
+                       "title": [{"alignment": "center", "fontSize": 9, "fontColor": sc(SLATE), "fontFamily": FONT_SB}]}},
+        "tableEx": {"*": {
+            "grid": [{"gridVertical": False, "gridHorizontal": True, "gridHorizontalColor": sc(GRID),
+                      "outlineColor": sc(LINE), "rowPadding": 5}],
+            "columnHeaders": [{"fontColor": sc(SLATE), "backColor": sc(SURFACE_2), "fontFamily": FONT_SB, "fontSize": 9,
+                               "wordWrap": True}],
+            "values": [{"fontColorPrimary": sc(INK), "backColorPrimary": sc(SURFACE), "fontColorSecondary": sc(INK),
+                        "backColorSecondary": sc("#13203A"), "fontSize": 9}],
+            "total": [{"fontFamily": FONT_SB, "backColor": sc(SURFACE_2), "fontColor": sc(INK)}]}},
+        "pivotTable": {"*": {
+            "grid": [{"gridVertical": False, "gridHorizontal": True, "gridHorizontalColor": sc(GRID),
+                      "outlineColor": sc(LINE), "rowPadding": 5}],
+            "columnHeaders": [{"fontColor": sc(SLATE), "backColor": sc(SURFACE_2), "fontFamily": FONT_SB, "fontSize": 9}],
+            "rowHeaders": [{"fontColor": sc(INK), "backColor": sc(SURFACE), "fontSize": 9, "showExpandCollapseButtons": False,
+                            "legacyStyleDisabled": True}],
+            "values": [{"fontColorPrimary": sc(INK), "backColorPrimary": sc(SURFACE), "backColorSecondary": sc(SURFACE),
+                        "fontSize": 9}],
+            "subTotals": [{"fontFamily": FONT_SB, "backgroundColor": sc(SURFACE_2)}]}},
+        "slicer": {"*": {
+            "header": [{"show": True, "fontColor": sc(SLATE), "textSize": 8, "fontFamily": FONT_SB, "outline": "None"}],
+            "items": [{"fontColor": sc(INK), "background": sc(SURFACE_2), "textSize": 9, "outline": "None"}],
+            "background": [{"show": False}], "border": [{"show": False}], "dropShadow": [{"show": False}],
+            "padding": [{"top": 0, "bottom": 0, "left": 0, "right": 0}]}},
+        "textbox": {"*": {"background": [{"show": False}], "border": [{"show": False}],
+                          "dropShadow": [{"show": False}], "padding": [{"top": 0, "bottom": 0, "left": 0, "right": 0}]}},
+        "actionButton": {"*": {"background": [{"show": False}], "border": [{"show": False}],
+                               "dropShadow": [{"show": False}], "visualHeader": [{"show": False}]}},
+    },
+}
+
+
+def panel(color, radius=0):
+    """Solid colour block (sidebar, rules, accents): a blank card, which never scrolls."""
+    return visual("card", {"Values": [mea("Blank Text")]},
+                  objects={"labels": [{"properties": {"fontSize": lit(1), "color": solid(color)}}],
+                           "categoryLabels": [{"properties": {"show": lit(False)}}]},
+                  container=plain_container(
+                      background=[{"properties": {"show": lit(True), "color": solid(color), "transparency": lit(0)}}],
+                      border=[{"properties": {"show": lit(radius > 0), "color": solid(color), "radius": lit(radius)}}]))
+
+
+def frame():
+    """Raised navy card (the KPI tile background)."""
+    return {"visualType": "textbox", "drillFilterOtherVisuals": True,
+            "objects": {"general": [{"properties": {"paragraphs": [{"textRuns": [{"value": ""}]}]}}]},
+            "visualContainerObjects": plain_container(
+                background=[{"properties": {"show": lit(True), "color": solid(SURFACE), "transparency": lit(0)}}],
+                border=[{"properties": {"show": lit(True), "color": solid(LINE), "radius": lit(10)}}])}
+
+
+def serif(text, size, color, align="left"):          # name kept from the previous design; one family now
+    return textbox([[(text, size, color, True)]], align=align)
 
 
 def pill(runs, h=26):
-    """Rounded white chip with a hairline border (reporting date)."""
+    """Rounded navy chip with a hairline border (reporting date)."""
     return textbox([runs], align="center", container=plain_container(
-        background=[{"properties": {"show": lit(True), "color": solid(WHITE), "transparency": lit(0)}}],
+        background=[{"properties": {"show": lit(True), "color": solid(SURFACE), "transparency": lit(0)}}],
         border=[{"properties": {"show": lit(True), "color": solid(LINE), "radius": lit(h / 2)}}],
         padding=[{"properties": {"top": lit(5), "bottom": lit(0), "left": lit(8), "right": lit(8)}}]))
 
 
 def sidebar(p, active):
-    p.add("sb_bg", 0, 0, SIDEBAR_W, H, panel(NAVY))
-    p.add("sb_brand", 20, 18, 180, 32, serif("Northbridge", 17, WHITE))
-    p.add("sb_sub", 20, 48, 180, 18, textbox([[("LENDING  ·  CREDIT RISK PACK", 7, GOLD, True)]]))
-    p.add("sb_rule", 20, 74, 28, 2, panel(GOLD))
-    p.add("sb_navlabel", 20, 90, 168, 16, textbox([[("REPORTS", 7, "#7E948F", True)]]))
+    w = SIDEBAR_W
+    p.add("sb_bg", 0, 0, w, H, panel(NAVY))
+    p.add("sb_edge", w - 1, 0, 1, H, panel(LINE))
+    p.add("sb_mark", 16, 20, 5, 34, panel(GOLD, radius=2))
+    p.add("sb_brand", 30, 12, w - 40, 34, textbox([[("Northbridge", 15, INK, True)]]))
+    p.add("sb_sub", 30, 42, w - 40, 16, textbox([[("CREDIT RISK INTELLIGENCE", 6.5, GOLD, True)]]))
+    p.add("sb_navlabel", 16, 78, w - 32, 16, textbox([[("REPORTS", 7, SLATE_2, True)]]))
     for i, (key, label) in enumerate(NAV):
-        y = 108 + i * 38
+        y = 96 + i * 36
         is_active = key == active
         if is_active:
-            p.add(f"nav_bg_{key}", 12, y, 184, 32, panel(NAVY_2, radius=8))
-            p.add(f"nav_mark_{key}", 12, y + 8, 3, 16, panel(GOLD, radius=1))
-        p.add(f"nav_label_{key}", 28, y + 7, 160, 20, textbox([[(label, 10, WHITE if is_active else "#A7B8B4", is_active)]]))
-        p.add(f"nav_{key}", 12, y, 184, 32, {
+            p.add(f"nav_bg_{key}", 10, y, w - 20, 30, panel(NAVY_2, radius=8))
+            p.add(f"nav_mark_{key}", 10, y + 7, 3, 16, panel(GOLD, radius=1))
+        p.add(f"nav_label_{key}", 24, y + 6, w - 40, 20, textbox([[(label, 9.5, WHITE if is_active else "#8A9AB4", is_active)]]))
+        p.add(f"nav_{key}", 10, y, w - 20, 30, {
             "visualType": "actionButton", "drillFilterOtherVisuals": True,
             "objects": {k: [{"properties": {"show": lit(False)}}, {"properties": {"show": lit(False)}, "selector": {"id": "default"}}]
                         for k in ("icon", "text", "fill", "outline")},
             "visualContainerObjects": {**plain_container(), "visualLink": [{"properties": {
                 "show": lit(True), "type": lit("PageNavigation"), "navigationSection": lit(PAGE_NAMES[key])}}]}})
-    y2 = 108 + len(NAV) * 38 + 8
-    p.add("sb_rule2", 20, y2, 168, 1, panel("#2A4A4F"))
-    p.add("sb_filterlabel", 20, y2 + 10, 168, 16, textbox([[("FILTERS", 7, "#7E948F", True)]]))
+    y2 = 96 + len(NAV) * 36 + 10
+    p.add("sb_rule2", 16, y2, w - 32, 1, panel(LINE))
+    p.add("sb_filterlabel", 16, y2 + 10, w - 32, 16, textbox([[("FILTERS", 7, SLATE_2, True)]]))
     for i, (f, label, g) in enumerate(SLICERS):
-        y = y2 + 28 + i * 54
+        y = y2 + 28 + i * 52
         v = visual("slicer", {"Values": [(f, label)]}, objects={
             "data": [{"properties": {"mode": lit("Dropdown")}}],
-            "header": [{"properties": {"show": lit(True), "fontColor": solid(MIST), "textSize": lit(8), "fontFamily": lit(FONT_SB)}}],
-            "items": [{"properties": {"fontColor": solid(INK), "background": solid(WHITE), "textSize": lit(9)}}]},
+            "header": [{"properties": {"show": lit(True), "fontColor": solid(SLATE), "textSize": lit(7.5), "fontFamily": lit(FONT_SB)}}],
+            "items": [{"properties": {"fontColor": solid(INK), "background": solid(SURFACE_2), "textSize": lit(9),
+                                      "outline": lit("None"), "outlineColor": solid(LINE)}}],
+            "general": [{"properties": {"outlineColor": solid(LINE), "outlineWeight": lit(1)}}]},
             container=plain_container())
         v["syncGroup"] = {"groupName": g, "fieldChanges": True, "filterChanges": True}
-        p.add(f"slicer_{g}", 20, y, 168, 50, v)
-    y3 = y2 + 28 + len(SLICERS) * 54 + 6
-    p.add("sb_rule3", 20, y3, 168, 1, panel("#2A4A4F"))
-    p.add("sb_appetite", 20, y3 + 10, 176, 70, textbox([
-        [("RISK APPETITE", 7, "#7E948F", True)],
-        [("●  ", 8, GOOD, True), ("Within appetite", 7.5, MIST, False)],
-        [("●  ", 8, WARN, True), ("Watch", 7.5, MIST, False)],
-        [("●  ", 8, BAD, True), ("Breach", 7.5, MIST, False)]]))
-    p.add("sb_foot", 20, 670, 184, 40, textbox([
-        [("Synthetic data · 50,000 loans", 7, "#7E948F", False)],
-        [("Right-click a loan to drill through", 7, "#7E948F", False)]]))
+        p.add(f"slicer_{g}", 16, y, w - 32, 48, v)
+    y3 = y2 + 28 + len(SLICERS) * 52 + 6
+    p.add("sb_rule3", 16, y3, w - 32, 1, panel(LINE))
+    p.add("sb_appetite", 16, y3 + 10, w - 24, 70, textbox([
+        [("RISK APPETITE", 7, SLATE_2, True)],
+        [("●  ", 8, GOOD, True), ("Within appetite", 7.5, SLATE, False)],
+        [("●  ", 8, WARN, True), ("Watch", 7.5, SLATE, False)],
+        [("●  ", 8, BAD, True), ("Breach", 7.5, SLATE, False)]]))
+    p.add("sb_foot", 16, 672, w - 20, 40, textbox([
+        [("Synthetic data · 50,000 loans", 7, SLATE_2, False)],
+        [("Right-click a loan to drill through", 7, SLATE_2, False)]]))
 
 
-BAND_H = 128                     # the KPI tiles (y 76-180) overlap the band's lower edge
-
-
-def header_band(p):
-    p.add("hdr_band", SIDEBAR_W, 0, W - SIDEBAR_W, BAND_H, panel(BAND))
-    p.add("hdr_band_rule", SIDEBAR_W, 0, 2, BAND_H, panel(GOLD))
+def header_band(p):            # the dark design has no band; kept so existing page code still calls it
+    return None
 
 
 def header(p, title):
-    header_band(p)
-    p.add("hdr_title", X0, 10, 760, 38, serif(title, 20, WHITE))
-    p.add("hdr_context", X0, 46, 900, 22, visual(
+    p.add("hdr_title", X0, 12, 760, 34, textbox([[(title, 19, INK, True)]]))
+    p.add("hdr_context", X0, 44, 900, 22, visual(
         "card", {"Values": [mea("Blank Text")]},
         objects={"labels": [{"properties": {"fontSize": lit(1), "color": solid(CANVAS)}}],
                  "categoryLabels": [{"properties": {"show": lit(False)}}]},
         container=plain_container(title=[{"properties": {
-            "show": lit(True), "text": {"expr": mea("Filter Context")}, "fontColor": solid("#A9C2BC"),
+            "show": lit(True), "text": {"expr": mea("Filter Context")}, "fontColor": solid(SLATE_2),
             "fontSize": lit(9), "fontFamily": lit(FONT), "alignment": lit("left")}}])))
-    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(BAND)
-    p.add("hdr_date", X1 - 236, 16, 236, 26, pill([("REPORTING DATE   ", 7, SLATE, True), ("31 DEC 2025", 8.5, INK, True)]))
+    p.add("hdr_date", X1 - 228, 16, 228, 26, pill([("REPORTING DATE   ", 7, SLATE_2, True), ("31 DEC 2025", 8.5, INK, True)]))
+
+
+# ---------------------------------------------------------------- page fit: tables fill their cards
+def _proj_items(v):
+    out = []
+    for role, st in v["visual"].get("query", {}).get("queryState", {}).items():
+        for pr in st["projections"]:
+            out.append((role, pr))
+    return out
+
+
+FMT = {name: fmt for name, _, fmt, _, _ in MEASURES}
+
+
+def col_weight(i, pr):
+    """Relative width by content: money is wide, percentages and counts narrow, text in between."""
+    f = pr["field"]
+    if "Measure" in f:
+        fmt = FMT.get(f["Measure"]["Property"]) or ""
+        if "$" in fmt:
+            return 1.45
+        if "%" in fmt:
+            return 0.95
+        return 0.85 if fmt in (INT, DEC1, DEC2, DEC3) else 1.1
+    return 1.3 if i == 0 else 1.1
+
+
+def fit_columns(page):
+    """Give every table column an explicit width so the table fills its card (Power BI otherwise sizes to content)."""
+    for v in page.visuals:
+        vt = v["visual"]["visualType"]
+        if vt not in ("tableEx", "pivotTable"):
+            continue
+        objs = dict(v["visual"].get("objects", {}))       # shared dicts (NO_TOTALS) must not be mutated
+        v["visual"]["objects"] = objs
+        if "columnWidth" in objs:
+            continue
+        avail = v["position"]["width"] - 30 - 14            # card padding + scrollbar
+        items = _proj_items(v)
+        if vt == "tableEx":
+            cols_ = [pr for _, pr in items]
+            weight = [col_weight(i, pr) for i, pr in enumerate(cols_)]
+            if cols_ and "Measure" in cols_[0]["field"] and len(cols_) > 1:     # a rank "#" column stays narrow
+                weight[0] = 0.45
+        else:
+            rows = [pr for r, pr in items if r == "Rows"]
+            vals = [pr for r, pr in items if r == "Values"]
+            ncols = v.get("_ncols", 6)
+            cols_ = vals
+            weight = [1.0] * len(vals)
+            avail = (avail - 110 * len(rows)) / ncols * len(vals)       # each value repeats once per column member
+        if vt == "tableEx":
+            objs["values"] = [{"properties": {"wordWrap": lit(False)}}] + list(objs.get("values", []))
+        total = sum(weight) or 1
+        objs["columnWidth"] = [{"properties": {"value": lit(round(avail * w / total, 1))},
+                                "selector": {"metadata": pr["queryRef"]}} for pr, w in zip(cols_, weight)]
+        v.pop("_ncols", None)
+
+
+def with_fit(fn):
+    def build():
+        page = fn()
+        fit_columns(page)
+        for v in page.visuals:
+            v.pop("_ncols", None)
+        return page
+    build.__name__ = fn.__name__
+    return build
 
 
 # =========================================================================
@@ -1056,13 +1221,13 @@ def page_risk():
         ("Policy Multiple", "DTI 40-50% policy (Jul 2023)", "RAG Policy", "RAG Policy Color", "")])
     tips = [(mea("Loans"), "Loans"), (mea("Avg Rate"), "Avg rate")]
     PURPOSE = (col("dim_loan", "purpose"), "Purpose")
-    p.add("purpose", X0, 192, 514, 250, visual(
+    p.add("purpose", X0, 192, 514, 282, visual(
         "clusteredBarChart", {"Category": [PURPOSE], "Y": [(mea("Default Rate 24m"), "Default within 24 months")], "Tooltips": tips},
         title="Default rate by loan purpose", subtitle="Small-business and medical loans are the riskiest; car loans the safest",
         sort=[(mea("Default Rate 24m"), "Descending")],
         objects={"dataPoint": [{"properties": {"fill": solid(PRIMARY)}}], "labels": labels(True, labelPrecision=lit_int(1)),
                  "categoryAxis": [{"properties": {"innerPadding": lit(12), "fontSize": lit(8)}}]}))
-    p.add("policy", X0 + 514 + GAP, 192, CW - 514 - GAP, 250, visual(
+    p.add("policy", X0 + 514 + GAP, 192, CW - 514 - GAP, 282, visual(
         "clusteredBarChart", {"Category": [(col("dim_loan", "policy_group"), "Online loans")],
                               "Y": [(mea("Default Rate 12m (Policy)"), "Default within 12 months")], "Tooltips": tips},
         title="Online DTI limit raised from 40% to 50% in July 2023",
@@ -1073,7 +1238,7 @@ def page_risk():
     for i, (c, t, s) in enumerate([("fico_band", "FICO score", "Default falls steadily as the credit score rises"),
                                    ("dti_band", "Debt-to-income", "More of income already owed = more defaults"),
                                    ("income_band", "Annual income", "Higher income, lower risk")]):
-        p.add(f"band_{c}", X0 + i * (w + GAP), 454, w, 250, visual(
+        p.add(f"band_{c}", X0 + i * (w + GAP), 486, w, 218, visual(
             "clusteredColumnChart", {"Category": [(col("dim_loan", c), t)], "Y": [(mea("Default Rate 24m"), "Default within 24 months")],
                                      "Tooltips": tips},
             title=f"Default rate by {t.lower() if c != 'fico_band' else t}", subtitle=s,
@@ -1100,7 +1265,7 @@ def page_vintage():
         subtitle="Each line stops at the age its youngest loans have reached · 2023 loans met the 2024 unemployment peak early in life",
         sort=[(col("dim_mob", "mob"), "Ascending")],
         objects={"categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
-                 "dataPoint": value_colors(YEAR, {2021: COMPARE, 2022: "#7A8CA5", 2023: BAD, 2024: GOLD}, literal=lambda v: f"{v}L")}))
+                 "dataPoint": value_colors(YEAR, {2021: "#5B6B85", 2022: "#8FA3C0", 2023: BAD, 2024: CYAN}, literal=lambda v: f"{v}L")}))
     p.add("roll", X0 + 600 + GAP, 192, CW - 600 - GAP, 240, visual(
         "pivotTable", {"Rows": [(col("fact_loan_month", "status"), "This month")],
                        "Columns": [(col("fact_loan_month", "next_status"), "Next month")],
@@ -1141,7 +1306,7 @@ def page_scorecard():
     p.add("models", X0 + 600 + GAP, 192, CW - 600 - GAP, 250, visual(
         "tableEx", {"Values": [(col("model_metrics", "model"), "Model"), (col("model_metrics", "sample"), "Sample"),
                                (mea("AUC"), "AUC"), (mea("Gini"), "Gini"), (mea("KS"), "KS")]},
-        title="Gradient boosting overfits: best in development, not on 2023 loans",
+        title="Model comparison · boosting overfits", subtitle="Best in development, not on 2023 loans",
         sort=[(col("model_metrics", "model"), "Descending")], objects=NO_TOTALS))
     p.add("points", X0, 454, 600, 250, visual(
         "tableEx", {"Values": [(col("scorecard", "feature_label"), "Characteristic"), (col("scorecard", "bin_label"), "Value"),
@@ -1222,7 +1387,10 @@ def page_quality():
                                (mea("DQ Injected"), "Injected"), (mea("DQ Match"), "Match"), (col("dq_log", "action"), "Action")]},
         title="Every fix, checked against the number injected", subtitle="scripts/clean.py → dq_log · synthetic data: the truth is known",
         sort=[(col("dq_log", "issue"), "Ascending")],
-        objects={"values": [cf(ref(mea("DQ Match")), font="Match Color")], **NO_TOTALS}))
+        objects={"values": [cf(ref(mea("DQ Match")), font="Match Color")], **NO_TOTALS,
+                 "columnWidth": [{"properties": {"value": lit(w_)}, "selector": {"metadata": r}} for r, w_ in [
+                     (ref(col("dq_log", "issue")), 214), (ref(mea("DQ Rows")), 58), (ref(mea("DQ Injected")), 62),
+                     (ref(mea("DQ Match")), 44), (ref(col("dq_log", "action")), 150)]]}))
     return p
 
 
@@ -1238,7 +1406,7 @@ def page_loan():
         "visualType": "actionButton", "drillFilterOtherVisuals": True,
         "objects": {"icon": [{"properties": {"shapeType": lit("back"), "lineColor": solid(WHITE),
                                              "lineWeight": lit(2)}, "selector": {"id": "default"}}],
-                    "fill": [{"properties": {"show": lit(True), "fillColor": solid(NAVY_2)}, "selector": {"id": "default"}}],
+                    "fill": [{"properties": {"show": lit(True), "fillColor": solid(SURFACE)}, "selector": {"id": "default"}}],
                     "outline": [{"properties": {"show": lit(False)}},
                                 {"properties": {"show": lit(False)}, "selector": {"id": "default"}}]},
         "visualContainerObjects": {**plain_container(
@@ -1259,10 +1427,8 @@ def page_loan():
         "lineClusteredColumnComboChart", {"Category": [MONTH], "Y": [(mea("Month DPD"), "Days past due")],
                                           "Y2": [(mea("Month Balance"), "Balance")]},
         title="Payment history", subtitle="Line: balance owed · bars: days past due",
-        objects={"dataPoint": [{"properties": {"fill": solid(mea("DPD Color"))},
-                                "selector": {"data": [{"dataViewWildcard": {"matchingOption": 1}}],
-                                             "metadata": ref(mea("Month DPD"))}},
-                               {"properties": {"fill": solid(PRIMARY)}, "selector": {"metadata": ref(mea("Month Balance"))}}],
+        objects={"dataPoint": [{"properties": {"fill": solid(AMBER)}, "selector": {"metadata": ref(mea("Month DPD"))}},
+                               {"properties": {"fill": solid(CYAN)}, "selector": {"metadata": ref(mea("Month Balance"))}}],
                  "categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
                  "legend": [{"properties": {"show": lit(False)}}]}))
     p.add("profile", X0, 466, 430, 238, visual(
@@ -1280,11 +1446,11 @@ def page_loan():
 
 def page_tooltip():
     p = Page("tooltip", "Tooltip · Month", kind="Tooltip", width=320, height=220)
-    p.add("bg", 0, 0, 320, 220, panel(WHITE))
+    p.add("bg", 0, 0, 320, 220, panel(SURFACE))
     p.add("title", 14, 10, 292, 30, card("Title Month", size=1, container=plain_container(
         title=[{"properties": {"show": lit(True), "text": {"expr": mea("Title Month")}, "fontColor": solid(INK),
                                "fontSize": lit(11), "fontFamily": lit(FONT_SB), "alignment": lit("left")}}])))
-    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(WHITE)
+    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(SURFACE)
     for i, (mname, label) in enumerate([("Book Balance", "OPEN BALANCE"), ("Arrears Share", "IN ARREARS (30+)"),
                                         ("New Defaults", "NEW DEFAULTS"), ("Collections", "CASH COLLECTED")]):
         x, y = 14 + (i % 2) * 150, 46 + (i // 2) * 84
@@ -1292,7 +1458,8 @@ def page_tooltip():
     return p
 
 
-PAGES = [page_portfolio, page_risk, page_vintage, page_scorecard, page_ecl, page_quality, page_loan, page_tooltip]
+PAGES = [with_fit(f) for f in (page_portfolio, page_risk, page_vintage, page_scorecard, page_ecl, page_quality, page_loan,
+                                page_tooltip)]
 DRILL_FIELD = col("dim_loan", "loan_id")
 
 

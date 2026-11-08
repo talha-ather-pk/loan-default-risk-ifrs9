@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "5f710626c08f5e1dbfad",
   "position": {
-    "x": 28,
-    "y": 267,
-    "z": 1500,
+    "x": 24,
+    "y": 246,
+    "z": 1600,
     "height": 20,
-    "width": 160,
-    "tabOrder": 1500
+    "width": 144,
+    "tabOrder": 1600
   },
   "visual": {
     "visualType": "textbox",
@@ -23,8 +23,8 @@
                   {
                     "value": "IFRS 9 ECL",
                     "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#A7B8B4",
+                      "fontSize": "9.5pt",
+                      "color": "#8A9AB4",
                       "fontFamily": "Segoe UI"
                     }
                   }

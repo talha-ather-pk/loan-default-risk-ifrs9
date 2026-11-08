@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "f2296741b394519a9734",
   "position": {
-    "x": 1028,
+    "x": 1036,
     "y": 16,
-    "z": 3100,
+    "z": 3000,
     "height": 26,
-    "width": 236,
-    "tabOrder": 3100
+    "width": 228,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "REPORTING DATE   ",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#5E6B68",
+                      "color": "#6B7D98",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -33,7 +33,7 @@
                     "value": "31 DEC 2025",
                     "textStyle": {
                       "fontSize": "8.5pt",
-                      "color": "#14201F",
+                      "color": "#E6EDF7",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -61,7 +61,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#111C2E'"
                     }
                   }
                 }
@@ -92,7 +92,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E4E0D6'"
+                      "Value": "'#1F2E47'"
                     }
                   }
                 }

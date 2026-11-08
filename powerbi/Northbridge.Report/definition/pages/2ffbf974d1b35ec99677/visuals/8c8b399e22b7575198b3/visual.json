@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "8c8b399e22b7575198b3",
   "position": {
-    "x": 224,
+    "x": 200,
     "y": 192,
-    "z": 5700,
+    "z": 5600,
     "height": 250,
     "width": 612,
-    "tabOrder": 5700
+    "tabOrder": 5600
   },
   "visual": {
     "visualType": "tableEx",
@@ -162,6 +162,17 @@
       "values": [
         {
           "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
             "fontColor": {
               "solid": {
                 "color": {
@@ -217,6 +228,120 @@
                 }
               }
             ],
+            "metadata": "_Measures.Coverage"
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "83.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fact_ecl.stage"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "54.6D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.ECL Loans"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "93.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.EAD"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "61.0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.PD 12m (EAD-weighted)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "61.0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Lifetime PD (EAD-weighted)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "61.0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.LGD (EAD-weighted)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "93.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.ECL"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "61.0D"
+                }
+              }
+            }
+          },
+          "selector": {
             "metadata": "_Measures.Coverage"
           }
         }

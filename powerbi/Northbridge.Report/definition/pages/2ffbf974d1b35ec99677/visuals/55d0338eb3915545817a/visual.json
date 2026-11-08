@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "55d0338eb3915545817a",
   "position": {
-    "x": 20,
-    "y": 18,
-    "z": 100,
-    "height": 32,
-    "width": 180,
-    "tabOrder": 100
+    "x": 30,
+    "y": 12,
+    "z": 300,
+    "height": 34,
+    "width": 144,
+    "tabOrder": 300
   },
   "visual": {
     "visualType": "textbox",
@@ -23,9 +23,10 @@
                   {
                     "value": "Northbridge",
                     "textStyle": {
-                      "fontSize": "17pt",
-                      "color": "#FFFFFF",
-                      "fontFamily": "Georgia"
+                      "fontSize": "15pt",
+                      "color": "#E6EDF7",
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontWeight": "bold"
                     }
                   }
                 ]

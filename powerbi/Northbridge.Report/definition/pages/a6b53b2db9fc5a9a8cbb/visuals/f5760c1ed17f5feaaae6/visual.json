@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "f5760c1ed17f5feaaae6",
   "position": {
-    "x": 20,
-    "y": 550,
-    "z": 2500,
+    "x": 16,
+    "y": 522,
+    "z": 2600,
     "height": 70,
-    "width": 176,
-    "tabOrder": 2500
+    "width": 160,
+    "tabOrder": 2600
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "RISK APPETITE",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7E948F",
+                      "color": "#6B7D98",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -38,7 +38,7 @@
                     "value": "●  ",
                     "textStyle": {
                       "fontSize": "8pt",
-                      "color": "#2F7D5B",
+                      "color": "#3BB98B",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -47,7 +47,7 @@
                     "value": "Within appetite",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#C9D4D1",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI"
                     }
                   }
@@ -60,7 +60,7 @@
                     "value": "●  ",
                     "textStyle": {
                       "fontSize": "8pt",
-                      "color": "#C9902E",
+                      "color": "#F2B84B",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -69,7 +69,7 @@
                     "value": "Watch",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#C9D4D1",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI"
                     }
                   }
@@ -82,7 +82,7 @@
                     "value": "●  ",
                     "textStyle": {
                       "fontSize": "8pt",
-                      "color": "#B0413E",
+                      "color": "#F2706B",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
@@ -91,7 +91,7 @@
                     "value": "Breach",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#C9D4D1",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI"
                     }
                   }

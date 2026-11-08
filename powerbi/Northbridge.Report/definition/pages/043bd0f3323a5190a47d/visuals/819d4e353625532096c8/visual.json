@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "819d4e353625532096c8",
   "position": {
-    "x": 652.8,
+    "x": 638.4,
     "y": 96,
-    "z": 4200,
+    "z": 4100,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 4200
+    "width": 187.2,
+    "tabOrder": 4100
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "APPLICATION SCORE",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

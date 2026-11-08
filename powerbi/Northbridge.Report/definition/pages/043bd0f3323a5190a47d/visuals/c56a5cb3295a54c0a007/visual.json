@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c56a5cb3295a54c0a007",
   "position": {
-    "x": 224,
+    "x": 200,
     "y": 466,
-    "z": 5600,
+    "z": 5500,
     "height": 238,
     "width": 430,
-    "tabOrder": 5600
+    "tabOrder": 5500
   },
   "visual": {
     "visualType": "tableEx",
@@ -106,6 +106,91 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "88.0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.channel"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.home_ownership"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.fico_band"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.dti_band"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_loan.income_band"
           }
         }
       ]

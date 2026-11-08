@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "7d74886eb2035c91aa5d",
   "position": {
-    "x": 863.2,
+    "x": 853.6,
     "y": 96,
-    "z": 4900,
+    "z": 4800,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 4900
+    "width": 187.2,
+    "tabOrder": 4800
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "CLEAN LOANS",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

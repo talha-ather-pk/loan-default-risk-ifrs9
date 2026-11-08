@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "966f1866bc2f53cfbdfa",
   "position": {
-    "x": 863.2,
+    "x": 853.6,
     "y": 96,
-    "z": 4700,
+    "z": 4600,
     "height": 18,
-    "width": 182.4,
-    "tabOrder": 4700
+    "width": 187.2,
+    "tabOrder": 4600
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "BALANCE AT DEC 2025",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#5E6B68",
+                      "color": "#9FB0C8",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }
