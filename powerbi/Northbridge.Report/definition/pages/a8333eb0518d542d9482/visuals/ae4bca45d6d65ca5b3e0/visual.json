@@ -3,11 +3,11 @@
   "name": "ae4bca45d6d65ca5b3e0",
   "position": {
     "x": 224,
-    "y": 14,
-    "z": 2400,
-    "height": 34,
-    "width": 620,
-    "tabOrder": 2400
+    "y": 10,
+    "z": 2700,
+    "height": 38,
+    "width": 760,
+    "tabOrder": 2700
   },
   "visual": {
     "visualType": "textbox",
@@ -23,10 +23,9 @@
                   {
                     "value": "Application Scorecard",
                     "textStyle": {
-                      "fontSize": "18pt",
-                      "color": "#0F172A",
-                      "fontFamily": "Segoe UI Semibold",
-                      "fontWeight": "bold"
+                      "fontSize": "20pt",
+                      "color": "#14201F",
+                      "fontFamily": "Georgia"
                     }
                   }
                 ]

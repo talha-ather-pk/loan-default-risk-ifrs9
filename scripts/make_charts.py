@@ -21,11 +21,12 @@ P = ROOT / "data_clean" / "powerbi"
 IMG, SITE = ROOT / "images", ROOT / "site" / "img"
 IMG.mkdir(exist_ok=True)
 SITE.mkdir(parents=True, exist_ok=True)
-NAVY, PRIMARY, COMPARE, GOLD, GOOD, WARN, BAD, SLATE = ("#0B1F3A", "#1F4E79", "#B8C2CF", "#C8A24A", "#0E7C86",
-                                                        "#D08C2E", "#B5523B", "#64748B")
+# same "risk pack" palette as the Power BI dashboard
+NAVY, PRIMARY, COMPARE, GOLD, GOOD, WARN, BAD, SLATE = ("#0F2A2E", "#1F4A57", "#C3CBC8", "#B8945A", "#2F7D5B",
+                                                        "#C9902E", "#B0413E", "#5E6B68")
 plt.rcParams.update({"font.family": "Segoe UI", "font.size": 10, "axes.spines.top": False,
                      "axes.spines.right": False, "axes.titleweight": "bold", "axes.titlesize": 12,
-                     "axes.titlelocation": "left", "axes.edgecolor": "#CBD5E1"})
+                     "axes.titlelocation": "left", "axes.edgecolor": "#D6D1C4"})
 pct = PercentFormatter(1.0, decimals=0)
 
 
@@ -71,7 +72,7 @@ q = flows.join(mon).loc["2021-07":]
 q["q"] = q.quarter
 qq = q.groupby("q").agg(d=("new_defaults", "sum"), n=("performing_loans", "sum"), u=("unemployment_rate", "mean"))
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.5, 4.1), gridspec_kw={"width_ratios": [1, 1.25]})
-for (y_, c) in zip([2021, 2022, 2023, 2024], [COMPARE, "#7A8CA5", BAD, GOLD]):
+for (y_, c) in zip([2021, 2022, 2023, 2024], [COMPARE, "#7D8F8C", BAD, GOLD]):
     s = vy[vy.vintage_year == y_]
     a1.plot(s.mob, s.rate, color=c, lw=2.4, label=str(y_))
     a1.text(s.mob.iloc[-1] + 0.5, s.rate.iloc[-1], f" {y_}", va="center", color=c, fontsize=9, fontweight="bold")

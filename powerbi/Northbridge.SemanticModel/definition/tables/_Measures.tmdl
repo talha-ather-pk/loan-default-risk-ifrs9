@@ -235,12 +235,12 @@ table _Measures
 		displayFolder: 3 Vintages
 		lineageTag: 6ca945e6-668e-5000-bc6e-95d88da6c6e3
 
-	measure 'Roll Heat' = VAR r = [Roll Rate] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.6, "#1F4E79", r > 0.3, "#4F7BA6", r > 0.1, "#8FB0CF", r > 0.01, "#C9D8E8", "#F3F6FA" )
+	measure 'Roll Heat' = VAR r = [Roll Rate] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.6, "#1F4A57", r > 0.3, "#4F7680", r > 0.1, "#93AEB3", r > 0.01, "#D3DFE0", "#F4F6F5" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 8f639639-159b-5975-b2ce-95b6fd2a5b81
 
-	measure 'Roll Heat Font' = IF ( [Roll Rate] > 0.3, "#FFFFFF", "#1E293B" )
+	measure 'Roll Heat Font' = IF ( [Roll Rate] > 0.3, "#FFFFFF", "#14201F" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: f85c60b1-8eed-5bd8-97db-15e35ebb7c0e
@@ -471,7 +471,7 @@ table _Measures
 		displayFolder: 5 IFRS 9
 		lineageTag: 79b51cb0-8845-5cf0-aeb6-026835f032c3
 
-	measure 'Scenario Color' = SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", "#0E7C86", "Downside", "#B5523B", "Weighted", "#0B1F3A", "#B8C2CF" )
+	measure 'Scenario Color' = SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", "#2F7D5B", "Downside", "#B0413E", "Weighted", "#0F2A2E", "#C3CBC8" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: c931d612-33b5-55ff-9576-eb96ec928a09
@@ -506,12 +506,12 @@ table _Measures
 		displayFolder: 5 IFRS 9
 		lineageTag: 044f465a-8e8f-578c-83d5-b71c66839027
 
-	measure 'Migration Heat' = VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1F4E79", r > 0.2, "#4F7BA6", r > 0.08, "#8FB0CF", r > 0.02, "#C9D8E8", "#F3F6FA" )
+	measure 'Migration Heat' = VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1F4A57", r > 0.2, "#4F7680", r > 0.08, "#93AEB3", r > 0.02, "#D3DFE0", "#F4F6F5" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: e0d6b929-b53b-5901-b325-d87ce6078095
 
-	measure 'Migration Heat Font' = IF ( [Migration Share] > 0.2, "#FFFFFF", "#1E293B" )
+	measure 'Migration Heat Font' = IF ( [Migration Share] > 0.2, "#FFFFFF", "#14201F" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: d9be88ac-19c8-5493-85ad-000b0e903226
@@ -535,7 +535,7 @@ table _Measures
 		displayFolder: 6 Data quality
 		lineageTag: 64989e07-1b91-5c6b-98f8-bfd8a888543c
 
-	measure 'Match Color' = IF ( [DQ Match] = "✓", "#0E7C86", "#B5523B" )
+	measure 'Match Color' = IF ( [DQ Match] = "✓", "#2F7D5B", "#B0413E" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 498ba9c0-fa7d-57ed-80f4-b4acea953ab4
@@ -574,7 +574,7 @@ table _Measures
 		displayFolder: 6 Data quality
 		lineageTag: d13c0cb3-82e3-507d-9b88-aa62d3026efc
 
-	measure 'Fix Color' = IF ( SELECTEDVALUE ( dq_log[issue] ) IN { "Exact duplicate rows", "Test loans (TEST- id, amount 1.00)", "Duplicate month rows" }, "#B5523B", "#D08C2E" )
+	measure 'Fix Color' = IF ( SELECTEDVALUE ( dq_log[issue] ) IN { "Exact duplicate rows", "Test loans (TEST- id, amount 1.00)", "Duplicate month rows" }, "#B0413E", "#C9902E" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 1cb02a88-1114-5bae-a203-5af6477c95e4
@@ -809,12 +809,12 @@ table _Measures
 		displayFolder: 9 Helpers
 		lineageTag: d59668b6-7379-5d30-81b3-a9b825d83afb
 
-	measure 'Status Color' = SWITCH ( SELECTEDVALUE ( dim_loan[status_now] ), "Current", "#1F4E79", "30 DPD", "#D08C2E", "60 DPD", "#C2703A", "90+ DPD", "#B5523B", "Charged Off", "#B5523B", "#0E7C86" )
+	measure 'Status Color' = SWITCH ( SELECTEDVALUE ( dim_loan[status_now] ), "Current", "#1F4A57", "30 DPD", "#C9902E", "60 DPD", "#D27032", "90+ DPD", "#B0413E", "Charged Off", "#B0413E", "#2F7D5B" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 0830bcf3-e147-515e-b1d7-2e1a94bc867d
 
-	measure 'Stage Color' = SWITCH ( SELECTEDVALUE ( fact_ecl[stage] ), "Stage 1", "#1F4E79", "Stage 2", "#D08C2E", "#B5523B" )
+	measure 'Stage Color' = SWITCH ( SELECTEDVALUE ( fact_ecl[stage] ), "Stage 1", "#2F7D5B", "Stage 2", "#C9902E", "#B0413E" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 2fa6c06e-a30d-5617-93b4-5d2bca2d3b4d
@@ -824,15 +824,105 @@ table _Measures
 		displayFolder: 2 Risk
 		lineageTag: c5cb3dda-8677-5852-a7ac-c6879a1d9745
 
-	measure 'Policy Color' = IF ( SELECTEDVALUE ( dim_loan[policy_group] ) = "After · DTI 40-50% (new)", "#B5523B", "#B8C2CF" )
+	measure 'Policy Color' = IF ( SELECTEDVALUE ( dim_loan[policy_group] ) = "After · DTI 40-50% (new)", "#B0413E", "#C3CBC8" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: cddca6cd-72f5-5c8d-8db1-3cc1cfea4cd3
 
-	measure 'DPD Color' = VAR d = [Month DPD] RETURN SWITCH ( TRUE (), d >= 90, "#B5523B", d >= 60, "#C2703A", d >= 30, "#D08C2E", "#1F4E79" )
+	measure 'DPD Color' = VAR d = [Month DPD] RETURN SWITCH ( TRUE (), d >= 90, "#B0413E", d >= 60, "#D27032", d >= 30, "#C9902E", "#1F4A57" )
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: e2ad14cd-b335-5fae-b08b-5f765cac059e
+
+	measure 'RAG D24' = VAR v = [Default Rate 24m] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & IF ( v < 0.09, "Within appetite · limit 9%", IF ( v < 0.11, "Watch · limit 9%", "Breach · limit 11%" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 6f5b6ca4-5fd0-5e3e-af67-140a590c5753
+
+	measure 'RAG D24 Color' = VAR v = [Default Rate 24m] RETURN IF ( v < 0.09, "#2F7D5B", IF ( v < 0.11, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: b5a8f7cf-318e-55d1-83dd-d62d6d9f4603
+
+	measure 'RAG Loss' = VAR v = [Net Loss Rate] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & IF ( v < 0.05, "Within appetite · limit 5% of lent", IF ( v < 0.07, "Watch · limit 5%", "Breach · limit 7%" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: aaac5737-8f42-5ae4-8874-f067e304be44
+
+	measure 'RAG Loss Color' = VAR v = [Net Loss Rate] RETURN IF ( v < 0.05, "#2F7D5B", IF ( v < 0.07, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 9eb47de8-8681-5e10-b3be-b15a435362b9
+
+	measure 'RAG Arrears' = VAR v = [Arrears Share Now] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & FORMAT ( v, "0.0%" ) & " in arrears · " & IF ( v < 0.04, "within 4% limit", IF ( v < 0.06, "watch", "breach" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 9ca106f3-9318-5e04-a655-1aeb92b51993
+
+	measure 'RAG Arrears Color' = VAR v = [Arrears Share Now] RETURN IF ( v < 0.04, "#2F7D5B", IF ( v < 0.06, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: b5d725ea-be09-501a-9b1b-f3f052392c85
+
+	measure 'RAG Cov' = VAR v = [Coverage] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & "ECL " & FORMAT ( [ECL] / 1e6, "$#,0.00" ) & "M · " & IF ( v <= 0.05, "within 5% guide", IF ( v <= 0.07, "watch", "above guide" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 9a51b1b4-9225-5aed-8ea0-21eb52c16d5a
+
+	measure 'RAG Cov Color' = VAR v = [Coverage] RETURN IF ( v <= 0.05, "#2F7D5B", IF ( v <= 0.07, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: cae4db2a-0cdc-51f0-9286-7e9db18e21ba
+
+	measure 'RAG Policy' = VAR v = [Policy Multiple] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & IF ( v < 1.3, "Within appetite", IF ( v < 2, "Watch · priced in, monitor", "Breach" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 9bc4a2b2-f121-5b0a-a560-4f0f9cd8bc81
+
+	measure 'RAG Policy Color' = VAR v = [Policy Multiple] RETURN IF ( v < 1.3, "#2F7D5B", IF ( v < 2, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 89048265-c87f-5fbe-9c86-3a5a8bb4195c
+
+	measure 'RAG S2' = VAR v = DIVIDE ( [EAD Stage 2], [EAD] ) RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & FORMAT ( v, "0.0%" ) & " of book · " & IF ( v < 0.12, "within 12%", IF ( v < 0.18, "watch", "breach" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: e1f35db1-d949-5102-8a9f-7f3873b16e38
+
+	measure 'RAG S2 Color' = VAR v = DIVIDE ( [EAD Stage 2], [EAD] ) RETURN IF ( v < 0.12, "#2F7D5B", IF ( v < 0.18, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 57f7d724-93e7-586e-bd8b-6cea69769a7a
+
+	measure 'RAG BT' = VAR v = [Backtest Ratio] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & "Actual " & FORMAT ( [Backtest Actual], "#,0" ) & " · " & IF ( v >= 0.9 && v <= 1.1, "accurate", IF ( v >= 0.8 && v <= 1.3, "prudent", "recalibrate" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: ebda40a4-86be-5c22-9eeb-afd59df305d8
+
+	measure 'RAG BT Color' = VAR v = [Backtest Ratio] RETURN IF ( v >= 0.9 && v <= 1.1, "#2F7D5B", IF ( v >= 0.8 && v <= 1.3, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: f29d97bc-b491-5877-8e2f-e881bcc78e15
+
+	measure 'RAG Vintage' = VAR v = [Vintage 2023 at 24m] RETURN IF ( ISBLANK ( v ), BLANK (), "●  " & IF ( v < 0.09, "2023 loans · within 9%", IF ( v < 0.11, "2023 loans · watch", "2023 loans · breach" ) ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 5cebd7b3-0b6e-584f-b489-74ff01e206e2
+
+	measure 'RAG Vintage Color' = VAR v = [Vintage 2023 at 24m] RETURN IF ( v < 0.09, "#2F7D5B", IF ( v < 0.11, "#C9902E", "#B0413E" ) )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: fbc3c94b-0b7a-5e56-9747-4ed12c29f74d
+
+	measure 'Heat D24' = VAR v = [Default Rate 24m] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.04, "#E2EFE7", v < 0.08, "#EEF2EC", v < 0.12, "#F7ECD6", v < 0.2, "#F3D9CB", "#EBC0B8" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: d0aa5c14-61a1-5697-b869-bd41cb065fb4
+
+	measure 'Heat Cov' = VAR v = [Coverage] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.02, "#E2EFE7", v < 0.035, "#EEF2EC", v < 0.05, "#F7ECD6", v < 0.08, "#F3D9CB", "#EBC0B8" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 5f0a8d1d-720c-5fc9-86b9-722a77659987
 
 	column Value
 		dataType: string

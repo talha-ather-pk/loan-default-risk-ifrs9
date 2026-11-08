@@ -3,11 +3,11 @@
   "name": "ec47654d31de51fca594",
   "position": {
     "x": 28,
-    "y": 202,
-    "z": 800,
+    "y": 191,
+    "z": 900,
     "height": 20,
     "width": 160,
-    "tabOrder": 800
+    "tabOrder": 900
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "Vintages & Economy",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#A9B6C9",
+                      "color": "#A7B8B4",
                       "fontFamily": "Segoe UI"
                     }
                   }

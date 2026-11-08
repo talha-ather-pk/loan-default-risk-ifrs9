@@ -3,11 +3,11 @@
   "name": "c36a398ef34e552785ab",
   "position": {
     "x": 20,
-    "y": 640,
-    "z": 2300,
-    "height": 66,
+    "y": 670,
+    "z": 2600,
+    "height": 40,
     "width": 184,
-    "tabOrder": 2300
+    "tabOrder": 2600
   },
   "visual": {
     "visualType": "textbox",
@@ -24,20 +24,7 @@
                     "value": "Synthetic data · 50,000 loans",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7C8DA6",
-                      "fontFamily": "Segoe UI"
-                    }
-                  }
-                ]
-              },
-              {
-                "horizontalTextAlignment": "left",
-                "textRuns": [
-                  {
-                    "value": "Ctrl + click a menu item in Desktop",
-                    "textStyle": {
-                      "fontSize": "7pt",
-                      "color": "#7C8DA6",
+                      "color": "#7E948F",
                       "fontFamily": "Segoe UI"
                     }
                   }
@@ -50,7 +37,7 @@
                     "value": "Right-click a loan to drill through",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7C8DA6",
+                      "color": "#7E948F",
                       "fontFamily": "Segoe UI"
                     }
                   }

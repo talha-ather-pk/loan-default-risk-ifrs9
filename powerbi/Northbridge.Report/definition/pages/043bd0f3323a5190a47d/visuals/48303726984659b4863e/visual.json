@@ -4,10 +4,10 @@
   "position": {
     "x": 224,
     "y": 16,
-    "z": 2300,
+    "z": 2600,
     "height": 30,
     "width": 36,
-    "tabOrder": 2300
+    "tabOrder": 2600
   },
   "visual": {
     "visualType": "actionButton",
@@ -28,7 +28,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1F4E79'"
+                      "Value": "'#1F4A57'"
                     }
                   }
                 }
@@ -131,7 +131,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E6E9F0'"
+                      "Value": "'#E4E0D6'"
                     }
                   }
                 }

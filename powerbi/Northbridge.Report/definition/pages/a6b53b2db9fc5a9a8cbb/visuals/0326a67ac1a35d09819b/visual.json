@@ -4,10 +4,10 @@
   "position": {
     "x": 650.8,
     "y": 154,
-    "z": 4000,
+    "z": 4400,
     "height": 20,
     "width": 186.4,
-    "tabOrder": 4000
+    "tabOrder": 4400
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Note D24"
+                  "Property": "RAG D24"
                 }
               },
-              "queryRef": "_Measures.Note D24",
-              "nativeQueryRef": "Note D24"
+              "queryRef": "_Measures.RAG D24",
+              "nativeQueryRef": "RAG D24"
             }
           ]
         }
@@ -42,8 +42,13 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#64748B'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RAG D24 Color"
                     }
                   }
                 }

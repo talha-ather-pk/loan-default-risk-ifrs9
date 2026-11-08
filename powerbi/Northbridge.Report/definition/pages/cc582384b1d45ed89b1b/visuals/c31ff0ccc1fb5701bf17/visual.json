@@ -4,10 +4,10 @@
   "position": {
     "x": 224,
     "y": 192,
-    "z": 5100,
+    "z": 5500,
     "height": 512,
     "width": 600,
-    "tabOrder": 5100
+    "tabOrder": 5500
   },
   "visual": {
     "visualType": "lineChart",
@@ -113,7 +113,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#B8C2CF'"
+                      "Value": "'#C3CBC8'"
                     }
                   }
                 }
@@ -195,7 +195,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#B5523B'"
+                      "Value": "'#B0413E'"
                     }
                   }
                 }
@@ -236,7 +236,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C8A24A'"
+                      "Value": "'#B8945A'"
                     }
                   }
                 }

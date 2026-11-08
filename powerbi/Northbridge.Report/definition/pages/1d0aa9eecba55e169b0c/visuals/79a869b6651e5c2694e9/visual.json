@@ -4,10 +4,10 @@
   "position": {
     "x": 863.2,
     "y": 96,
-    "z": 4300,
+    "z": 4700,
     "height": 18,
     "width": 182.4,
-    "tabOrder": 4300
+    "tabOrder": 4700
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "RISKIEST LOAN PURPOSE",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#64748B",
+                      "color": "#5E6B68",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

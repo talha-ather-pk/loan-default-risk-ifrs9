@@ -4,10 +4,10 @@
   "position": {
     "x": 224,
     "y": 192,
-    "z": 5000,
+    "z": 5300,
     "height": 262,
     "width": 1040,
-    "tabOrder": 5000
+    "tabOrder": 5300
   },
   "visual": {
     "visualType": "lineClusteredColumnComboChart",
@@ -112,7 +112,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1F4E79'"
+                      "Value": "'#1F4A57'"
                     }
                   }
                 }

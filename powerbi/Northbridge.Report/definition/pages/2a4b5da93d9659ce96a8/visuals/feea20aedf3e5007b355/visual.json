@@ -3,11 +3,11 @@
   "name": "feea20aedf3e5007b355",
   "position": {
     "x": 20,
-    "y": 94,
-    "z": 300,
+    "y": 90,
+    "z": 400,
     "height": 16,
     "width": 168,
-    "tabOrder": 300
+    "tabOrder": 400
   },
   "visual": {
     "visualType": "textbox",
@@ -21,10 +21,10 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "DASHBOARDS",
+                    "value": "REPORTS",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7C8DA6",
+                      "color": "#7E948F",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

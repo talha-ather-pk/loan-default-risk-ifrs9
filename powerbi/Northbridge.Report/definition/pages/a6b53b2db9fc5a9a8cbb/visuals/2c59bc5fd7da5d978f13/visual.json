@@ -4,10 +4,10 @@
   "position": {
     "x": 1071.6,
     "y": 154,
-    "z": 5000,
+    "z": 5400,
     "height": 20,
     "width": 186.4,
-    "tabOrder": 5000
+    "tabOrder": 5400
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Note Cov"
+                  "Property": "RAG Cov"
                 }
               },
-              "queryRef": "_Measures.Note Cov",
-              "nativeQueryRef": "Note Cov"
+              "queryRef": "_Measures.RAG Cov",
+              "nativeQueryRef": "RAG Cov"
             }
           ]
         }
@@ -42,8 +42,13 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#64748B'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RAG Cov Color"
                     }
                   }
                 }

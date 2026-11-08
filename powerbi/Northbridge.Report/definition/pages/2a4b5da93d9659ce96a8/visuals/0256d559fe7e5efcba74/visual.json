@@ -3,11 +3,11 @@
   "name": "0256d559fe7e5efcba74",
   "position": {
     "x": 28,
-    "y": 242,
-    "z": 1000,
+    "y": 229,
+    "z": 1100,
     "height": 20,
     "width": 160,
-    "tabOrder": 1000
+    "tabOrder": 1100
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "Scorecard",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#A9B6C9",
+                      "color": "#A7B8B4",
                       "fontFamily": "Segoe UI"
                     }
                   }

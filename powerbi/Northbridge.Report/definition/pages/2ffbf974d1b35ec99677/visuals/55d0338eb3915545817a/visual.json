@@ -3,9 +3,9 @@
   "name": "55d0338eb3915545817a",
   "position": {
     "x": 20,
-    "y": 22,
+    "y": 18,
     "z": 100,
-    "height": 52,
+    "height": 32,
     "width": 180,
     "tabOrder": 100
   },
@@ -21,25 +21,11 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "NORTHBRIDGE",
+                    "value": "Northbridge",
                     "textStyle": {
-                      "fontSize": "13pt",
-                      "color": "#C8A24A",
-                      "fontFamily": "Segoe UI Semibold",
-                      "fontWeight": "bold"
-                    }
-                  }
-                ]
-              },
-              {
-                "horizontalTextAlignment": "left",
-                "textRuns": [
-                  {
-                    "value": "Credit Risk Analytics",
-                    "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#94A3B8",
-                      "fontFamily": "Segoe UI"
+                      "fontSize": "17pt",
+                      "color": "#FFFFFF",
+                      "fontFamily": "Georgia"
                     }
                   }
                 ]

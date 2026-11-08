@@ -3,11 +3,11 @@
   "name": "168b89f602125e41a9e5",
   "position": {
     "x": 28,
-    "y": 322,
-    "z": 1400,
+    "y": 305,
+    "z": 1500,
     "height": 20,
     "width": 160,
-    "tabOrder": 1400
+    "tabOrder": 1500
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "Data Quality",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#A9B6C9",
+                      "color": "#A7B8B4",
                       "fontFamily": "Segoe UI"
                     }
                   }

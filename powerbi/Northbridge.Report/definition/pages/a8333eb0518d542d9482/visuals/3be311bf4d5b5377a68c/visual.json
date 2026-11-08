@@ -3,11 +3,11 @@
   "name": "3be311bf4d5b5377a68c",
   "position": {
     "x": 28,
-    "y": 122,
-    "z": 400,
+    "y": 115,
+    "z": 500,
     "height": 20,
     "width": 160,
-    "tabOrder": 400
+    "tabOrder": 500
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "Portfolio",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#A9B6C9",
+                      "color": "#A7B8B4",
                       "fontFamily": "Segoe UI"
                     }
                   }

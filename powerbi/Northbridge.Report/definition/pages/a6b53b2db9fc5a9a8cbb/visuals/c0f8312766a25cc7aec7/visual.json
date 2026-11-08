@@ -4,10 +4,10 @@
   "position": {
     "x": 861.2,
     "y": 154,
-    "z": 4500,
+    "z": 4900,
     "height": 20,
     "width": 186.4,
-    "tabOrder": 4500
+    "tabOrder": 4900
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Note Loss"
+                  "Property": "RAG Loss"
                 }
               },
-              "queryRef": "_Measures.Note Loss",
-              "nativeQueryRef": "Note Loss"
+              "queryRef": "_Measures.RAG Loss",
+              "nativeQueryRef": "RAG Loss"
             }
           ]
         }
@@ -42,8 +42,13 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#64748B'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RAG Loss Color"
                     }
                   }
                 }

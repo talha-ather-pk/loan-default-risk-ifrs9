@@ -3,11 +3,11 @@
   "name": "adb5385c950c57ac88b4",
   "position": {
     "x": 20,
-    "y": 376,
-    "z": 1700,
+    "y": 354,
+    "z": 1800,
     "height": 16,
     "width": 168,
-    "tabOrder": 1700
+    "tabOrder": 1800
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "FILTERS",
                     "textStyle": {
                       "fontSize": "7pt",
-                      "color": "#7C8DA6",
+                      "color": "#7E948F",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

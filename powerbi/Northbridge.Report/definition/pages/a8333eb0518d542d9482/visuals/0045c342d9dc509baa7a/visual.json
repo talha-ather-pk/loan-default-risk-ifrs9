@@ -3,11 +3,11 @@
   "name": "0045c342d9dc509baa7a",
   "position": {
     "x": 20,
-    "y": 510,
-    "z": 2200,
-    "height": 54,
+    "y": 480,
+    "z": 2300,
+    "height": 50,
     "width": 168,
-    "tabOrder": 2200
+    "tabOrder": 2300
   },
   "visual": {
     "visualType": "slicer",
@@ -64,7 +64,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#CBD5E1'"
+                      "Value": "'#C9D4D1'"
                     }
                   }
                 }
@@ -95,7 +95,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0F172A'"
+                      "Value": "'#14201F'"
                     }
                   }
                 }

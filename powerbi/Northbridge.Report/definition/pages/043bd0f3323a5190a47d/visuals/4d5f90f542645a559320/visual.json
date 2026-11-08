@@ -4,10 +4,10 @@
   "position": {
     "x": 272,
     "y": 14,
-    "z": 2200,
+    "z": 2500,
     "height": 34,
     "width": 900,
-    "tabOrder": 2200
+    "tabOrder": 2500
   },
   "visual": {
     "visualType": "card",
@@ -43,7 +43,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F3F5F9'"
+                      "Value": "'#F5F3EE'"
                     }
                   }
                 }
@@ -160,7 +160,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0F172A'"
+                      "Value": "'#14201F'"
                     }
                   }
                 }
@@ -176,7 +176,7 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'Segoe UI Semibold'"
+                  "Value": "'Georgia'"
                 }
               }
             },

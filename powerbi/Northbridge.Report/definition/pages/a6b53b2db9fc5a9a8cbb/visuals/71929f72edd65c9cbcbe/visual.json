@@ -4,10 +4,10 @@
   "position": {
     "x": 440.4,
     "y": 154,
-    "z": 3500,
+    "z": 3900,
     "height": 20,
     "width": 186.4,
-    "tabOrder": 3500
+    "tabOrder": 3900
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Note Open"
+                  "Property": "RAG Arrears"
                 }
               },
-              "queryRef": "_Measures.Note Open",
-              "nativeQueryRef": "Note Open"
+              "queryRef": "_Measures.RAG Arrears",
+              "nativeQueryRef": "RAG Arrears"
             }
           ]
         }
@@ -42,8 +42,13 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#64748B'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RAG Arrears Color"
                     }
                   }
                 }

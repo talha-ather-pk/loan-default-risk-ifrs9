@@ -4,10 +4,10 @@
   "position": {
     "x": 652.8,
     "y": 96,
-    "z": 3800,
+    "z": 4200,
     "height": 18,
     "width": 182.4,
-    "tabOrder": 3800
+    "tabOrder": 4200
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "30 → 60 DAYS LATE",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#64748B",
+                      "color": "#5E6B68",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

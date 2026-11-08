@@ -4,10 +4,10 @@
   "position": {
     "x": 1073.6,
     "y": 96,
-    "z": 4700,
+    "z": 5000,
     "height": 18,
     "width": 182.4,
-    "tabOrder": 4700
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "textbox",
@@ -24,7 +24,7 @@
                     "value": "IFRS 9 ECL",
                     "textStyle": {
                       "fontSize": "7.5pt",
-                      "color": "#64748B",
+                      "color": "#5E6B68",
                       "fontFamily": "Segoe UI Semibold",
                       "fontWeight": "bold"
                     }

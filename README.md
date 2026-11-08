@@ -115,9 +115,10 @@ rather than a behavioural score.
 
 ## Power BI dashboard
 
-Six pages in the same executive design system as the other portfolio dashboards: custom theme, sidebar navigation, synced
-Year issued / Grade / Channel filters, KPI tiles, dynamic titles, a **Loan Detail** drill-through (payment history month by
-month) and a month tooltip. Details: [`powerbi/DESIGN.md`](powerbi/DESIGN.md).
+Six pages styled as a lender's **credit risk pack**: teal-ink and brass palette, serif titles, a reporting-date chip, and
+**risk appetite flags** on the KPI tiles (green / amber / red against board limits, recalculated for any filter). Synced
+Year issued / Grade / Channel filters, a **Loan Detail** drill-through (payment history month by month) and a month
+tooltip. Details: [`powerbi/DESIGN.md`](powerbi/DESIGN.md).
 
 | Portfolio | Risk Drivers |
 |---|---|

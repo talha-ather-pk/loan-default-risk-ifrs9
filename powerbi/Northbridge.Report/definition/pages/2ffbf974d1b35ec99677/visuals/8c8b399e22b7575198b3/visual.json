@@ -4,10 +4,10 @@
   "position": {
     "x": 224,
     "y": 192,
-    "z": 5100,
+    "z": 5500,
     "height": 250,
     "width": 612,
-    "tabOrder": 5100
+    "tabOrder": 5500
   },
   "visual": {
     "visualType": "tableEx",
@@ -157,6 +157,70 @@
         ],
         "isDefaultSort": false
       }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Stage Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.ECL"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Stage Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Coverage"
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "title": [

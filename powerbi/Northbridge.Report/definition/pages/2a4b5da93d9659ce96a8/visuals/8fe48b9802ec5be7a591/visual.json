@@ -3,11 +3,11 @@
   "name": "8fe48b9802ec5be7a591",
   "position": {
     "x": 12,
-    "y": 314,
-    "z": 1400,
-    "height": 34,
+    "y": 298,
+    "z": 1500,
+    "height": 32,
     "width": 184,
-    "tabOrder": 1400
+    "tabOrder": 1500
   },
   "visual": {
     "visualType": "textbox",
@@ -45,7 +45,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#16314F'"
+                      "Value": "'#1C3E43'"
                     }
                   }
                 }
@@ -76,7 +76,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#16314F'"
+                      "Value": "'#1C3E43'"
                     }
                   }
                 }
