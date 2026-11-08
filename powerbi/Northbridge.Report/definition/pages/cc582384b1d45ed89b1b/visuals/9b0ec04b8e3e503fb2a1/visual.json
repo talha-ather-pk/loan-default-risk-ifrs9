@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "9b0ec04b8e3e503fb2a1",
   "position": {
-    "x": 1068.8,
-    "y": 96,
-    "z": 5300,
+    "x": 1082.8,
+    "y": 88,
+    "z": 5500,
     "height": 18,
-    "width": 187.2,
-    "tabOrder": 5300
+    "width": 173.2,
+    "tabOrder": 5500
   },
   "visual": {
     "visualType": "textbox",
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "UNEMPLOYMENT EFFECT",

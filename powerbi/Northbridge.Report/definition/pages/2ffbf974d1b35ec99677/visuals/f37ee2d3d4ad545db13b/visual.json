@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "f37ee2d3d4ad545db13b",
   "position": {
-    "x": 208.0,
-    "y": 96,
+    "x": 222.0,
+    "y": 88,
     "z": 3300,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 3300
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "EXPECTED CREDIT LOSS",

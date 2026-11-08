@@ -3,7 +3,7 @@
   "name": "cebd61699c355e6596f5",
   "position": {
     "x": 206.0,
-    "y": 154,
+    "y": 142,
     "z": 3500,
     "height": 20,
     "width": 191.2,
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Note ECL"
+                  "Property": "Note ECL Delta"
                 }
               },
-              "queryRef": "_Measures.Note ECL",
-              "nativeQueryRef": "Note ECL"
+              "queryRef": "_Measures.Note ECL Delta",
+              "nativeQueryRef": "Note ECL Delta"
             }
           ]
         }
@@ -52,7 +52,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8.5D"
+                  "Value": "8D"
                 }
               }
             },

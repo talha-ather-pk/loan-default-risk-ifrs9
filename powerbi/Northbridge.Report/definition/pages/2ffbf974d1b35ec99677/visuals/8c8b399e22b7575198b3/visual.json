@@ -4,10 +4,10 @@
   "position": {
     "x": 200,
     "y": 192,
-    "z": 5600,
+    "z": 5700,
     "height": 250,
     "width": 612,
-    "tabOrder": 5600
+    "tabOrder": 5700
   },
   "visual": {
     "visualType": "tableEx",
@@ -59,7 +59,7 @@
               },
               "queryRef": "_Measures.EAD",
               "nativeQueryRef": "EAD",
-              "displayName": "Exposure (EAD)"
+              "displayName": "EAD"
             },
             {
               "field": {
@@ -134,7 +134,22 @@
               },
               "queryRef": "_Measures.Coverage",
               "nativeQueryRef": "Coverage",
-              "displayName": "Coverage"
+              "displayName": "Cover"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Coverage Dec 2024"
+                }
+              },
+              "queryRef": "_Measures.Coverage Dec 2024",
+              "nativeQueryRef": "Coverage Dec 2024",
+              "displayName": "Dec 2024"
             }
           ]
         }
@@ -238,7 +253,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "83.4D"
+                  "Value": "75.3D"
                 }
               }
             }
@@ -252,7 +267,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "54.6D"
+                  "Value": "49.3D"
                 }
               }
             }
@@ -266,7 +281,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "93.1D"
+                  "Value": "84.0D"
                 }
               }
             }
@@ -280,7 +295,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "61.0D"
+                  "Value": "55.1D"
                 }
               }
             }
@@ -294,7 +309,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "61.0D"
+                  "Value": "55.1D"
                 }
               }
             }
@@ -308,7 +323,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "61.0D"
+                  "Value": "55.1D"
                 }
               }
             }
@@ -322,7 +337,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "93.1D"
+                  "Value": "84.0D"
                 }
               }
             }
@@ -336,13 +351,27 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "61.0D"
+                  "Value": "55.1D"
                 }
               }
             }
           },
           "selector": {
             "metadata": "_Measures.Coverage"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "55.1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Coverage Dec 2024"
           }
         }
       ]

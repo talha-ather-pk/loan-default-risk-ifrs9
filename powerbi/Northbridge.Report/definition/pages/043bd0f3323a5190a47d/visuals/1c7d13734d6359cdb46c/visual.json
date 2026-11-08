@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "1c7d13734d6359cdb46c",
   "position": {
-    "x": 1068.8,
-    "y": 96,
+    "x": 1082.8,
+    "y": 88,
     "z": 5100,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 5100
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "IFRS 9 ECL",

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "fe95fef38785510aa891",
   "position": {
-    "x": 208.0,
-    "y": 96,
+    "x": 222.0,
+    "y": 88,
     "z": 3100,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 3100
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "LOAN AMOUNT",

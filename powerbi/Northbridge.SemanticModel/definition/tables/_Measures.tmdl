@@ -516,7 +516,7 @@ table _Measures
 		displayFolder: 8 Formatting
 		lineageTag: d9be88ac-19c8-5493-85ad-000b0e903226
 
-	measure 'ECL Rank' = IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan[loan_id] ), [ECL], , DESC, DENSE ) )
+	measure 'ECL Rank' = IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan ), [ECL], , DESC, DENSE ) )
 		formatString: #,0
 		displayFolder: 5 IFRS 9
 		lineageTag: 0e13bbca-19c5-55df-892b-faaf366eb1a0
@@ -923,6 +923,51 @@ table _Measures
 		isHidden
 		displayFolder: 8 Formatting
 		lineageTag: 5f0a8d1d-720c-5fc9-86b9-722a77659987
+
+	measure 'ECL Change' = [ECL] - [ECL Dec 2024]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 299ae027-9bbe-59b2-9549-6b4005b5f70b
+
+	measure 'Coverage Change' = [Coverage] - [Coverage Dec 2024]
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 4fdb0e74-8149-5f59-99b4-edfb6736bab7
+
+	measure 'Coverage Stage 1 Dec 2024' = CALCULATE ( [Coverage Dec 2024], fact_ecl[stage] = "Stage 1" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 2a1e894f-4559-5cd2-8bae-fa1765ca65bb
+
+	measure 'Coverage Stage 2 Dec 2024' = CALCULATE ( [Coverage Dec 2024], fact_ecl[stage] = "Stage 2" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 1118effb-5d1f-59b7-9fc7-2629f5aab8de
+
+	measure 'Coverage Stage 3 Dec 2024' = CALCULATE ( [Coverage Dec 2024], fact_ecl[stage] = "Stage 3" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 00eba221-c014-571d-b69f-5e7e98ea1e40
+
+	measure 'Note ECL Delta' = VAR d = [ECL Change] RETURN IF ( d < 0, "▼ ", "▲ " ) & FORMAT ( ABS ( d ) / 1e6, "$#,0.00" ) & "M vs Dec 2024 · " & FORMAT ( [Coverage], "0.00%" ) & " cover"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 0af5f942-7ed0-5155-9258-0ec940e40fac
+
+	measure 'Note S1 Delta' = FORMAT ( [Coverage Stage 1], "0.00%" ) & " cover · Dec 2024: " & FORMAT ( [Coverage Stage 1 Dec 2024], "0.00%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: e4200595-b2e6-5a4f-8ff2-d8d28fac68d5
+
+	measure 'Note S3 Delta' = FORMAT ( [Coverage Stage 3], "0.0%" ) & " cover · " & FORMAT ( [Loans Stage 3], "#,0" ) & " loans in default"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 2b72078c-448a-5593-9167-5340db54e1a2
+
+	measure 'Loan Stage Color' = SWITCH ( SELECTEDVALUE ( dim_loan[stage_2025] ), "Stage 1", "#3BB98B", "Stage 2", "#F2B84B", "Stage 3", "#F2706B", "#9FB0C8" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 693c162e-decf-5150-a85b-8c0a133aacee
 
 	column Value
 		dataType: string

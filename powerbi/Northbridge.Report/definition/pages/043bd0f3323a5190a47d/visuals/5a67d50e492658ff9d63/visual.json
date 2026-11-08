@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "5a67d50e492658ff9d63",
   "position": {
-    "x": 423.2,
-    "y": 96,
+    "x": 437.2,
+    "y": 88,
     "z": 3600,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 3600
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "INTEREST RATE",

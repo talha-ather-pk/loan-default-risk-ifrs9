@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "966f1866bc2f53cfbdfa",
   "position": {
-    "x": 853.6,
-    "y": 96,
+    "x": 867.6,
+    "y": 88,
     "z": 4600,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 4600
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "BALANCE AT DEC 2025",

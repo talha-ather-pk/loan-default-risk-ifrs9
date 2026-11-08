@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "0b538b0c8756505a9d28",
   "position": {
-    "x": 638.4,
-    "y": 96,
+    "x": 652.4,
+    "y": 88,
     "z": 4300,
     "height": 18,
-    "width": 187.2,
+    "width": 173.2,
     "tabOrder": 4300
   },
   "visual": {
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "STAGE 2 · CREDIT RISK UP",

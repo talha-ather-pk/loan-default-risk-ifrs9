@@ -4,10 +4,10 @@
   "position": {
     "x": 812,
     "y": 192,
-    "z": 5700,
+    "z": 6200,
     "height": 250,
     "width": 452,
-    "tabOrder": 5700
+    "tabOrder": 6200
   },
   "visual": {
     "visualType": "tableEx",
@@ -121,6 +121,19 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
                 }
               }
             }

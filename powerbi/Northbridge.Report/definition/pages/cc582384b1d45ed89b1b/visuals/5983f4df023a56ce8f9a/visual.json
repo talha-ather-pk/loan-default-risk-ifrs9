@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "5983f4df023a56ce8f9a",
   "position": {
-    "x": 853.6,
-    "y": 96,
-    "z": 4800,
+    "x": 867.6,
+    "y": 88,
+    "z": 5000,
     "height": 18,
-    "width": 187.2,
-    "tabOrder": 4800
+    "width": 173.2,
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "textbox",
@@ -18,7 +18,7 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
+                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "60 → 90+ DAYS (DEFAULT)",

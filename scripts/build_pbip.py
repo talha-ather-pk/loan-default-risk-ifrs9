@@ -327,7 +327,7 @@ m("Migration Share", "DIVIDE ( [Migration Loans], CALCULATE ( [Migration Loans],
 m("Migration Heat", 'VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1E8A9A", r > 0.2, "#19697A", '
   'r > 0.08, "#164A5C", r > 0.02, "#13324A", "#101E33" )', None, "8 Formatting", hidden=True)
 m("Migration Heat Font", 'IF ( [Migration Share] > 0.2, "#FFFFFF", "#C5D2E4" )', None, "8 Formatting", hidden=True)
-m("ECL Rank", "IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan[loan_id] ), [ECL], , DESC, DENSE ) )", INT, "5 IFRS 9")
+m("ECL Rank", "IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan ), [ECL], , DESC, DENSE ) )", INT, "5 IFRS 9")
 # 6 Data quality ------------------------------------------------------------------------
 m("DQ Rows", "SUM ( dq_log[rows_affected] )", INT, "6 Data quality")
 m("DQ Injected", "SUM ( dq_log[injected] )", INT, "6 Data quality")
@@ -447,6 +447,21 @@ m("Heat D24", f'VAR v = [Default Rate 24m] RETURN SWITCH ( TRUE (), ISBLANK ( v 
   f'v < 0.12, "#3E3418", v < 0.2, "#4A2A1E", "#5A2228" )', None, "8 Formatting", hidden=True)
 m("Heat Cov", f'VAR v = [Coverage] RETURN SWITCH ( TRUE (), ISBLANK ( v ), BLANK (), v < 0.02, "#16382F", v < 0.035, "#172E33", '
   f'v < 0.05, "#3E3418", v < 0.08, "#4A2A1E", "#5A2228" )', None, "8 Formatting", hidden=True)
+
+
+# Step 2: comparisons with the previous reporting date (new measures; they only combine existing ones) ----------
+m("ECL Change", "[ECL] - [ECL Dec 2024]", CUR, "5 IFRS 9")
+m("Coverage Change", "[Coverage] - [Coverage Dec 2024]", "+0.00%;-0.00%;0.00%", "5 IFRS 9")
+for s_ in (1, 2, 3):
+    m(f"Coverage Stage {s_} Dec 2024", f'CALCULATE ( [Coverage Dec 2024], fact_ecl[stage] = "Stage {s_}" )', PCT2, "5 IFRS 9")
+m("Note ECL Delta", 'VAR d = [ECL Change] RETURN IF ( d < 0, "▼ ", "▲ " ) & FORMAT ( ABS ( d ) / 1e6, "$#,0.00" ) & "M vs Dec 2024 · " '
+  '& FORMAT ( [Coverage], "0.00%" ) & " cover"', None, "9 Helpers", hidden=True)
+m("Note S1 Delta", 'FORMAT ( [Coverage Stage 1], "0.00%" ) & " cover · Dec 2024: " & FORMAT ( [Coverage Stage 1 Dec 2024], "0.00%" )',
+  None, "9 Helpers", hidden=True)
+m("Note S3 Delta", 'FORMAT ( [Coverage Stage 3], "0.0%" ) & " cover · " & FORMAT ( [Loans Stage 3], "#,0" ) & " loans in default"',
+  None, "9 Helpers", hidden=True)
+m("Loan Stage Color", f'SWITCH ( SELECTEDVALUE ( dim_loan[stage_2025] ), "Stage 1", "{GOOD}", "Stage 2", "{WARN}", "Stage 3", "{BAD}", "{SLATE}" )',
+  None, "8 Formatting", hidden=True)
 
 
 def q(name):
@@ -903,7 +918,7 @@ def kpi_tiles(p, tiles, y=76, h=104):
 
 
 
-# =========================================================================
+﻿# =========================================================================
 # Midnight chrome: theme, sidebar, header and cards (override the shared design code)
 # =========================================================================
 SIDEBAR_W = 184
@@ -1065,6 +1080,30 @@ def sidebar(p, active):
         [("Right-click a loan to drill through", 7, SLATE_2, False)]]))
 
 
+def kpi_tiles(p, tiles, y=76, h=104):
+    """tiles: (value measure, label, note measure, note colour (hex or measure), number style[, whole_book]).
+    whole_book tiles show fixed results for the whole book (model statistics, backtest, data quality): they carry a tag
+    so nobody reads them as following the filters."""
+    n = len(tiles)
+    w = (X1 - X0 - (n - 1) * GAP) / n
+    for i, t in enumerate(tiles):
+        val, label, sub, sub_color, style = t[:5]
+        whole_book = len(t) > 5 and t[5]
+        x = X0 + i * (w + GAP)
+        p.add(f"kpi_{i}_frame", x, y, w, h, frame())
+        p.add(f"kpi_{i}_rule", x + 14, y + 14, 3, 14, panel(GOLD, radius=1))
+        p.add(f"kpi_{i}_label", x + 22, y + 12, w - 30, 18, textbox([[(label.upper(), 7.5, SLATE, True)]]))
+        if whole_book:
+            p.add(f"kpi_{i}_tag", x + w - 80, y + 84, 72, 20, textbox([[("WHOLE BOOK", 6, SLATE_2, True)]], align="right"))
+        p.add(f"kpi_{i}_value", x + 6, y + 30, w - 12, 40, card(
+            val, size=22, millions=style == "M", exact=style == "N", container=plain_container()))
+        is_hex = sub_color.startswith("#")
+        sub_card = card(sub, size=8, font=FONT_SB, color=sub_color if is_hex else SLATE, container=plain_container())
+        if not is_hex:
+            sub_card["objects"]["labels"][0]["properties"]["color"] = solid(mea(sub_color))
+        p.add(f"kpi_{i}_sub", x + 6, y + 66, w - 12, 20, sub_card)
+
+
 def header_band(p):            # the dark design has no band; kept so existing page code still calls it
     return None
 
@@ -1218,7 +1257,7 @@ def page_risk():
         ("Avg Rate", "Average interest rate", "Note Rate", SLATE, ""),
         ("FICO Multiple", "Low vs high credit score", "Note FICO", BAD, ""),
         ("Riskiest Purpose Rate", "Riskiest loan purpose", "Note Purpose", BAD, ""),
-        ("Policy Multiple", "DTI 40-50% policy (Jul 2023)", "RAG Policy", "RAG Policy Color", "")])
+        ("Policy Multiple", "DTI 40-50% policy (Jul 2023)", "RAG Policy", "RAG Policy Color", "", True)])
     tips = [(mea("Loans"), "Loans"), (mea("Avg Rate"), "Avg rate")]
     PURPOSE = (col("dim_loan", "purpose"), "Purpose")
     p.add("purpose", X0, 192, 514, 282, visual(
@@ -1252,11 +1291,11 @@ def page_vintage():
     sidebar(p, "vintage")
     header(p, "Vintages, Roll Rates and the Economy")
     kpi_tiles(p, [
-        ("Vintage 2023 at 24m", "2023 loans defaulted", "RAG Vintage", "RAG Vintage Color", ""),
-        ("Vintage 2021 at 24m", "2021 loans defaulted", "Note V21", SLATE, ""),
+        ("Vintage 2023 at 24m", "2023 loans defaulted", "RAG Vintage", "RAG Vintage Color", "", True),
+        ("Vintage 2021 at 24m", "2021 loans defaulted", "Note V21", SLATE, "", True),
         ("Roll 30 to 60", "30 → 60 days late", "Note R3060", SLATE, ""),
         ("Roll 60 to 90", "60 → 90+ days (default)", "Note R6090", SLATE, ""),
-        ("Unemployment Sensitivity", "Unemployment effect", "Note Unemp", BAD, "")])
+        ("Unemployment Sensitivity", "Unemployment effect", "Note Unemp", BAD, "", True)])
     YEAR = col("dim_loan", "vintage_year")
     p.add("vintage", X0, 192, 600, 512, visual(
         "lineChart", {"Category": [(col("dim_mob", "mob"), "Months on book")], "Series": [(YEAR, "Year issued")],
@@ -1290,11 +1329,11 @@ def page_scorecard():
     sidebar(p, "scorecard")
     header(p, "Application Scorecard")
     kpi_tiles(p, [
-        ("Gini Scorecard", "Scorecard Gini", "Note Gini", GOOD, ""),
-        ("Gini Grade", "Lender grade Gini", "Note GiniG", SLATE, ""),
-        ("KS Scorecard", "Kolmogorov-Smirnov", "Note KS", SLATE, ""),
-        ("Band Spread", "Score band spread", "Note Spread", SLATE, ""),
-        ("Truth Correlation", "Match with true effects", "Note Truth", GOOD, "")])
+        ("Gini Scorecard", "Scorecard Gini", "Note Gini", GOOD, "", True),
+        ("Gini Grade", "Lender grade Gini", "Note GiniG", SLATE, "", True),
+        ("KS Scorecard", "Kolmogorov-Smirnov", "Note KS", SLATE, "", True),
+        ("Band Spread", "Score band spread", "Note Spread", SLATE, "", True),
+        ("Truth Correlation", "Match with true effects", "Note Truth", GOOD, "", True)])
     p.add("calib", X0, 192, 600, 250, visual(
         "clusteredColumnChart", {"Category": [(col("score_bands", "band_label"), "Score band (1 = best)")],
                                  "Y": [(mea("Predicted PD"), "Predicted"), (mea("Actual Default"), "Actual")]},
@@ -1307,7 +1346,8 @@ def page_scorecard():
         "tableEx", {"Values": [(col("model_metrics", "model"), "Model"), (col("model_metrics", "sample"), "Sample"),
                                (mea("AUC"), "AUC"), (mea("Gini"), "Gini"), (mea("KS"), "KS")]},
         title="Model comparison · boosting overfits", subtitle="Best in development, not on 2023 loans",
-        sort=[(col("model_metrics", "model"), "Descending")], objects=NO_TOTALS))
+        sort=[(col("model_metrics", "model"), "Descending")],
+        objects={**NO_TOTALS, "grid": [{"properties": {"rowPadding": lit(2)}}]}))
     p.add("points", X0, 454, 600, 250, visual(
         "tableEx", {"Values": [(col("scorecard", "feature_label"), "Characteristic"), (col("scorecard", "bin_label"), "Value"),
                                (mea("Bin Loans"), "Loans (dev)"), (mea("Bin Bad Rate"), "Bad rate"), (mea("WoE"), "WoE"),
@@ -1328,16 +1368,17 @@ def page_ecl():
     sidebar(p, "ecl")
     header(p, "IFRS 9 Expected Credit Loss  ·  31 Dec 2025")
     kpi_tiles(p, [
-        ("ECL", "Expected credit loss", "Note ECL", SLATE, "M"),
-        ("ECL Stage 1", "Stage 1 · performing", "Note S1", GOOD, "M"),
+        ("ECL", "Expected credit loss", "Note ECL Delta", SLATE, "M"),
+        ("ECL Stage 1", "Stage 1 · performing", "Note S1 Delta", GOOD, "M"),
         ("ECL Stage 2", "Stage 2 · credit risk up", "RAG S2", "RAG S2 Color", "M"),
-        ("ECL Stage 3", "Stage 3 · defaulted", "Note S3", BAD, "M"),
-        ("Backtest Expected", "Backtest: 2025 defaults expected", "RAG BT", "RAG BT Color", "N")])
+        ("ECL Stage 3", "Stage 3 · defaulted", "Note S3 Delta", BAD, "M"),
+        ("Backtest Expected", "Backtest · 2025 defaults", "RAG BT", "RAG BT Color", "N", True)])
     STAGE = (col("fact_ecl", "stage"), "Stage")
     p.add("stages", X0, 192, 612, 250, visual(
-        "tableEx", {"Values": [STAGE, (mea("ECL Loans"), "Loans"), (mea("EAD"), "Exposure (EAD)"),
+        "tableEx", {"Values": [STAGE, (mea("ECL Loans"), "Loans"), (mea("EAD"), "EAD"),
                                (mea("PD 12m (EAD-weighted)"), "PD 12m"), (mea("Lifetime PD (EAD-weighted)"), "Lifetime PD"),
-                               (mea("LGD (EAD-weighted)"), "LGD"), (mea("ECL"), "ECL"), (mea("Coverage"), "Coverage")]},
+                               (mea("LGD (EAD-weighted)"), "LGD"), (mea("ECL"), "ECL"), (mea("Coverage"), "Cover"),
+                               (mea("Coverage Dec 2024"), "Dec 2024")]},
         title="ECL = PD × LGD × EAD, by stage",
         subtitle="Stage 1: 12-month PD · Stage 2 (30+ days late or cured < 6 months): lifetime PD · Stage 3: 90+ days late",
         sort=[(col("fact_ecl", "stage"), "Ascending")],
@@ -1361,7 +1402,9 @@ def page_ecl():
                                (col("dim_loan", "stage_2025"), "Stage"), (mea("EAD"), "EAD"),
                                (mea("PD 12m (EAD-weighted)"), "PD 12m"), (mea("ECL"), "ECL")]},
         title="Largest expected losses", subtitle="Right-click a loan → Drill through → Loan Detail",
-        sort=[(mea("ECL"), "Descending")], objects=NO_TOTALS))
+        sort=[(mea("ECL"), "Descending")],
+        objects={**NO_TOTALS, "values": [cf(ref(col("dim_loan", "stage_2025")), font="Loan Stage Color"),
+                                         cf(ref(mea("ECL")), font="Loan Stage Color")]}))
     return p
 
 
@@ -1370,11 +1413,11 @@ def page_quality():
     sidebar(p, "quality")
     header(p, "Data Quality  ·  Cleaning Log")
     kpi_tiles(p, [
-        ("Rows Received", "Rows received", "Note Rows", SLATE, "N"),
-        ("Duplicates Removed", "Duplicates removed", "Note Dups", BAD, "N"),
-        ("Field Fixes", "Fields repaired", "Note Fixes", WARN, "N"),
-        ("Clean Loans", "Clean loans", "Note Clean", SLATE, "N"),
-        ("Fixes", "Rows touched by a fix", "Note Checks", GOOD, "N")])
+        ("Rows Received", "Rows received", "Note Rows", SLATE, "N", True),
+        ("Duplicates Removed", "Duplicates removed", "Note Dups", BAD, "N", True),
+        ("Field Fixes", "Fields repaired", "Note Fixes", WARN, "N", True),
+        ("Clean Loans", "Clean loans", "Note Clean", SLATE, "N", True),
+        ("Fixes", "Rows touched by a fix", "Note Checks", GOOD, "N", True)])
     ISSUE = (col("dq_log", "issue"), "Issue")
     p.add("fixes", X0, 192, 480, 512, visual(
         "clusteredBarChart", {"Category": [ISSUE], "Y": [(mea("Fixes"), "Rows")], "Tooltips": [(mea("DQ Injected"), "Injected")]},
