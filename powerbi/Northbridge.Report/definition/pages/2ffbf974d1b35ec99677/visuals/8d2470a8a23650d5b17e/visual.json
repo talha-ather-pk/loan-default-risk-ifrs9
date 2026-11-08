@@ -21,7 +21,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "BACKTEST: 2025 DEFAULTS EXPECTED",
+                    "value": "BACKTEST · 2025 DEFAULTS",
                     "textStyle": {
                       "fontSize": "7.5pt",
                       "color": "#9FB0C8",
