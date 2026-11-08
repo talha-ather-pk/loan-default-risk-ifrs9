@@ -1,0 +1,141 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "f43e61371e77501fb5a7",
+  "position": {
+    "x": 836,
+    "y": 454,
+    "z": 5400,
+    "height": 250,
+    "width": 428,
+    "tabOrder": 5400
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "truth_check"
+                    }
+                  },
+                  "Property": "effect_label"
+                }
+              },
+              "queryRef": "truth_check.effect_label",
+              "nativeQueryRef": "effect_label",
+              "displayName": "Effect (log-odds)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "True Effect"
+                }
+              },
+              "queryRef": "_Measures.True Effect",
+              "nativeQueryRef": "True Effect",
+              "displayName": "True"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Estimated Effect"
+                }
+              },
+              "queryRef": "_Measures.Estimated Effect",
+              "nativeQueryRef": "Estimated Effect",
+              "displayName": "Estimated"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "truth_check"
+                    }
+                  },
+                  "Property": "same_sign"
+                }
+              },
+              "queryRef": "truth_check.same_sign",
+              "nativeQueryRef": "same_sign",
+              "displayName": "Sign"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Truth check: estimated vs the generator''s true effects'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Plain logistic regression on the raw fields, 2021-23 loans'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

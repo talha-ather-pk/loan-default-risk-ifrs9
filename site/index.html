@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loan default risk and IFRS 9 expected credit loss: Northbridge Lending</title>
+<meta name="description" content="Credit risk analytics on a synthetic 50,000-loan book: SQL, a WoE scorecard, vintages, roll rates, LGD, IFRS 9 ECL with a backtest, and a Power BI dashboard.">
+<style>
+:root{--bg:#f6f5f2;--surface:#fcfcfb;--border:#e4e2dc;--text:#0b0b0b;--text-2:#52514e;--muted:#7a7974;--pos:#2a78d6;--warn:#d9822b}
+@media (prefers-color-scheme: dark){:root{--bg:#121211;--surface:#1a1a19;--border:#2e2e2b;--text:#f0efec;--text-2:#c3c2b7;--muted:#8f8e86;--pos:#5598e7;--warn:#e9a15a} figure img{background:#fff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1040px;margin:0 auto;padding:48px 24px 72px}
+.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:34px;line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:22px;margin:48px 0 6px}
+.lede{color:var(--text-2);max-width:760px;margin:0 0 18px;font-size:16.5px}
+.sub{color:var(--text-2);margin:0 0 16px;max-width:780px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0 0 28px}
+.tags li{font-size:12.5px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:3px 10px;background:var(--surface)}
+.note{font-size:13.5px;color:var(--text-2);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:8px;padding:10px 14px;max-width:780px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:24px 0 8px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.kpi .l{font-size:12.5px;color:var(--muted)}
+.kpi .v{font-size:26px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:12.5px;color:var(--text-2)}
+ol.findings{padding-left:22px;max-width:840px}
+ol.findings li{margin:0 0 10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr} h1{font-size:28px}}
+figure{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px}
+figure img{width:100%;height:auto;display:block;border-radius:4px}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{font-size:12.5px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+.hi td{font-weight:650}
+footer{margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);padding-top:16px}
+a{color:var(--pos)}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Credit risk analytics · SQL · Python · IFRS 9 · Power BI</p>
+  <h1>Loan default risk and the IFRS 9 loss allowance</h1>
+  <p class="lede">Northbridge Lending made 50,000 personal loans in 2021 – 2024. I cleaned the loan extract into SQLite, answered the credit questions in SQL, built an application scorecard, measured vintages, roll rates and loss given default, estimated the IFRS 9 expected credit loss with forward-looking scenarios, and backtested it against the following year's defaults. Everything is in a Power BI dashboard.</p>
+  <ul class="tags"><li>SQL (SQLite)</li><li>Python · pandas · scikit-learn</li><li>WoE scorecard · Gini / KS</li><li>Vintages · roll rates · LGD</li><li>IFRS 9 ECL · backtest</li><li>Power BI · DAX</li></ul>
+  <p class="note"><b>Synthetic data.</b> 50,000 loans and 1.16 million monthly payment records from a documented generator. The true default process is known, so every cleaning step, model coefficient and estimate is checked against the truth.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Lent · net loss to date</div><div class="v">$797M</div><div class="d">net loss $38.8M</div></div>
+    <div class="kpi"><div class="l">Default within 24 months</div><div class="v">8.8%</div><div class="d">2.8% (grade A) to 26.8% (G)</div></div>
+    <div class="kpi"><div class="l">Scorecard Gini, out of time</div><div class="v">0.38</div><div class="d">vs 0.32 for the lender's grade</div></div>
+    <div class="kpi"><div class="l">IFRS 9 ECL, 31 Dec 2025</div><div class="v">$6.48M</div><div class="d">3.76% of a $172.6M book</div></div>
+    <div class="kpi"><div class="l">Backtest, 2025 defaults</div><div class="v">1,525 vs 1,290</div><div class="d">expected vs actual</div></div>
+  </div>
+
+  <h2>Findings</h2>
+  <ol class="findings">
+    <li><b>The lender's grade ranks risk well</b>: 2.8% of grade-A loans default within 24 months, 26.8% of grade-G, and the interest rate rises from 9.4% to 30.9% with it. Credit score is the strongest single driver (620-659 defaults 7.6x as often as 780+); small-business and medical loans are the riskiest purposes.</li>
+    <li><b>The July 2023 policy change</b> (online debt-to-income limit raised from 40% to 50%) added 595 loans that default 1.7x as often (6.4% vs 3.8% in 12 months). They pay 5.3 points more interest, which covers the ~1.9 points a year of extra expected loss.</li>
+    <li><b>Losses follow the economy</b>: the 2023 vintage reached 10.1% defaults by month 24 vs 7.1% for 2021, because it met the 2024 unemployment peak early in life. Each extra point of unemployment raises default starts by 35% (the generator's true value: 35%).</li>
+    <li><b>Half of loans 30 days late cure</b>; the other half roll on, and half of those default. Loss given default is 72% (66% with a mortgage, 77% for renters).</li>
+  </ol>
+  <figure><img src="img/chart_vintage.png" alt="Cumulative default rate by year issued, and defaults vs unemployment" loading="lazy"></figure>
+  <figure><img src="img/chart_policy.png" alt="Default rate of the newly allowed high-DTI loans" loading="lazy"></figure>
+
+  <h2>Application scorecard</h2>
+  <p class="sub">Binned characteristics, Weight of Evidence, logistic regression, points (600 = 50:1 odds). Trained on 2021-22 loans and tested on 2023 loans it never saw. A plain logistic regression recovers all 15 true effects with the right sign (correlation 0.97).</p>
+  <table>
+    <thead><tr><th>Model</th><th>Gini, development</th><th>Gini, out of time</th><th>KS, out of time</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td>Scorecard (logistic regression on WoE)</td><td>0.39</td><td>0.38</td><td>0.29</td></tr>
+      <tr><td>Lender grade A-G</td><td>0.33</td><td>0.32</td><td>0.22</td></tr>
+      <tr><td>Gradient boosting (challenger)</td><td>0.45</td><td>0.37</td><td>0.27</td></tr>
+    </tbody>
+  </table>
+  <figure><img src="img/chart_scorecard.png" alt="ROC curve and calibration by score band" loading="lazy"></figure>
+
+  <h2>IFRS 9 expected credit loss</h2>
+  <p class="sub">Stage 3: 90+ days late. Stage 2: 30-89 days late or cured in the last 6 months. PD from a monthly default hazard by months on book, scaled by score band and unemployment; LGD from completed recoveries; three weighted unemployment scenarios. Everything is estimated only from data known at the reporting date.</p>
+  <table>
+    <thead><tr><th>31 Dec 2025</th><th>Loans</th><th>Exposure</th><th>ECL</th><th>Coverage</th></tr></thead>
+    <tbody>
+      <tr><td>Stage 1 · 12-month PD</td><td>19,572</td><td>$152.0M</td><td>$3.32M</td><td>2.18%</td></tr>
+      <tr><td>Stage 2 · lifetime PD</td><td>2,236</td><td>$18.6M</td><td>$1.72M</td><td>9.20%</td></tr>
+      <tr><td>Stage 3 · defaulted</td><td>178</td><td>$2.0M</td><td>$1.45M</td><td>72.7%</td></tr>
+      <tr class="hi"><td>Total</td><td>21,986</td><td>$172.6M</td><td>$6.48M</td><td>3.76%</td></tr>
+    </tbody>
+  </table>
+  <p class="sub"><b>Backtest:</b> the PDs set at Dec 2024 expected 1,525 defaults in 2025 and 1,290 happened. With 2025's actual unemployment, which fell, the same model would have expected 1,371 (within 6%): the PD model is sound and the gap is the prudent economic outlook.</p>
+  <figure><img src="img/chart_ecl.png" alt="ECL by stage and the backtest by score band" loading="lazy"></figure>
+
+  <h2>Power BI dashboard</h2>
+  <div class="grid2">
+    <figure><img src="img/dashboard_portfolio.png" alt="Power BI Portfolio page" loading="lazy"><figcaption>Portfolio</figcaption></figure>
+    <figure><img src="img/dashboard_risk.png" alt="Power BI Risk Drivers page" loading="lazy"><figcaption>Risk Drivers</figcaption></figure>
+    <figure><img src="img/dashboard_vintage.png" alt="Power BI Vintages and Economy page" loading="lazy"><figcaption>Vintages &amp; Economy</figcaption></figure>
+    <figure><img src="img/dashboard_scorecard.png" alt="Power BI Scorecard page" loading="lazy"><figcaption>Scorecard</figcaption></figure>
+    <figure><img src="img/dashboard_ecl.png" alt="Power BI IFRS 9 ECL page" loading="lazy"><figcaption>IFRS 9 ECL</figcaption></figure>
+    <figure><img src="img/dashboard_quality.png" alt="Power BI Data Quality page" loading="lazy"><figcaption>Data Quality</figcaption></figure>
+  </div>
+  <figure><img src="img/dashboard_loan.png" alt="Power BI Loan Detail drill-through page" loading="lazy"><figcaption>Loan Detail drill-through: a grade-C loan that went 30, 60, 90 and 120 days late in late 2025</figcaption></figure>
+
+  <footer>Talha Ather · ACCA · Data analyst · SQL, Python, Power BI, credit risk · <a href="https://github.com/talha-ather-pk/loan-default-risk-ifrs9">Source code on GitHub</a></footer>
+</main>
+</body>
+</html>

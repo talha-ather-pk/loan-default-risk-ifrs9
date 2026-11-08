@@ -1,0 +1,37 @@
+table dim_scenario
+	lineageTag: 3fecfbab-3032-5787-a15a-08c4d628cb30
+
+	column scenario
+		dataType: string
+		sortByColumn: scenario_order
+		lineageTag: 52fe413c-84eb-5d6a-a177-d46e426a3fe3
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = User
+
+	column scenario_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f3259bb-b97e-5fda-b076-485f392d8546
+		summarizeBy: none
+		sourceColumn: scenario_order
+
+		annotation SummarizationSetBy = User
+
+	column weight
+		dataType: double
+		isHidden
+		lineageTag: 73ede28f-e405-519e-82b0-012dd880f5e5
+		summarizeBy: none
+		sourceColumn: weight
+
+		annotation SummarizationSetBy = User
+
+	partition dim_scenario = m
+		mode: import
+		source =
+				#table(type table [scenario = text, scenario_order = Int64.Type, weight = number], {{"Upside", 1, 0.2}, {"Base", 2, 0.6}, {"Downside", 3, 0.2}, {"Weighted", 4, 1}})
+
+	annotation PBI_ResultType = Table

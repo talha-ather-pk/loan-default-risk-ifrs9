@@ -1,0 +1,16 @@
+effect,true,estimated,same_sign,effect_label
+fico_per_10pts_above_700,-0.13,-0.135,✓,"FICO, per +10 points"
+dti_per_pt,0.035,0.035,✓,"DTI, per +1 pt"
+revol_util_per_10pts,0.08,0.083,✓,"Revolving use, per +10 pts"
+inquiry_each,0.12,0.126,✓,Each credit inquiry
+delinq_2y_each,0.28,0.29,✓,Each past delinquency
+log_income_vs_66k,-0.4,-0.396,✓,Income (log)
+term_60,0.45,0.27,✓,60-month term
+emp_lt_1y,0.2,0.289,✓,Employed < 1 year
+not_verified,0.1,0.146,✓,Income not verified
+home_MORTGAGE,-0.18,-0.086,✓,Has a mortgage
+purpose_small_business,0.6,0.653,✓,Purpose: small business
+purpose_medical,0.3,0.329,✓,Purpose: medical
+purpose_car,-0.22,-0.281,✓,Purpose: car
+channel_Broker,0.25,0.205,✓,Channel: broker
+channel_Branch,-0.1,-0.078,✓,Channel: branch

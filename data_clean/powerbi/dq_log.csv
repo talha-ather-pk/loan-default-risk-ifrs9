@@ -1,0 +1,15 @@
+step,table_name,issue,rows_affected,action,injected
+1,loans,Rows received,50412,loaded,
+2,loans,Exact duplicate rows,400,removed,400.0
+3,loans,"Test loans (TEST- id, amount 1.00)",12,removed,12.0
+4,loans,Issue date as 'Apr-2023' (broker feed),7525,"parsed; day set to 1st, flagged",7525.0
+5,loans,"Income stored as text ('$72,000.00')",1500,symbols stripped,1500.0
+6,loans,Income missing,300,"kept, flagged (imputed only inside the model)",300.0
+7,loans,Employment length 'n/a',1750,set to null,1750.0
+8,loans,Purpose with odd case or spaces,2500,normalised,2500.0
+9,loans,Region typos,150,mapped to the region,150.0
+10,loans,DTI outside 0-100 (-1 / 999 codes),60,set to null,60.0
+11,loans,FICO score missing,200,"kept, flagged",200.0
+12,loans,Home ownership 'ANY' / 'NONE',25,grouped as OTHER,25.0
+13,loans,Clean loans,50000,loaded,
+14,loan_months,Duplicate month rows,300,removed (loan_months),300.0

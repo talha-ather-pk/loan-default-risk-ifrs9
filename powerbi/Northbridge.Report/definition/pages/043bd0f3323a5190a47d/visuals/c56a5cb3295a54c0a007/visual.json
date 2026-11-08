@@ -1,0 +1,156 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "c56a5cb3295a54c0a007",
+  "position": {
+    "x": 224,
+    "y": 466,
+    "z": 5100,
+    "height": 238,
+    "width": 430,
+    "tabOrder": 5100
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "channel"
+                }
+              },
+              "queryRef": "dim_loan.channel",
+              "nativeQueryRef": "channel",
+              "displayName": "Channel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "home_ownership"
+                }
+              },
+              "queryRef": "dim_loan.home_ownership",
+              "nativeQueryRef": "home_ownership",
+              "displayName": "Home"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "fico_band"
+                }
+              },
+              "queryRef": "dim_loan.fico_band",
+              "nativeQueryRef": "fico_band",
+              "displayName": "FICO"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "dti_band"
+                }
+              },
+              "queryRef": "dim_loan.dti_band",
+              "nativeQueryRef": "dti_band",
+              "displayName": "DTI"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "income_band"
+                }
+              },
+              "queryRef": "dim_loan.income_band",
+              "nativeQueryRef": "income_band",
+              "displayName": "Income"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Applicant profile'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'At application'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "02dd5613ca1250a78874",
+  "position": {
+    "x": 224,
+    "y": 454,
+    "z": 5300,
+    "height": 250,
+    "width": 600,
+    "tabOrder": 5300
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "scorecard"
+                    }
+                  },
+                  "Property": "feature_label"
+                }
+              },
+              "queryRef": "scorecard.feature_label",
+              "nativeQueryRef": "feature_label",
+              "displayName": "Characteristic"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "scorecard"
+                    }
+                  },
+                  "Property": "bin_label"
+                }
+              },
+              "queryRef": "scorecard.bin_label",
+              "nativeQueryRef": "bin_label",
+              "displayName": "Value"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bin Loans"
+                }
+              },
+              "queryRef": "_Measures.Bin Loans",
+              "nativeQueryRef": "Bin Loans",
+              "displayName": "Loans (dev)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Bin Bad Rate"
+                }
+              },
+              "queryRef": "_Measures.Bin Bad Rate",
+              "nativeQueryRef": "Bin Bad Rate",
+              "displayName": "Bad rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "WoE"
+                }
+              },
+              "queryRef": "_Measures.WoE",
+              "nativeQueryRef": "WoE",
+              "displayName": "WoE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Points"
+                }
+              },
+              "queryRef": "_Measures.Points",
+              "nativeQueryRef": "Points",
+              "displayName": "Points"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "scorecard"
+                  }
+                },
+                "Property": "bin_label"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Scorecard points (600 = 50:1 odds, +20 points doubles the odds)'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Add up one row per characteristic to score an applicant'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

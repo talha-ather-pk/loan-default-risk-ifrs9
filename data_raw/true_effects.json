@@ -1,0 +1,81 @@
+{
+  "seed": 5,
+  "loans": 50000,
+  "issue_period": "2021-01..2024-12",
+  "observed_until": "2025-12",
+  "true_model": {
+    "intercept": -2.1693,
+    "coefficients": {
+      "fico_per_10pts_above_700": -0.13,
+      "dti_per_pt": 0.035,
+      "revol_util_per_10pts": 0.08,
+      "inquiry_each": 0.12,
+      "delinq_2y_each": 0.28,
+      "log_income_vs_66k": -0.4,
+      "term_60": 0.45,
+      "emp_lt_1y": 0.2,
+      "not_verified": 0.1,
+      "home": {
+        "RENT": 0.0,
+        "MORTGAGE": -0.18,
+        "OWN": -0.06
+      },
+      "purpose": {
+        "debt_consolidation": 0.0,
+        "credit_card": -0.15,
+        "home_improvement": -0.12,
+        "major_purchase": 0.0,
+        "car": -0.22,
+        "medical": 0.3,
+        "small_business": 0.6,
+        "other": 0.15
+      },
+      "channel": {
+        "Online": 0.0,
+        "Branch": -0.1,
+        "Broker": 0.25
+      }
+    },
+    "meaning": "log-odds of default over the full term, at 4.5% unemployment; spread over months on book by an age curve peaking around month 12"
+  },
+  "average_true_lifetime_pd": 0.13,
+  "macro": {
+    "hazard_multiplier": "exp(0.30 * (unemployment - 4.5))",
+    "unemployment_peak": 6.0,
+    "peak_month": "2024-05"
+  },
+  "policy_change": {
+    "month": "2023-07",
+    "rule": "Online channel max DTI raised from 40% to 50%",
+    "loans_with_dti_40_50": 596
+  },
+  "lender_grade_noise_sd": 0.45,
+  "recovery_rate_mean_by_home_ownership": {
+    "RENT": 0.22,
+    "MORTGAGE": 0.32,
+    "OWN": 0.27
+  },
+  "default_definition": "90+ days past due (third missed payment); charged off at 120 DPD",
+  "observed": {
+    "defaults_90dpd": 4666,
+    "charged_off": 4488,
+    "default_rate_observed": 0.0933,
+    "loan_months_rows": 1158091,
+    "recovery_rows": 45136
+  },
+  "injected": {
+    "issue_date_month_text_format (broker feed, day lost)": 7525,
+    "income_as_text_with_symbols": 1500,
+    "income_missing": 300,
+    "emp_length_na": 1750,
+    "purpose_case_or_spacing": 2500,
+    "region_typo": 150,
+    "dti_invalid": 60,
+    "fico_missing": 200,
+    "home_ownership_other": 25,
+    "test_loans": 12,
+    "duplicate_rows": 400,
+    "loan_months_duplicate_rows": 300
+  },
+  "expected_clean_loans": 50000
+}

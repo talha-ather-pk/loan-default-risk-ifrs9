@@ -1,0 +1,219 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "354080b3219051f8ba12",
+  "position": {
+    "x": 224,
+    "y": 430,
+    "z": 5300,
+    "height": 274,
+    "width": 1040,
+    "tabOrder": 5300
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "grade"
+                }
+              },
+              "queryRef": "dim_loan.grade",
+              "nativeQueryRef": "grade",
+              "displayName": "Grade"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Loans"
+                }
+              },
+              "queryRef": "_Measures.Loans",
+              "nativeQueryRef": "Loans",
+              "displayName": "Loans"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Amount Lent"
+                }
+              },
+              "queryRef": "_Measures.Amount Lent",
+              "nativeQueryRef": "Amount Lent",
+              "displayName": "Amount lent"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Rate"
+                }
+              },
+              "queryRef": "_Measures.Avg Rate",
+              "nativeQueryRef": "Avg Rate",
+              "displayName": "Avg rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Default Rate 24m"
+                }
+              },
+              "queryRef": "_Measures.Default Rate 24m",
+              "nativeQueryRef": "Default Rate 24m",
+              "displayName": "Default 24m"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Loss Rate"
+                }
+              },
+              "queryRef": "_Measures.Net Loss Rate",
+              "nativeQueryRef": "Net Loss Rate",
+              "displayName": "Net loss % lent"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Open Balance"
+                }
+              },
+              "queryRef": "_Measures.Open Balance",
+              "nativeQueryRef": "Open Balance",
+              "displayName": "Open balance"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ECL"
+                }
+              },
+              "queryRef": "_Measures.ECL",
+              "nativeQueryRef": "ECL",
+              "displayName": "ECL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Coverage"
+                }
+              },
+              "queryRef": "_Measures.Coverage",
+              "nativeQueryRef": "Coverage",
+              "displayName": "ECL coverage"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_loan"
+                  }
+                },
+                "Property": "grade"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'The book by grade'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Price, realised loss and the IFRS 9 allowance rise together from A to G'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

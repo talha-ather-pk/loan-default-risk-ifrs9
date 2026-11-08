@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DataFolder", "_Measures", "dim_loan", "fact_loan_month", "fact_recovery", "fact_ecl", "dim_month", "dim_mob", "dim_scenario", "fact_stage_migration", "ecl_backtest", "score_bands", "scorecard", "model_metrics", "truth_check", "dq_log", "findings"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table _Measures
+ref table dim_loan
+ref table fact_loan_month
+ref table fact_recovery
+ref table fact_ecl
+ref table dim_month
+ref table dim_mob
+ref table dim_scenario
+ref table fact_stage_migration
+ref table ecl_backtest
+ref table score_bands
+ref table scorecard
+ref table model_metrics
+ref table truth_check
+ref table dq_log
+ref table findings

@@ -1,0 +1,14 @@
+stage_2024,to_state,loans,ead_2024,to_order
+Stage 1,Matured,4083,13703564.46,6
+Stage 1,Repaid early,3763,43153244.77,5
+Stage 1,Stage 1,17241,206364210.02,1
+Stage 1,Stage 2,1914,23868109.08,2
+Stage 1,Stage 3,154,2137145.98,3
+Stage 1,Written off,773,9384296.42,4
+Stage 2,Matured,339,1211661.93,6
+Stage 2,Repaid early,299,3274886.18,5
+Stage 2,Stage 1,1495,17548795.67,1
+Stage 2,Stage 2,217,2434109.5,2
+Stage 2,Stage 3,13,149886.65,3
+Stage 2,Written off,350,3851175.54,4
+Stage 3,Written off,268,3016121.58,4

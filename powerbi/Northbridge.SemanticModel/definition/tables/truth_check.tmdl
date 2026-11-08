@@ -1,0 +1,59 @@
+table truth_check
+	lineageTag: e0337965-2fb1-51ea-ae20-5598e5b852f6
+
+	column effect
+		dataType: string
+		isHidden
+		lineageTag: f4a3ae2f-e1cf-5ced-9145-9b1bfb2748c4
+		summarizeBy: none
+		sourceColumn: effect
+
+		annotation SummarizationSetBy = User
+
+	column effect_label
+		dataType: string
+		lineageTag: 2317a112-8745-5659-96db-7c0067371a88
+		summarizeBy: none
+		sourceColumn: effect_label
+
+		annotation SummarizationSetBy = User
+
+	column true
+		dataType: double
+		isHidden
+		lineageTag: 24f6f5a2-4d1c-5859-808e-541077a1f776
+		summarizeBy: none
+		sourceColumn: true
+
+		annotation SummarizationSetBy = User
+
+	column estimated
+		dataType: double
+		isHidden
+		lineageTag: a9b2623e-809c-5531-98dc-c2eaa2153549
+		summarizeBy: none
+		sourceColumn: estimated
+
+		annotation SummarizationSetBy = User
+
+	column same_sign
+		dataType: string
+		lineageTag: a1c55762-0590-50c6-b89e-c8f413dca52e
+		summarizeBy: none
+		sourceColumn: same_sign
+
+		annotation SummarizationSetBy = User
+
+	partition truth_check = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "truth_check.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"effect", "effect_label", "true", "estimated", "same_sign"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"effect", type text}, {"effect_label", type text}, {"true", type number}, {"estimated", type number}, {"same_sign", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

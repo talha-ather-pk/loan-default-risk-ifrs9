@@ -1,0 +1,72 @@
+table ecl_backtest
+	lineageTag: de45478b-125e-5361-94cb-5a8066de0a94
+
+	column score_band
+		dataType: int64
+		formatString: 0
+		lineageTag: c569a37c-8278-5253-9702-04f1dc4e5736
+		summarizeBy: none
+		sourceColumn: score_band
+
+		annotation SummarizationSetBy = User
+
+	column loans
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3ea4c15a-81f5-54c3-8ae0-ce10409bca11
+		summarizeBy: none
+		sourceColumn: loans
+
+		annotation SummarizationSetBy = User
+
+	column predicted_base
+		dataType: double
+		isHidden
+		lineageTag: 35ff7945-a9bf-5332-a149-468ff2f60f8d
+		summarizeBy: none
+		sourceColumn: predicted_base
+
+		annotation SummarizationSetBy = User
+
+	column predicted_weighted
+		dataType: double
+		isHidden
+		lineageTag: a306f85b-376b-59fb-bbc6-142ffa090317
+		summarizeBy: none
+		sourceColumn: predicted_weighted
+
+		annotation SummarizationSetBy = User
+
+	column predicted_actual_unemployment
+		dataType: double
+		isHidden
+		lineageTag: 1317b2e4-8ebd-56ae-8159-dfacf3253f49
+		summarizeBy: none
+		sourceColumn: predicted_actual_unemployment
+
+		annotation SummarizationSetBy = User
+
+	column actual
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 38624678-88af-5303-b4ad-8c79bf7addb2
+		summarizeBy: none
+		sourceColumn: actual
+
+		annotation SummarizationSetBy = User
+
+	partition ecl_backtest = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "ecl_backtest.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"score_band", "loans", "predicted_base", "predicted_weighted", "predicted_actual_unemployment", "actual"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"score_band", Int64.Type}, {"loans", Int64.Type}, {"predicted_base", type number}, {"predicted_weighted", type number}, {"predicted_actual_unemployment", type number}, {"actual", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

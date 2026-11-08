@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "8c8b399e22b7575198b3",
+  "position": {
+    "x": 224,
+    "y": 192,
+    "z": 5100,
+    "height": 250,
+    "width": 612,
+    "tabOrder": 5100
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_ecl"
+                    }
+                  },
+                  "Property": "stage"
+                }
+              },
+              "queryRef": "fact_ecl.stage",
+              "nativeQueryRef": "stage",
+              "displayName": "Stage"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ECL Loans"
+                }
+              },
+              "queryRef": "_Measures.ECL Loans",
+              "nativeQueryRef": "ECL Loans",
+              "displayName": "Loans"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "EAD"
+                }
+              },
+              "queryRef": "_Measures.EAD",
+              "nativeQueryRef": "EAD",
+              "displayName": "Exposure (EAD)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "PD 12m (EAD-weighted)"
+                }
+              },
+              "queryRef": "_Measures.PD 12m (EAD-weighted)",
+              "nativeQueryRef": "PD 12m (EAD-weighted)",
+              "displayName": "PD 12m"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Lifetime PD (EAD-weighted)"
+                }
+              },
+              "queryRef": "_Measures.Lifetime PD (EAD-weighted)",
+              "nativeQueryRef": "Lifetime PD (EAD-weighted)",
+              "displayName": "Lifetime PD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "LGD (EAD-weighted)"
+                }
+              },
+              "queryRef": "_Measures.LGD (EAD-weighted)",
+              "nativeQueryRef": "LGD (EAD-weighted)",
+              "displayName": "LGD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ECL"
+                }
+              },
+              "queryRef": "_Measures.ECL",
+              "nativeQueryRef": "ECL",
+              "displayName": "ECL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Coverage"
+                }
+              },
+              "queryRef": "_Measures.Coverage",
+              "nativeQueryRef": "Coverage",
+              "displayName": "Coverage"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_ecl"
+                  }
+                },
+                "Property": "stage"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ECL = PD × LGD × EAD, by stage'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Stage 1: 12-month PD · Stage 2 (30+ days late or cured < 6 months): lifetime PD · Stage 3: 90+ days late'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

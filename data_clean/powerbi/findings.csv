@@ -1,0 +1,32 @@
+key,value,finding
+loans,50000.0,"50,000 loans, $797M originated Jan 2021 - Dec 2024, average rate 16.6%"
+default_rate_24m,0.08762753269147866,8.8% of loans issued 2021-2023 defaulted within 24 months
+grade_g_vs_a,9.539439026842263,"the grade ranks risk: 2.8% (A) to 26.8% (G) default within 24 months, 9.5x"
+vintage_2023_24m,0.10062093214633051,the 2023 vintage reached 10.1% defaults by month 24 vs 7.1% for 2021: it met the 2024 unemployment rise early in life
+vintage_2021_24m,0.07062600321027288,
+policy_new_12m,0.06386554621848739,"online loans with DTI 40-50% (allowed from Jul 2023) default at 6.4% in 12 months vs 3.8% for the rest (1.7x); they pay 5.3 pts more interest, more than the ~1.9 pts a year of extra expected loss"
+policy_rest_12m,0.03769687580686806,
+policy_multiple,1.694186715782203,
+policy_rate_gap,5.323648289783254,
+lgd_all,0.723,loss given default 72.3%: 66.3% for homeowners with a mortgage vs 77.4% for renters
+lgd_mortgage,0.663,
+lgd_rent,0.774,
+gini_scorecard_oot,0.3786,the scorecard's Gini on 2023 loans (out of time) is 0.38 vs 0.32 for the lender's grade
+gini_grade_oot,0.3209,
+gini_gb_oot,0.3683,
+ks_scorecard_oot,0.2853,
+band_spread,9.7,the worst score band defaults 9.7x as often as the best
+truth_corr,0.969,all 15 estimated risk effects have the true sign (correlation with the truth 0.97)
+unemployment_beta,0.301,each +1 pt of unemployment raises monthly default starts by 35% (true: 35%)
+ecl_total,6483129.564666216,IFRS 9 ECL at 31 Dec 2025: $6.48M on a $172.6M open book (3.76% coverage)
+ead_total,172625326.61999997,
+coverage_total,0.037599999999999995,
+coverage_s1,0.0218,
+coverage_s2,0.092,
+coverage_s3,0.7265999999999999,
+ecl_downside,8217812.693473312,
+ecl_upside,5540784.202092642,
+backtest_predicted,1524.9,"backtest: at Dec 2024 the model expected 1,525 defaults in 2025 (scenario-weighted); 1,290 happened. With 2025's actual unemployment it would have said 1,371"
+backtest_actual,1290.0,
+backtest_actual_u,1370.7,
+net_loss,38798935.629999995,"$51.6M charged off, $12.8M recovered, net loss $38.8M"

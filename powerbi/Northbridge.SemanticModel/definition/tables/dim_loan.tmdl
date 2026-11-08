@@ -1,0 +1,430 @@
+table dim_loan
+	lineageTag: 85c339cc-5dff-5124-af30-53119dc3e45b
+
+	column loan_id
+		dataType: string
+		isKey
+		lineageTag: 7b2fe11f-1c60-5cb8-85bd-7b1233b78c22
+		summarizeBy: none
+		sourceColumn: loan_id
+
+		annotation SummarizationSetBy = User
+
+	column issue_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: de1ae7dc-d4bf-5ed3-b1d6-67581bace0fb
+		summarizeBy: none
+		sourceColumn: issue_date
+
+		annotation SummarizationSetBy = User
+
+	column issue_month
+		dataType: string
+		isHidden
+		lineageTag: 4c8841e8-42b3-51b6-bd61-1e4338ce5567
+		summarizeBy: none
+		sourceColumn: issue_month
+
+		annotation SummarizationSetBy = User
+
+	column vintage_q
+		dataType: string
+		lineageTag: b10875f9-c3a2-5505-850a-f94109edc59e
+		summarizeBy: none
+		sourceColumn: vintage_q
+
+		annotation SummarizationSetBy = User
+
+	column vintage_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e9f2220-49f1-58eb-99ff-72b13c71903c
+		summarizeBy: none
+		sourceColumn: vintage_year
+
+		annotation SummarizationSetBy = User
+
+	column channel
+		dataType: string
+		lineageTag: bc7c808d-03e7-5df3-88c0-82dbcc24f2bd
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = User
+
+	column region
+		dataType: string
+		lineageTag: f1de5123-e357-5dba-8f8c-410dcf87cdd4
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = User
+
+	column loan_amnt
+		dataType: double
+		isHidden
+		lineageTag: fcd3dab0-4039-5ddc-8c48-640953bd9424
+		summarizeBy: none
+		sourceColumn: loan_amnt
+
+		annotation SummarizationSetBy = User
+
+	column term
+		dataType: string
+		lineageTag: 782fc0cc-fbce-51d3-a853-af4cc603e452
+		summarizeBy: none
+		sourceColumn: term
+
+		annotation SummarizationSetBy = User
+
+	column int_rate
+		dataType: double
+		isHidden
+		lineageTag: 03d2f7d6-8352-5bae-860c-0b26ab1b86a7
+		summarizeBy: none
+		sourceColumn: int_rate
+
+		annotation SummarizationSetBy = User
+
+	column installment
+		dataType: double
+		isHidden
+		lineageTag: 204c0416-13b5-53df-82a1-65a7764479a7
+		summarizeBy: none
+		sourceColumn: installment
+
+		annotation SummarizationSetBy = User
+
+	column grade
+		dataType: string
+		lineageTag: 5f67accb-907e-525a-9dd3-389bf783660f
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column sub_grade
+		dataType: string
+		lineageTag: 824d4000-81cb-51d9-abff-4ec7bbf1b72d
+		summarizeBy: none
+		sourceColumn: sub_grade
+
+		annotation SummarizationSetBy = User
+
+	column purpose
+		dataType: string
+		lineageTag: 09fb5d10-340e-5365-b33c-3bd86753e38b
+		summarizeBy: none
+		sourceColumn: purpose
+
+		annotation SummarizationSetBy = User
+
+	column home_ownership
+		dataType: string
+		lineageTag: 6d8b9262-b836-5930-bccd-785b3deef70d
+		summarizeBy: none
+		sourceColumn: home_ownership
+
+		annotation SummarizationSetBy = User
+
+	column verification_status
+		dataType: string
+		lineageTag: 01990960-d38d-55dc-a2c1-0e401d0f827d
+		summarizeBy: none
+		sourceColumn: verification_status
+
+		annotation SummarizationSetBy = User
+
+	column emp_band
+		dataType: string
+		sortByColumn: emp_order
+		lineageTag: 395a72cc-38a3-5959-b965-c0478efcf774
+		summarizeBy: none
+		sourceColumn: emp_band
+
+		annotation SummarizationSetBy = User
+
+	column fico_score
+		dataType: double
+		isHidden
+		lineageTag: 4dbbd20e-88b7-5e1b-adcb-88a1a9e804da
+		summarizeBy: none
+		sourceColumn: fico_score
+
+		annotation SummarizationSetBy = User
+
+	column fico_band
+		dataType: string
+		lineageTag: 6cb5b56e-727d-52b2-bdf3-10273e22a6a0
+		summarizeBy: none
+		sourceColumn: fico_band
+
+		annotation SummarizationSetBy = User
+
+	column dti
+		dataType: double
+		isHidden
+		lineageTag: 57cfc823-0a33-57a0-837d-40b5f7e86ee1
+		summarizeBy: none
+		sourceColumn: dti
+
+		annotation SummarizationSetBy = User
+
+	column dti_band
+		dataType: string
+		lineageTag: e5712adc-71b6-5221-bf21-ac89be6fc04d
+		summarizeBy: none
+		sourceColumn: dti_band
+
+		annotation SummarizationSetBy = User
+
+	column annual_inc
+		dataType: double
+		isHidden
+		lineageTag: 187b886b-a870-5793-a06d-d41e73afb47f
+		summarizeBy: none
+		sourceColumn: annual_inc
+
+		annotation SummarizationSetBy = User
+
+	column income_band
+		dataType: string
+		sortByColumn: income_order
+		lineageTag: 41f70b7d-1fed-55eb-8059-da12938c3c32
+		summarizeBy: none
+		sourceColumn: income_band
+
+		annotation SummarizationSetBy = User
+
+	column score
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d67d0f50-ed6f-5e21-8c58-27ebc9f3959f
+		summarizeBy: none
+		sourceColumn: score
+
+		annotation SummarizationSetBy = User
+
+	column score_band
+		dataType: int64
+		formatString: 0
+		lineageTag: 933425bc-9c68-514a-875c-eb7f8173f99f
+		summarizeBy: none
+		sourceColumn: score_band
+
+		annotation SummarizationSetBy = User
+
+	column score_range
+		dataType: string
+		lineageTag: 330ea97d-1607-5932-87a1-37040a7ff68a
+		summarizeBy: none
+		sourceColumn: score_range
+
+		annotation SummarizationSetBy = User
+
+	column pd_24m
+		dataType: double
+		isHidden
+		lineageTag: 4eb66671-f478-51f1-85b5-182f5eeb8be9
+		summarizeBy: none
+		sourceColumn: pd_24m
+
+		annotation SummarizationSetBy = User
+
+	column status_now
+		dataType: string
+		sortByColumn: status_order
+		lineageTag: 45e01e82-aba9-56f8-b6f1-0c12fd60e3a2
+		summarizeBy: none
+		sourceColumn: status_now
+
+		annotation SummarizationSetBy = User
+
+	column status_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f473416-e8be-54e1-ad8f-8a9bac7ee955
+		summarizeBy: none
+		sourceColumn: status_order
+
+		annotation SummarizationSetBy = User
+
+	column months_observed
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5ee1d6a8-35be-5a11-9138-a6712a479633
+		summarizeBy: none
+		sourceColumn: months_observed
+
+		annotation SummarizationSetBy = User
+
+	column months_available
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c9534ddb-0c49-5a7f-aea1-66bdf9b0cd9e
+		summarizeBy: none
+		sourceColumn: months_available
+
+		annotation SummarizationSetBy = User
+
+	column defaulted
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1dc680b5-0446-549c-82d7-2424c8538b88
+		summarizeBy: none
+		sourceColumn: defaulted
+
+		annotation SummarizationSetBy = User
+
+	column default_month
+		dataType: string
+		isHidden
+		lineageTag: a43dd50a-9ad4-5cce-b937-13ac72d7c2a9
+		summarizeBy: none
+		sourceColumn: default_month
+
+		annotation SummarizationSetBy = User
+
+	column default_mob
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f51b522a-edf4-5f0c-8bcf-ffebd6e599ed
+		summarizeBy: none
+		sourceColumn: default_mob
+
+		annotation SummarizationSetBy = User
+
+	column default_12m
+		dataType: double
+		isHidden
+		lineageTag: 30b8c890-6d77-5be8-a3c7-9fcaa91f3616
+		summarizeBy: none
+		sourceColumn: default_12m
+
+		annotation SummarizationSetBy = User
+
+	column default_24m
+		dataType: double
+		isHidden
+		lineageTag: 98a4c8b9-b9f8-5db5-b185-5ddf0e001907
+		summarizeBy: none
+		sourceColumn: default_24m
+
+		annotation SummarizationSetBy = User
+
+	column charge_off_amount
+		dataType: double
+		isHidden
+		lineageTag: dc98da3f-da32-526d-9847-ac7fcf902bd6
+		summarizeBy: none
+		sourceColumn: charge_off_amount
+
+		annotation SummarizationSetBy = User
+
+	column recoveries
+		dataType: double
+		isHidden
+		lineageTag: 1d9b0c99-5f21-5e3d-b70a-167f7dd7b8f9
+		summarizeBy: none
+		sourceColumn: recoveries
+
+		annotation SummarizationSetBy = User
+
+	column net_loss
+		dataType: double
+		isHidden
+		lineageTag: 34824713-351d-5de9-9d78-84e575f71baa
+		summarizeBy: none
+		sourceColumn: net_loss
+
+		annotation SummarizationSetBy = User
+
+	column balance_now
+		dataType: double
+		isHidden
+		lineageTag: d32d1c34-eca1-5c16-83fe-cffa0a5f684f
+		summarizeBy: none
+		sourceColumn: balance_now
+
+		annotation SummarizationSetBy = User
+
+	column is_open
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 99ba29d7-b0f0-538b-9825-758af72d1e2c
+		summarizeBy: none
+		sourceColumn: is_open
+
+		annotation SummarizationSetBy = User
+
+	column policy_group
+		dataType: string
+		sortByColumn: policy_order
+		lineageTag: 7b1ed558-803f-576a-ae1c-3c89446f566d
+		summarizeBy: none
+		sourceColumn: policy_group
+
+		annotation SummarizationSetBy = User
+
+	column stage_2025
+		dataType: string
+		lineageTag: 6db75e9d-696f-546a-bb03-3d9b2d2d68a1
+		summarizeBy: none
+		sourceColumn: stage_2025
+
+		annotation SummarizationSetBy = User
+
+	column emp_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fa6b9d1d-d27c-5650-a21c-bdeae033e328
+		summarizeBy: none
+		sourceColumn: emp_order
+
+		annotation SummarizationSetBy = User
+
+	column income_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 89798a30-247a-5191-a838-fd5f0b2039c6
+		summarizeBy: none
+		sourceColumn: income_order
+
+		annotation SummarizationSetBy = User
+
+	column policy_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2c44313e-b3ee-54a7-932c-d64e490475dd
+		summarizeBy: none
+		sourceColumn: policy_order
+
+		annotation SummarizationSetBy = User
+
+	partition dim_loan = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_loan.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"loan_id", "issue_date", "issue_month", "vintage_q", "vintage_year", "channel", "region", "loan_amnt", "term", "int_rate", "installment", "grade", "sub_grade", "purpose", "home_ownership", "verification_status", "emp_band", "fico_score", "fico_band", "dti", "dti_band", "annual_inc", "income_band", "score", "score_band", "score_range", "pd_24m", "status_now", "status_order", "months_observed", "months_available", "defaulted", "default_month", "default_mob", "default_12m", "default_24m", "charge_off_amount", "recoveries", "net_loss", "balance_now", "is_open", "policy_group", "stage_2025"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"loan_id", type text}, {"issue_date", type date}, {"issue_month", type text}, {"vintage_q", type text}, {"vintage_year", Int64.Type}, {"channel", type text}, {"region", type text}, {"loan_amnt", type number}, {"term", type text}, {"int_rate", type number}, {"installment", type number}, {"grade", type text}, {"sub_grade", type text}, {"purpose", type text}, {"home_ownership", type text}, {"verification_status", type text}, {"emp_band", type text}, {"fico_score", type number}, {"fico_band", type text}, {"dti", type number}, {"dti_band", type text}, {"annual_inc", type number}, {"income_band", type text}, {"score", Int64.Type}, {"score_band", Int64.Type}, {"score_range", type text}, {"pd_24m", type number}, {"status_now", type text}, {"status_order", Int64.Type}, {"months_observed", Int64.Type}, {"months_available", Int64.Type}, {"defaulted", Int64.Type}, {"default_month", type text}, {"default_mob", Int64.Type}, {"default_12m", type number}, {"default_24m", type number}, {"charge_off_amount", type number}, {"recoveries", type number}, {"net_loss", type number}, {"balance_now", type number}, {"is_open", Int64.Type}, {"policy_group", type text}, {"stage_2025", type text}}, "en-US"),
+				    Ord_emp_order = Table.AddColumn(Typed, "emp_order", each if [emp_band] = null then null else List.PositionOf({"< 1 year", "1-4 years", "5-9 years", "10+ years", "Unknown"}, [emp_band]) + 1, Int64.Type),
+				    Ord_income_order = Table.AddColumn(Ord_emp_order, "income_order", each if [income_band] = null then null else List.PositionOf({"< $40k", "$40-60k", "$60-80k", "$80-120k", "$120k+", "Missing"}, [income_band]) + 1, Int64.Type),
+				    Ord_policy_order = Table.AddColumn(Ord_income_order, "policy_order", each if [policy_group] = null then null else List.PositionOf({"Before · DTI ≤ 40%", "After · DTI ≤ 40%", "After · DTI 40-50% (new)"}, [policy_group]) + 1, Int64.Type)
+				in
+				    Ord_policy_order
+
+	annotation PBI_ResultType = Table

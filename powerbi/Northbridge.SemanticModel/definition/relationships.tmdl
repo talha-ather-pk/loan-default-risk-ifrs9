@@ -1,0 +1,24 @@
+relationship d3e8e8a5-044e-51d7-8acd-ebcfa562ce68
+	fromColumn: fact_loan_month.loan_id
+	toColumn: dim_loan.loan_id
+
+relationship 94773198-5071-5631-8305-6e2044427381
+	fromColumn: fact_loan_month.month
+	toColumn: dim_month.month
+
+relationship 878d6277-b008-5a96-8764-12a18ad7c9bc
+	fromColumn: fact_recovery.loan_id
+	toColumn: dim_loan.loan_id
+
+relationship 65b37dfb-2949-5cbd-8202-7e8988b00a18
+	fromColumn: fact_recovery.month
+	toColumn: dim_month.month
+
+relationship c263e416-b8c7-5524-aaa9-76564dc657c8
+	fromColumn: fact_ecl.loan_id
+	toColumn: dim_loan.loan_id
+
+relationship 62e83acf-ff1a-5722-b813-970843320e29
+	isActive: false
+	fromColumn: dim_loan.issue_month
+	toColumn: dim_month.month

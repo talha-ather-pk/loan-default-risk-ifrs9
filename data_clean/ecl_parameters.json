@@ -1,0 +1,105 @@
+{
+  "scenarios": {
+    "Upside": {
+      "unemployment_shift_pts": -0.7,
+      "weight": 0.2
+    },
+    "Base": {
+      "unemployment_shift_pts": 0.0,
+      "weight": 0.6
+    },
+    "Downside": {
+      "unemployment_shift_pts": 1.5,
+      "weight": 0.2
+    }
+  },
+  "2025-12": {
+    "monthly_prepayment_rate": 0.0136,
+    "probation_multiplier": 1.062,
+    "unemployment_beta": 0.301,
+    "unemployment_history_avg": 4.75,
+    "unemployment_at_date": 4.3,
+    "roll_30_to_60": 0.514,
+    "roll_60_to_90": 0.495,
+    "lgd": {
+      "MORTGAGE": 0.663,
+      "OWN": 0.718,
+      "RENT": 0.774,
+      "ALL": 0.723
+    },
+    "charge_offs_for_lgd": 3073,
+    "score_band_relative_risk": {
+      "1": 0.25,
+      "2": 0.39,
+      "3": 0.5,
+      "4": 0.57,
+      "5": 0.84,
+      "6": 0.9,
+      "7": 1.13,
+      "8": 1.35,
+      "9": 1.66,
+      "10": 2.68
+    }
+  },
+  "2024-12": {
+    "monthly_prepayment_rate": 0.0137,
+    "probation_multiplier": 1.077,
+    "unemployment_beta": 0.289,
+    "unemployment_history_avg": 4.85,
+    "unemployment_at_date": 4.7,
+    "roll_30_to_60": 0.52,
+    "roll_60_to_90": 0.508,
+    "lgd": {
+      "MORTGAGE": 0.66,
+      "OWN": 0.708,
+      "RENT": 0.771,
+      "ALL": 0.718
+    },
+    "charge_offs_for_lgd": 1369,
+    "score_band_relative_risk": {
+      "1": 0.26,
+      "2": 0.39,
+      "3": 0.46,
+      "4": 0.55,
+      "5": 0.88,
+      "6": 0.88,
+      "7": 1.2,
+      "8": 1.36,
+      "9": 1.66,
+      "10": 2.61
+    }
+  },
+  "coverage_by_grade_2025_pct": {
+    "A": 1.63,
+    "B": 2.44,
+    "C": 3.65,
+    "D": 4.9,
+    "E": 5.69,
+    "F": 7.69,
+    "G": 9.88
+  },
+  "backtest_2025": {
+    "loans": 30641,
+    "predicted_weighted": 1524.9,
+    "predicted_base": 1446.5,
+    "predicted_with_actual_2025_unemployment": 1370.7,
+    "unemployment_2025_actual_avg": 4.46,
+    "actual": 1290,
+    "by_stage": [
+      {
+        "stage": 1,
+        "loans": 27928,
+        "predicted": 1134.8,
+        "predicted_actual_unemployment": 993.0,
+        "actual": 927
+      },
+      {
+        "stage": 2,
+        "loans": 2713,
+        "predicted": 390.1,
+        "predicted_actual_unemployment": 377.7,
+        "actual": 363
+      }
+    ]
+  }
+}

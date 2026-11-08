@@ -1,0 +1,18 @@
+table dim_mob
+	lineageTag: a81714a6-85d4-5ed0-a41a-55a57b2eb970
+
+	column mob
+		dataType: int64
+		formatString: 0
+		lineageTag: a972d1a3-cf2b-5801-89b7-50597f48e171
+		summarizeBy: none
+		sourceColumn: mob
+
+		annotation SummarizationSetBy = User
+
+	partition dim_mob = m
+		mode: import
+		source =
+				Table.FromList({1..48}, Splitter.SplitByNothing(), type table [mob = Int64.Type])
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,120 @@
+table fact_loan_month
+	lineageTag: e2c1f11a-6771-5ca0-93dd-d3effba79818
+
+	column loan_id
+		dataType: string
+		isHidden
+		lineageTag: 487bbf4c-5486-5a84-b16d-1ca78f7a40f1
+		summarizeBy: none
+		sourceColumn: loan_id
+
+		annotation SummarizationSetBy = User
+
+	column month
+		dataType: string
+		isHidden
+		lineageTag: e84472f3-5661-507f-8ef9-19096630280b
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column mob
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9968b35d-9a12-58d4-a58f-3158e6fe8905
+		summarizeBy: none
+		sourceColumn: mob
+
+		annotation SummarizationSetBy = User
+
+	column status
+		dataType: string
+		sortByColumn: status_order
+		lineageTag: 0e6172ed-88ca-5eac-af21-c72d835083a0
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = User
+
+	column days_past_due
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c480aabf-a3a2-501d-b590-c72c3563be25
+		summarizeBy: none
+		sourceColumn: days_past_due
+
+		annotation SummarizationSetBy = User
+
+	column amount_paid
+		dataType: double
+		isHidden
+		lineageTag: c96878b0-a193-506d-9b41-52c934dd535d
+		summarizeBy: none
+		sourceColumn: amount_paid
+
+		annotation SummarizationSetBy = User
+
+	column balance_end
+		dataType: double
+		isHidden
+		lineageTag: 48254cb5-23b9-57de-b99b-2c4211d4bb43
+		summarizeBy: none
+		sourceColumn: balance_end
+
+		annotation SummarizationSetBy = User
+
+	column charge_off_amount
+		dataType: double
+		isHidden
+		lineageTag: 4e0027ca-7e25-53a2-8005-4fe31edcbd14
+		summarizeBy: none
+		sourceColumn: charge_off_amount
+
+		annotation SummarizationSetBy = User
+
+	column next_status
+		dataType: string
+		sortByColumn: next_order
+		lineageTag: 0bdbebff-ed21-5d55-9915-f98c97639b79
+		summarizeBy: none
+		sourceColumn: next_status
+
+		annotation SummarizationSetBy = User
+
+	column status_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0ae820c6-f85a-5a27-9165-bd12cb8e32d7
+		summarizeBy: none
+		sourceColumn: status_order
+
+		annotation SummarizationSetBy = User
+
+	column next_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 529853ee-b53b-5954-a435-e41ab4cd6a40
+		summarizeBy: none
+		sourceColumn: next_order
+
+		annotation SummarizationSetBy = User
+
+	partition fact_loan_month = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Binary.Decompress(File.Contents(DataFolder & "fact_loan_month.csv.gz"), Compression.GZip), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"loan_id", "month", "mob", "status", "days_past_due", "amount_paid", "balance_end", "charge_off_amount", "next_status", "status_order"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"loan_id", type text}, {"month", type text}, {"mob", Int64.Type}, {"status", type text}, {"days_past_due", Int64.Type}, {"amount_paid", type number}, {"balance_end", type number}, {"charge_off_amount", type number}, {"next_status", type text}, {"status_order", Int64.Type}}, "en-US"),
+				    Ord_next_order = Table.AddColumn(Typed, "next_order", each if [next_status] = null then null else List.PositionOf({"Current", "30 DPD", "60 DPD", "90+ DPD", "Charged Off", "Prepaid", "Fully Paid"}, [next_status]) + 1, Int64.Type)
+				in
+				    Ord_next_order
+
+	annotation PBI_ResultType = Table

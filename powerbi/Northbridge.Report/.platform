@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Northbridge"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "420a070f-95a1-578b-b070-5a75c2c03c76"
+  }
+}

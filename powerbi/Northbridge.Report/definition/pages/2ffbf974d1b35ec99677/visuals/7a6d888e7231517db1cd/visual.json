@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "7a6d888e7231517db1cd",
+  "position": {
+    "x": 736,
+    "y": 454,
+    "z": 5400,
+    "height": 250,
+    "width": 528,
+    "tabOrder": 5400
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ECL Rank"
+                }
+              },
+              "queryRef": "_Measures.ECL Rank",
+              "nativeQueryRef": "ECL Rank",
+              "displayName": "#"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "loan_id"
+                }
+              },
+              "queryRef": "dim_loan.loan_id",
+              "nativeQueryRef": "loan_id",
+              "displayName": "Loan"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "sub_grade"
+                }
+              },
+              "queryRef": "dim_loan.sub_grade",
+              "nativeQueryRef": "sub_grade",
+              "displayName": "Grade"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_loan"
+                    }
+                  },
+                  "Property": "stage_2025"
+                }
+              },
+              "queryRef": "dim_loan.stage_2025",
+              "nativeQueryRef": "stage_2025",
+              "displayName": "Stage"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "EAD"
+                }
+              },
+              "queryRef": "_Measures.EAD",
+              "nativeQueryRef": "EAD",
+              "displayName": "EAD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "PD 12m (EAD-weighted)"
+                }
+              },
+              "queryRef": "_Measures.PD 12m (EAD-weighted)",
+              "nativeQueryRef": "PD 12m (EAD-weighted)",
+              "displayName": "PD 12m"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ECL"
+                }
+              },
+              "queryRef": "_Measures.ECL",
+              "nativeQueryRef": "ECL",
+              "displayName": "ECL"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "ECL"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Largest expected losses'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Right-click a loan → Drill through → Loan Detail'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

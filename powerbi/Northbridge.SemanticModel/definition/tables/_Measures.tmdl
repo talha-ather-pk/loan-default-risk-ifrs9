@@ -1,0 +1,851 @@
+table _Measures
+	lineageTag: cd041ea2-4647-5500-b24d-0c06a0c92d4e
+
+	measure Loans = COUNTROWS ( dim_loan )
+		formatString: #,0
+		displayFolder: 1 Portfolio
+		lineageTag: 8549214a-1ad1-5c8c-a998-88a63281c868
+
+	measure 'Amount Lent' = SUM ( dim_loan[loan_amnt] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 7feb905b-e013-511f-a78d-0133226c463e
+
+	measure 'Avg Loan' = DIVIDE ( [Amount Lent], [Loans] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 7f278cb0-ced8-5699-94a0-b4649362e343
+
+	measure 'Avg Rate' = DIVIDE ( SUMX ( dim_loan, dim_loan[int_rate] * dim_loan[loan_amnt] ), [Amount Lent] ) / 100
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 48b9b430-e703-569e-b1a1-2776a92cc7c3
+
+	measure Defaults = SUM ( dim_loan[defaulted] )
+		formatString: #,0
+		displayFolder: 1 Portfolio
+		lineageTag: 7446a64a-2d1c-5b70-828b-5d08aa2b521a
+
+	measure 'Default Rate 24m' = DIVIDE ( SUM ( dim_loan[default_24m] ), COUNT ( dim_loan[default_24m] ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 3bb08367-64c2-5e08-8030-deae8dd61823
+
+	measure 'Default Rate 12m' = DIVIDE ( SUM ( dim_loan[default_12m] ), COUNT ( dim_loan[default_12m] ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 9f2a3eb6-e4fb-52e5-aa8b-3543287043d9
+
+	measure 'Charged Off' = SUM ( dim_loan[charge_off_amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 86ede371-1520-5c07-962a-dc00ba19f5c2
+
+	measure Recovered = SUM ( dim_loan[recoveries] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: b48714e1-4a8b-5aab-9d56-bfd76adf6535
+
+	measure 'Net Loss' = [Charged Off] - [Recovered]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: f5ee3720-abf7-5698-aaee-d705e168d4a2
+
+	measure 'Net Loss Rate' = DIVIDE ( [Net Loss], [Amount Lent] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: b447fb52-946c-5b38-9f4a-701b42ec115c
+
+	measure 'Recovery Rate' = DIVIDE ( [Recovered], [Charged Off] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 42b553a4-9339-5581-a6fb-2465900a0109
+
+	measure 'Book Balance' = CALCULATE ( SUM ( fact_loan_month[balance_end] ), KEEPFILTERS ( fact_loan_month[status] IN { "Current", "30 DPD", "60 DPD", "90+ DPD" } ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: c1457b6a-6214-5efb-8267-8211f5e36872
+
+	measure 'Open Balance' = CALCULATE ( [Book Balance], fact_loan_month[month] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: fae2abd6-bb01-530c-a364-af7cec567f8b
+
+	measure 'Open Loans' = CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[month] = "2025-12", fact_loan_month[status] IN { "Current", "30 DPD", "60 DPD", "90+ DPD" } )
+		formatString: #,0
+		displayFolder: 1 Portfolio
+		lineageTag: 6f427871-0dbb-59d4-a521-0eac4de4c4ee
+
+	measure 'Arrears Balance' = CALCULATE ( [Book Balance], KEEPFILTERS ( fact_loan_month[status] IN { "30 DPD", "60 DPD", "90+ DPD" } ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 880ed57f-cc30-5799-b6d1-d0eea2c40e3d
+
+	measure 'Arrears Share' = DIVIDE ( [Arrears Balance], [Book Balance] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 0b87931f-557c-5d90-a94c-f3a2da3f3111
+
+	measure 'Arrears Share Now' = CALCULATE ( [Arrears Share], fact_loan_month[month] = "2025-12" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 3dab1328-3def-5420-abed-b5149bb6f97a
+
+	measure 'New Defaults' = CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[status] = "90+ DPD", fact_loan_month[days_past_due] = 90 )
+		formatString: #,0
+		displayFolder: 1 Portfolio
+		lineageTag: 713b35d7-08e1-5200-9f4f-46c6b3d56bd4
+
+	measure 'Performing Loans' = CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[status] IN { "Current", "30 DPD", "60 DPD" } )
+		formatString: #,0
+		displayFolder: 1 Portfolio
+		lineageTag: 54fab0e4-de9e-528e-bae8-72e5a6e92f3a
+
+	measure 'Defaults per 1,000' = DIVIDE ( [New Defaults], [Performing Loans] ) * 1000
+		formatString: #,0.00
+		displayFolder: 1 Portfolio
+		lineageTag: 8c835509-73aa-5102-85bc-5ad1bcdcccc3
+
+	measure Unemployment = DIVIDE ( AVERAGE ( dim_month[unemployment_rate] ), 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1 Portfolio
+		lineageTag: 07befff3-e1c5-5eae-830f-7d6904cbe19f
+
+	measure Originations = CALCULATE ( [Amount Lent], USERELATIONSHIP ( dim_loan[issue_month], dim_month[month] ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: c301a511-4403-55ba-9482-74ddd6f9fe2e
+
+	measure Collections = SUM ( fact_loan_month[amount_paid] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 5134c3b4-84c5-522c-a35d-ce0289506b55
+
+	measure 'Recoveries in Month' = SUM ( fact_recovery[recovery_amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1 Portfolio
+		lineageTag: 511f1633-728f-5162-9e4d-9e56d48ea35e
+
+	measure 'Avg FICO' = AVERAGE ( dim_loan[fico_score] )
+		formatString: #,0
+		displayFolder: 2 Risk
+		lineageTag: 318719e6-8e2f-5078-9bbc-4b97090cad87
+
+	measure 'Avg DTI' = DIVIDE ( AVERAGE ( dim_loan[dti] ), 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 18f2b2ef-462e-5ab9-9169-6596ef232752
+
+	measure 'Avg Income' = AVERAGE ( dim_loan[annual_inc] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 2 Risk
+		lineageTag: d8c67542-0511-5ec0-9769-bf54eb94ba2d
+
+	measure 'FICO Multiple' = DIVIDE ( CALCULATE ( [Default Rate 24m], dim_loan[fico_band] = "620-659" ), CALCULATE ( [Default Rate 24m], dim_loan[fico_band] = "780+" ) )
+		formatString: 0.0"x"
+		displayFolder: 2 Risk
+		lineageTag: 85744750-36d4-5643-8c2c-437e395dece9
+
+	measure 'Riskiest Purpose' = VAR t = ADDCOLUMNS ( VALUES ( dim_loan[purpose] ), "@v", [Default Rate 24m] ) RETURN MAXX ( TOPN ( 1, t, [@v], DESC ), dim_loan[purpose] )
+		displayFolder: 2 Risk
+		lineageTag: c3bb6934-96c5-53f9-8e4c-88722b2952f1
+
+	measure 'Riskiest Purpose Rate' = MAXX ( VALUES ( dim_loan[purpose] ), [Default Rate 24m] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 691291aa-3701-5c75-9d70-ba8e37be5cad
+
+	measure 'Policy Multiple' = CALCULATE ( MAX ( findings[value] ), findings[key] = "policy_multiple" )
+		formatString: 0.0"x"
+		displayFolder: 2 Risk
+		lineageTag: db58a266-e974-5ebf-b179-1b4384502347
+
+	measure 'Policy New 12m' = CALCULATE ( MAX ( findings[value] ), findings[key] = "policy_new_12m" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 405f7f80-bfc7-556c-8177-a3cc74c5bfe8
+
+	measure 'Policy Rest 12m' = CALCULATE ( MAX ( findings[value] ), findings[key] = "policy_rest_12m" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 26fa2064-6435-51f8-adae-a5e6bc8002ce
+
+	measure 'Policy Rate Gap' = CALCULATE ( MAX ( findings[value] ), findings[key] = "policy_rate_gap" )
+		formatString: +0.0" pts"
+		displayFolder: 2 Risk
+		lineageTag: 4d328b15-c289-5b5d-a447-48dfa76f5f25
+
+	measure LGD = CALCULATE ( MAX ( findings[value] ), findings[key] = "lgd_all" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: d6ced190-1640-5ee4-ab29-699e70a2bed5
+
+	measure 'LGD Mortgage' = CALCULATE ( MAX ( findings[value] ), findings[key] = "lgd_mortgage" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 68ff8427-2901-59de-a116-3f0cdff1cd9e
+
+	measure 'LGD Rent' = CALCULATE ( MAX ( findings[value] ), findings[key] = "lgd_rent" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: 200e8368-c44c-5be7-a6c3-e118102c7da0
+
+	measure 'Cum Default Rate' = VAR m = MAX ( dim_mob[mob] ) VAR avail = MIN ( dim_loan[months_available] ) RETURN IF ( m > avail, BLANK (), DIVIDE ( CALCULATE ( COUNTROWS ( dim_loan ), NOT ISBLANK ( dim_loan[default_mob] ), dim_loan[default_mob] <= m ), [Loans] ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: 16a09cc3-95b4-571d-8fba-fe01892dec59
+
+	measure 'Vintage 2023 at 24m' = CALCULATE ( MAX ( findings[value] ), findings[key] = "vintage_2023_24m" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: 5403e6c7-e3da-5743-8623-166c7e1dfe60
+
+	measure 'Vintage 2021 at 24m' = CALCULATE ( MAX ( findings[value] ), findings[key] = "vintage_2021_24m" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: 2de53578-fb17-512f-9366-e5d15bbd9d0c
+
+	measure 'Roll Rate' = IF ( SELECTEDVALUE ( fact_loan_month[status] ) IN { "Current", "30 DPD", "60 DPD" } && NOT ISBLANK ( SELECTEDVALUE ( fact_loan_month[next_status] ) ), DIVIDE ( COUNTROWS ( fact_loan_month ), CALCULATE ( COUNTROWS ( fact_loan_month ), REMOVEFILTERS ( fact_loan_month[next_status], fact_loan_month[next_order] ), NOT ISBLANK ( fact_loan_month[next_status] ) ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: 942031c9-b4a4-52d5-a6a2-cba0512b30e6
+
+	measure 'Roll 30 to 60' = CALCULATE ( DIVIDE ( CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[next_status] = "60 DPD" ), CALCULATE ( COUNTROWS ( fact_loan_month ), NOT ISBLANK ( fact_loan_month[next_status] ) ) ), fact_loan_month[status] = "30 DPD" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: a1dae64d-809c-5e63-b278-525793bd8a60
+
+	measure 'Roll 60 to 90' = CALCULATE ( DIVIDE ( CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[next_status] = "90+ DPD" ), CALCULATE ( COUNTROWS ( fact_loan_month ), NOT ISBLANK ( fact_loan_month[next_status] ) ) ), fact_loan_month[status] = "60 DPD" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: e9fd6531-7e5f-5bb3-8917-67b244e143bd
+
+	measure 'Cure from 30' = CALCULATE ( DIVIDE ( CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[next_status] = "Current" ), CALCULATE ( COUNTROWS ( fact_loan_month ), NOT ISBLANK ( fact_loan_month[next_status] ) ) ), fact_loan_month[status] = "30 DPD" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Vintages
+		lineageTag: 898f6d4e-ef2c-5296-9d13-2023505bf396
+
+	measure 'Roll Current to 30' = CALCULATE ( DIVIDE ( CALCULATE ( COUNTROWS ( fact_loan_month ), fact_loan_month[next_status] = "30 DPD" ), CALCULATE ( COUNTROWS ( fact_loan_month ), NOT ISBLANK ( fact_loan_month[next_status] ) ) ), fact_loan_month[status] = "Current" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 3 Vintages
+		lineageTag: f1fd18c7-8a25-5727-93aa-7bfca3d1a097
+
+	measure 'Unemployment Sensitivity' = EXP ( CALCULATE ( MAX ( findings[value] ), findings[key] = "unemployment_beta" ) ) - 1
+		formatString: +0%;-0%;0%
+		displayFolder: 3 Vintages
+		lineageTag: 6ca945e6-668e-5000-bc6e-95d88da6c6e3
+
+	measure 'Roll Heat' = VAR r = [Roll Rate] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.6, "#1F4E79", r > 0.3, "#4F7BA6", r > 0.1, "#8FB0CF", r > 0.01, "#C9D8E8", "#F3F6FA" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 8f639639-159b-5975-b2ce-95b6fd2a5b81
+
+	measure 'Roll Heat Font' = IF ( [Roll Rate] > 0.3, "#FFFFFF", "#1E293B" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: f85c60b1-8eed-5bd8-97db-15e35ebb7c0e
+
+	measure 'Gini Scorecard' = CALCULATE ( MAX ( findings[value] ), findings[key] = "gini_scorecard_oot" )
+		formatString: #,0.00
+		displayFolder: 4 Scorecard
+		lineageTag: b6885834-a66a-5565-88a1-66c98a192271
+
+	measure 'Gini Grade' = CALCULATE ( MAX ( findings[value] ), findings[key] = "gini_grade_oot" )
+		formatString: #,0.00
+		displayFolder: 4 Scorecard
+		lineageTag: 528452a2-3899-5094-ae1c-adc1b773d878
+
+	measure 'KS Scorecard' = CALCULATE ( MAX ( findings[value] ), findings[key] = "ks_scorecard_oot" )
+		formatString: #,0.00
+		displayFolder: 4 Scorecard
+		lineageTag: e2c41ab4-2fe9-52d3-9dcd-4212de8e3af1
+
+	measure 'Band Spread' = CALCULATE ( MAX ( findings[value] ), findings[key] = "band_spread" )
+		formatString: 0.0"x"
+		displayFolder: 4 Scorecard
+		lineageTag: 01b5eac4-4185-5dd8-8431-7b1061b2aef1
+
+	measure 'Truth Correlation' = CALCULATE ( MAX ( findings[value] ), findings[key] = "truth_corr" )
+		formatString: #,0.00
+		displayFolder: 4 Scorecard
+		lineageTag: af50f296-f108-577d-a0a3-22281f49d507
+
+	measure AUC = SUM ( model_metrics[auc] )
+		formatString: 0.000
+		displayFolder: 4 Scorecard
+		lineageTag: 4a2f8fd8-1bc1-5f6d-9151-e498dda9e4f6
+
+	measure Gini = SUM ( model_metrics[gini] )
+		formatString: 0.000
+		displayFolder: 4 Scorecard
+		lineageTag: 12689960-9ce5-5680-9bae-64d1ee3e7ab8
+
+	measure KS = SUM ( model_metrics[ks] )
+		formatString: 0.000
+		displayFolder: 4 Scorecard
+		lineageTag: 30e7ad25-60fd-520d-902a-88f276841cde
+
+	measure 'Predicted PD' = DIVIDE ( SUM ( score_bands[predicted_pd_pct] ), 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4 Scorecard
+		lineageTag: c9fb52f6-be04-5ab1-a94e-786d82474aa7
+
+	measure 'Actual Default' = DIVIDE ( SUM ( score_bands[actual_default_pct] ), 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4 Scorecard
+		lineageTag: 48f14a04-ea08-5b8c-b273-0bf61497bdf2
+
+	measure Points = SUM ( scorecard[points] )
+		formatString: #,0
+		displayFolder: 4 Scorecard
+		lineageTag: 27047ae9-0ee1-5aaf-b9fa-0e29b8bc7854
+
+	measure 'Bin Bad Rate' = DIVIDE ( SUM ( scorecard[bad_rate_pct] ), 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4 Scorecard
+		lineageTag: b0da96cf-1f24-5649-a908-6e615ab1256d
+
+	measure WoE = SUM ( scorecard[woe] )
+		formatString: #,0.00
+		displayFolder: 4 Scorecard
+		lineageTag: 380bd6c7-c81d-58fb-ad96-5d969f5fbbba
+
+	measure 'Bin Loans' = SUM ( scorecard[loans] )
+		formatString: #,0
+		displayFolder: 4 Scorecard
+		lineageTag: 846b0474-29ab-5fe2-92fc-613c89c85369
+
+	measure 'Sort Key' = MIN ( scorecard[sort_key] )
+		formatString: #,0
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 6db13970-985e-514c-91a6-eb87d14aaef1
+
+	measure 'True Effect' = SUM ( truth_check[true] )
+		formatString: 0.000
+		displayFolder: 4 Scorecard
+		lineageTag: 7e6e6b85-6a95-5eea-9c31-7dc33ececf53
+
+	measure 'Estimated Effect' = SUM ( truth_check[estimated] )
+		formatString: 0.000
+		displayFolder: 4 Scorecard
+		lineageTag: fa3af927-9ba9-5aad-b008-422f3b0ef81c
+
+	measure 'Avg Score' = AVERAGE ( dim_loan[score] )
+		formatString: #,0
+		displayFolder: 4 Scorecard
+		lineageTag: 96d66299-696e-5133-93d6-0396ccdc62d8
+
+	measure 'Avg PD 24m' = AVERAGE ( dim_loan[pd_24m] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4 Scorecard
+		lineageTag: 1d1cb3c5-8480-57dd-bffe-b9454ced78f4
+
+	measure ECL = CALCULATE ( SUM ( fact_ecl[ecl] ), fact_ecl[asof] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: f5c657fe-a175-54d3-9212-372a1af71ecc
+
+	measure EAD = CALCULATE ( SUM ( fact_ecl[ead] ), fact_ecl[asof] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: cf49bd2e-9fb6-5a61-b91e-8c74ba8b51f9
+
+	measure Coverage = DIVIDE ( [ECL], [EAD] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: e5300f0d-ddc3-56f9-b921-ecc6793b9bb3
+
+	measure 'ECL Loans' = CALCULATE ( COUNTROWS ( fact_ecl ), fact_ecl[asof] = "2025-12" )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: dc7b1615-a7a4-567f-a7d2-9219a7d5d1c0
+
+	measure 'ECL Base' = CALCULATE ( SUM ( fact_ecl[ecl_Base] ), fact_ecl[asof] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 2ce7840d-8079-53b0-88e4-0befadc55fd4
+
+	measure 'ECL Upside' = CALCULATE ( SUM ( fact_ecl[ecl_Upside] ), fact_ecl[asof] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 688d5c04-af61-554b-8ab5-d5c22ec1f39e
+
+	measure 'ECL Downside' = CALCULATE ( SUM ( fact_ecl[ecl_Downside] ), fact_ecl[asof] = "2025-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 1123bbbd-81e8-5989-92d5-3ff8d890f50c
+
+	measure 'ECL Dec 2024' = CALCULATE ( SUM ( fact_ecl[ecl] ), fact_ecl[asof] = "2024-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: d993f537-f067-5273-92bd-343a632ad0a9
+
+	measure 'EAD Dec 2024' = CALCULATE ( SUM ( fact_ecl[ead] ), fact_ecl[asof] = "2024-12" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 81919952-d31d-5a48-813f-f68a52ea2d98
+
+	measure 'Coverage Dec 2024' = DIVIDE ( [ECL Dec 2024], [EAD Dec 2024] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 37b7d25b-3297-52c0-8887-1b74b55d5be1
+
+	measure 'PD 12m (EAD-weighted)' = CALCULATE ( DIVIDE ( SUMX ( fact_ecl, fact_ecl[pd12] * fact_ecl[ead] ), SUM ( fact_ecl[ead] ) ), fact_ecl[asof] = "2025-12" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 49f13d03-bb89-510a-9f03-e4e74ae32afa
+
+	measure 'Lifetime PD (EAD-weighted)' = CALCULATE ( DIVIDE ( SUMX ( fact_ecl, fact_ecl[pd_life] * fact_ecl[ead] ), SUM ( fact_ecl[ead] ) ), fact_ecl[asof] = "2025-12" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 94474b7d-2b8d-57ed-9ccc-b90b995adb05
+
+	measure 'LGD (EAD-weighted)' = CALCULATE ( DIVIDE ( SUMX ( fact_ecl, fact_ecl[lgd] * fact_ecl[ead] ), SUM ( fact_ecl[ead] ) ), fact_ecl[asof] = "2025-12" )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5 IFRS 9
+		lineageTag: 472cd307-0a3c-557d-8b68-ac0926eaca18
+
+	measure 'ECL Stage 1' = CALCULATE ( [ECL], fact_ecl[stage] = "Stage 1" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: a09875d3-2816-581f-9736-358f3b1b0440
+
+	measure 'Coverage Stage 1' = CALCULATE ( [Coverage], fact_ecl[stage] = "Stage 1" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: bbcbe64e-f8a1-5969-97ef-9a539c674a6e
+
+	measure 'EAD Stage 1' = CALCULATE ( [EAD], fact_ecl[stage] = "Stage 1" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 324eeaed-0aa8-50b4-85a4-26592f7acce0
+
+	measure 'Loans Stage 1' = CALCULATE ( [ECL Loans], fact_ecl[stage] = "Stage 1" )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 9e2b1a7a-9069-5116-9a95-612c35637d5c
+
+	measure 'ECL Stage 2' = CALCULATE ( [ECL], fact_ecl[stage] = "Stage 2" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 618fa7a6-0ed8-583d-987d-b3379efed744
+
+	measure 'Coverage Stage 2' = CALCULATE ( [Coverage], fact_ecl[stage] = "Stage 2" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 14937ba5-6ce6-5d10-911b-ca860a92bc4a
+
+	measure 'EAD Stage 2' = CALCULATE ( [EAD], fact_ecl[stage] = "Stage 2" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: a52ce7d6-58fe-556c-9ec0-80255aeee80e
+
+	measure 'Loans Stage 2' = CALCULATE ( [ECL Loans], fact_ecl[stage] = "Stage 2" )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 2e1b2c06-3309-56a4-80cd-375ade72128f
+
+	measure 'ECL Stage 3' = CALCULATE ( [ECL], fact_ecl[stage] = "Stage 3" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: f027afb6-bb72-5400-b566-1cf8ae7d2ed3
+
+	measure 'Coverage Stage 3' = CALCULATE ( [Coverage], fact_ecl[stage] = "Stage 3" )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5 IFRS 9
+		lineageTag: 6189155a-22f4-58ab-8b81-b1c6a51c2d85
+
+	measure 'EAD Stage 3' = CALCULATE ( [EAD], fact_ecl[stage] = "Stage 3" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 6faf5bac-a463-593a-abd7-704c52865a65
+
+	measure 'Loans Stage 3' = CALCULATE ( [ECL Loans], fact_ecl[stage] = "Stage 3" )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 5f510bb7-cf01-57be-8b43-3185c3d5d612
+
+	measure 'Scenario ECL' = SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", [ECL Upside], "Base", [ECL Base], "Downside", [ECL Downside], "Weighted", [ECL] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 79b51cb0-8845-5cf0-aeb6-026835f032c3
+
+	measure 'Scenario Color' = SWITCH ( SELECTEDVALUE ( dim_scenario[scenario] ), "Upside", "#0E7C86", "Downside", "#B5523B", "Weighted", "#0B1F3A", "#B8C2CF" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: c931d612-33b5-55ff-9576-eb96ec928a09
+
+	measure 'Backtest Expected' = SUM ( ecl_backtest[predicted_weighted] )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 6d3404cd-79f0-590c-b6a8-340d83f1ff11
+
+	measure 'Backtest Actual' = SUM ( ecl_backtest[actual] )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: f2c9fb3a-42fa-57a8-8c1e-6fa753b458db
+
+	measure 'Backtest Actual Unemployment' = SUM ( ecl_backtest[predicted_actual_unemployment] )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: b418a244-88e2-5b34-bd4d-61433180dcb3
+
+	measure 'Backtest Ratio' = DIVIDE ( [Backtest Expected], [Backtest Actual] )
+		formatString: 0.00"x"
+		displayFolder: 5 IFRS 9
+		lineageTag: a785b043-0c11-51d0-ad94-73fe7701c4e8
+
+	measure 'Migration Loans' = SUM ( fact_stage_migration[loans] )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 07896e87-3e3d-5a3a-9ee5-eafc6c282a8a
+
+	measure 'Migration Share' = DIVIDE ( [Migration Loans], CALCULATE ( [Migration Loans], REMOVEFILTERS ( fact_stage_migration[to_state], fact_stage_migration[to_order] ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5 IFRS 9
+		lineageTag: 044f465a-8e8f-578c-83d5-b71c66839027
+
+	measure 'Migration Heat' = VAR r = [Migration Share] RETURN SWITCH ( TRUE (), ISBLANK ( r ), BLANK (), r > 0.5, "#1F4E79", r > 0.2, "#4F7BA6", r > 0.08, "#8FB0CF", r > 0.02, "#C9D8E8", "#F3F6FA" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: e0d6b929-b53b-5901-b325-d87ce6078095
+
+	measure 'Migration Heat Font' = IF ( [Migration Share] > 0.2, "#FFFFFF", "#1E293B" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: d9be88ac-19c8-5493-85ad-000b0e903226
+
+	measure 'ECL Rank' = IF ( ISINSCOPE ( dim_loan[loan_id] ), RANKX ( ALLSELECTED ( dim_loan[loan_id] ), [ECL], , DESC, DENSE ) )
+		formatString: #,0
+		displayFolder: 5 IFRS 9
+		lineageTag: 0e13bbca-19c5-55df-892b-faaf366eb1a0
+
+	measure 'DQ Rows' = SUM ( dq_log[rows_affected] )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: 2c7e15bd-1758-515e-b422-fe65bfc67d9e
+
+	measure 'DQ Injected' = SUM ( dq_log[injected] )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: b8889a25-e165-5a31-86e8-6bafe31c9207
+
+	measure 'DQ Match' = IF ( ISBLANK ( [DQ Injected] ), BLANK (), IF ( [DQ Rows] = [DQ Injected], "✓", "✗" ) )
+		displayFolder: 6 Data quality
+		lineageTag: 64989e07-1b91-5c6b-98f8-bfd8a888543c
+
+	measure 'Match Color' = IF ( [DQ Match] = "✓", "#0E7C86", "#B5523B" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 498ba9c0-fa7d-57ed-80f4-b4acea953ab4
+
+	measure 'Rows Received' = CALCULATE ( [DQ Rows], dq_log[issue] = "Rows received" )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: ee07b103-4280-551f-8240-13eeb5f4543a
+
+	measure 'Duplicates Removed' = CALCULATE ( [DQ Rows], dq_log[issue] = "Exact duplicate rows" )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: ac603608-e6e8-50bc-b572-85188c5d4fa3
+
+	measure 'Test Loans Removed' = CALCULATE ( [DQ Rows], dq_log[issue] = "Test loans (TEST- id, amount 1.00)" )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: 8c059ed4-8218-5a02-9f21-15b9e2a21013
+
+	measure 'Clean Loans' = CALCULATE ( [DQ Rows], dq_log[issue] = "Clean loans" )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: f59a19fb-def7-5491-a775-a69acf3e3b81
+
+	measure Fixes = CALCULATE ( [DQ Rows], NOT ISBLANK ( dq_log[injected] ) )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: 08702024-8cef-5226-bf36-2797506a7286
+
+	measure 'Field Fixes' = CALCULATE ( [Fixes], NOT dq_log[issue] IN { "Exact duplicate rows", "Test loans (TEST- id, amount 1.00)", "Duplicate month rows" } )
+		formatString: #,0
+		displayFolder: 6 Data quality
+		lineageTag: 94d40512-3a93-540d-8fdf-07e57b6a9054
+
+	measure 'Checks Matched' = VAR t = FILTER ( dq_log, NOT ISBLANK ( dq_log[injected] ) ) RETURN COUNTROWS ( FILTER ( t, dq_log[rows_affected] = dq_log[injected] ) ) & " of " & COUNTROWS ( t ) & " fixes = injected count"
+		displayFolder: 6 Data quality
+		lineageTag: d13c0cb3-82e3-507d-9b88-aa62d3026efc
+
+	measure 'Fix Color' = IF ( SELECTEDVALUE ( dq_log[issue] ) IN { "Exact duplicate rows", "Test loans (TEST- id, amount 1.00)", "Duplicate month rows" }, "#B5523B", "#D08C2E" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 1cb02a88-1114-5bae-a203-5af6477c95e4
+
+	measure 'Filter Context' = IF ( ISFILTERED ( dim_loan[vintage_year] ), CONCATENATEX ( VALUES ( dim_loan[vintage_year] ), dim_loan[vintage_year], ", ", dim_loan[vintage_year], ASC ), "Issued 2021 – 2024" ) & "   ·   " & IF ( ISFILTERED ( dim_loan[grade] ), CONCATENATEX ( VALUES ( dim_loan[grade] ), dim_loan[grade], ", ", dim_loan[grade], ASC ), "All grades" ) & "   ·   " & IF ( ISFILTERED ( dim_loan[channel] ), CONCATENATEX ( VALUES ( dim_loan[channel] ), dim_loan[channel], ", ", dim_loan[channel], ASC ), "All channels" ) & "   ·   performance to 31 Dec 2025"
+		displayFolder: 7 Dynamic text
+		lineageTag: c95c2b35-b760-5fb7-86ed-ac1acc146c53
+
+	measure 'Blank Text' = ""
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: f1b7f7e5-ba1b-5294-9964-7cf498f2334f
+
+	measure 'Title Loan' = "Loan " & SELECTEDVALUE ( dim_loan[loan_id] ) & "  ·  " & SELECTEDVALUE ( dim_loan[sub_grade] ) & "  ·  " & SELECTEDVALUE ( dim_loan[purpose] ) & "  ·  issued " & FORMAT ( MAX ( dim_loan[issue_date] ), "mmm yyyy" )
+		displayFolder: 7 Dynamic text
+		lineageTag: dd4c2e50-d8e4-5e8f-a936-90feb68afa90
+
+	measure 'Title Month' = FORMAT ( MAX ( dim_month[month_date] ), "mmmm yyyy" ) & "  ·  unemployment " & FORMAT ( [Unemployment], "0.0%" )
+		displayFolder: 7 Dynamic text
+		lineageTag: 73169fd9-4c6d-5374-9618-7364ce61e613
+
+	measure 'Title Vintage' = "Cumulative default rate by months on book  ·  2023 loans: " & FORMAT ( [Vintage 2023 at 24m], "0.0%" ) & " by month 24 vs " & FORMAT ( [Vintage 2021 at 24m], "0.0%" ) & " for 2021"
+		displayFolder: 7 Dynamic text
+		lineageTag: 19fbc781-ac1d-5b9b-bc01-6918d7425a46
+
+	measure 'Loan Status' = SELECTEDVALUE ( dim_loan[status_now] ) & IF ( SELECTEDVALUE ( dim_loan[stage_2025] ) <> "", "  ·  " & SELECTEDVALUE ( dim_loan[stage_2025] ), "" )
+		displayFolder: 7 Dynamic text
+		lineageTag: 2da4c00c-4dc5-5ee6-b04d-4517622543c8
+
+	measure 'Loan Rate' = DIVIDE ( AVERAGE ( dim_loan[int_rate] ), 100 )
+		formatString: 0.00%
+		displayFolder: 7 Dynamic text
+		lineageTag: 389ec731-1632-5ba7-abee-34686359cc4a
+
+	measure 'Loan Score' = MAX ( dim_loan[score] )
+		formatString: #,0
+		displayFolder: 7 Dynamic text
+		lineageTag: 34ef6cfa-efdf-54cf-b5d5-c9a7b92407f0
+
+	measure 'Loan Balance' = SUM ( dim_loan[balance_now] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 7 Dynamic text
+		lineageTag: 93a268a5-b19c-579a-acd2-e173d830ea25
+
+	measure 'Month Balance' = SUM ( fact_loan_month[balance_end] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 7 Dynamic text
+		lineageTag: 5f3a00b1-f763-5a7e-8891-fb1473840885
+
+	measure 'Month DPD' = MAX ( fact_loan_month[days_past_due] )
+		formatString: #,0
+		displayFolder: 7 Dynamic text
+		lineageTag: e8286edc-2973-54fc-aaaa-2f3fbb32cd3e
+
+	measure 'Month Paid' = SUM ( fact_loan_month[amount_paid] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 7 Dynamic text
+		lineageTag: c488d2e7-f18e-57ed-8bcf-edf11e97ec1c
+
+	measure 'Note Lent' = FORMAT ( [Amount Lent] / 1e6, "$#,0" ) & "M lent · avg " & FORMAT ( [Avg Loan], "$#,0" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: c7804d27-dc70-5d14-93ce-9740da722f56
+
+	measure 'Note Open' = FORMAT ( [Open Loans], "#,0" ) & " open loans · " & FORMAT ( [Arrears Share Now], "0.0%" ) & " in arrears"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: afad5bb8-e8a0-5bab-91e0-fb4494c8a469
+
+	measure 'Note D24' = "Loans issued 2021 – 2023"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: ddf27ba7-a9fc-585e-8f1e-1bcb2b713af2
+
+	measure 'Note Loss' = "Charged off " & FORMAT ( [Charged Off] / 1e6, "$#,0.0" ) & "M − recovered " & FORMAT ( [Recovered] / 1e6, "$#,0.0" ) & "M"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 85eb16fa-63e6-5e35-823f-d1a2a2701349
+
+	measure 'Note Cov' = "ECL " & FORMAT ( [ECL] / 1e6, "$#,0.00" ) & "M · 31 Dec 2025"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 29cfeab1-55ac-546e-a997-86ba0dc9e546
+
+	measure 'Note Rate' = "Weighted by amount lent"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 0a9ca43d-0163-59d0-9feb-f8c325cdf2e4
+
+	measure 'Note FICO' = "Default 620-659 vs 780+"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 6e8b7ffc-c7f2-5ebd-a22a-719829344319
+
+	measure 'Note Purpose' = [Riskiest Purpose] & ", within 24 months"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 724fc6fc-2b61-5272-9f06-b44234b50a96
+
+	measure 'Note Policy' = FORMAT ( [Policy New 12m], "0.0%" ) & " vs " & FORMAT ( [Policy Rest 12m], "0.0%" ) & " (12-month default)"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 8b3856a9-4853-5afb-bee9-a65863a61af1
+
+	measure 'Note LGD' = "Mortgage " & FORMAT ( [LGD Mortgage], "0%" ) & " · renters " & FORMAT ( [LGD Rent], "0%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: f5df330e-0e60-5647-b838-0a38ac6ece93
+
+	measure 'Note V23' = "2023 loans · month 24"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: f850c52a-c33d-574a-aa15-46db0852fdd2
+
+	measure 'Note V21' = "2021 loans · month 24"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 11ff2004-1717-5ff0-94f5-8c95cacccbdb
+
+	measure 'Note R3060' = FORMAT ( [Cure from 30], "0%" ) & " cure back to current"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 229af6c4-83ba-57cb-88bd-79e4632b60b2
+
+	measure 'Note R6090' = "60 days late → default next month"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: dddc4be1-3f8c-5bcf-b50f-7ae57be9b4a5
+
+	measure 'Note Unemp' = "Default starts, per +1 pt"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 8847fe98-9b45-5187-acce-8fab39ead772
+
+	measure 'Note Gini' = "Out of time: 2023 loans"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 2623baf3-6e4f-5de1-97e1-06df63f1dfe7
+
+	measure 'Note GiniG' = "The lender's A-G grade, same loans"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 2850ce14-d36f-5703-a64c-2b6c32c6edf7
+
+	measure 'Note KS' = "Max gap, defaults vs goods"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 7441653f-fead-5a81-8505-f1edde7d8e95
+
+	measure 'Note Spread' = "Worst vs best of 10 bands"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 04259878-55cf-5e27-aecc-73aea3b36719
+
+	measure 'Note Truth' = "15 of 15 effects with the true sign"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: da42aee3-1f14-5b96-8814-141f6e4725ea
+
+	measure 'Note ECL' = FORMAT ( [Coverage], "0.00%" ) & " of " & FORMAT ( [EAD] / 1e6, "$#,0.0" ) & "M open balance"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 82a08b9d-d223-5b20-8a18-cb9db4e91e65
+
+	measure 'Note S1' = FORMAT ( [Coverage Stage 1], "0.00%" ) & " · 12-month PD · " & FORMAT ( [Loans Stage 1], "#,0" ) & " loans"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: d22740a4-7aa7-5bd0-86ef-62f39290b822
+
+	measure 'Note S2' = FORMAT ( [Coverage Stage 2], "0.0%" ) & " · lifetime PD · " & FORMAT ( [Loans Stage 2], "#,0" ) & " loans"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 96034bdb-75d3-5bdf-9cf1-d3233904d60d
+
+	measure 'Note S3' = FORMAT ( [Coverage Stage 3], "0.0%" ) & " · defaulted · " & FORMAT ( [Loans Stage 3], "#,0" ) & " loans"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 0a4d37fd-c143-5818-a7c0-f6d2315b6fc3
+
+	measure 'Note BT' = "Actual in 2025: " & FORMAT ( [Backtest Actual], "#,0" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 765e2021-e011-5979-9f68-5a514ac3664d
+
+	measure 'Note Rows' = "Loan extract rows"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: baf9656f-fcda-51e7-bb7f-9cb8093b31d3
+
+	measure 'Note Dups' = "+ " & FORMAT ( [Test Loans Removed], "0" ) & " test loans removed"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 906ccddb-9c9a-5845-b83e-bf22901c3098
+
+	measure 'Note Fixes' = "Text income, dates, typos, codes"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 8975d2f0-065a-5418-b9a1-956810c39144
+
+	measure 'Note Clean' = "One row per loan"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: d1902206-d3e4-5978-afad-ed1a7307abfc
+
+	measure 'Note Checks' = [Checks Matched]
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 9a64b2a8-9a9d-52f9-a906-900b3a133db6
+
+	measure 'Note Amount' = SELECTEDVALUE ( dim_loan[term] ) & " · " & FORMAT ( SUM ( dim_loan[installment] ), "$#,0" ) & "/month"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 0e39765d-ca9f-5925-aa50-9c0fb191027d
+
+	measure 'Note LRate' = "Grade " & SELECTEDVALUE ( dim_loan[grade] )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 9a1339e3-cf4e-5e18-8b71-35460a91627a
+
+	measure 'Note LScore' = "Band " & SELECTEDVALUE ( dim_loan[score_band] ) & " · PD 24m " & FORMAT ( AVERAGE ( dim_loan[pd_24m] ), "0.0%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: b33999e1-8ee5-5047-8601-b6b8190c07ed
+
+	measure 'Note LBal' = "At 31 Dec 2025"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 27d671b1-bf6f-52f6-9ac9-8743e3bb8562
+
+	measure 'Note LECL' = IF ( ISBLANK ( [ECL] ), "Closed loan", "PD 12m " & FORMAT ( [PD 12m (EAD-weighted)], "0.0%" ) & " · LGD " & FORMAT ( [LGD (EAD-weighted)], "0%" ) )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: d59668b6-7379-5d30-81b3-a9b825d83afb
+
+	measure 'Status Color' = SWITCH ( SELECTEDVALUE ( dim_loan[status_now] ), "Current", "#1F4E79", "30 DPD", "#D08C2E", "60 DPD", "#C2703A", "90+ DPD", "#B5523B", "Charged Off", "#B5523B", "#0E7C86" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 0830bcf3-e147-515e-b1d7-2e1a94bc867d
+
+	measure 'Stage Color' = SWITCH ( SELECTEDVALUE ( fact_ecl[stage] ), "Stage 1", "#1F4E79", "Stage 2", "#D08C2E", "#B5523B" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: 2fa6c06e-a30d-5617-93b4-5d2bca2d3b4d
+
+	measure 'Default Rate 12m (Policy)' = IF ( ISBLANK ( SELECTEDVALUE ( dim_loan[policy_group] ) ), BLANK (), [Default Rate 12m] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Risk
+		lineageTag: c5cb3dda-8677-5852-a7ac-c6879a1d9745
+
+	measure 'Policy Color' = IF ( SELECTEDVALUE ( dim_loan[policy_group] ) = "After · DTI 40-50% (new)", "#B5523B", "#B8C2CF" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: cddca6cd-72f5-5c8d-8db1-3cc1cfea4cd3
+
+	measure 'DPD Color' = VAR d = [Month DPD] RETURN SWITCH ( TRUE (), d >= 90, "#B5523B", d >= 60, "#C2703A", d >= 30, "#D08C2E", "#1F4E79" )
+		isHidden
+		displayFolder: 8 Formatting
+		lineageTag: e2ad14cd-b335-5fae-b08b-5f765cac059e
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 8425dc4e-6887-5832-a9be-b66a3fce0c66
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				#table(type table [Value = text], {})
+
+	annotation PBI_ResultType = Table

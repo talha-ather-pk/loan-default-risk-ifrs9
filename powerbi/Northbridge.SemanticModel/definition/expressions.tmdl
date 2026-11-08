@@ -1,0 +1,4 @@
+expression DataFolder = "C:\Users\DELL\upwork-profile\data-portfolio\data-portfolio\05-loan-risk-dashboard\data_clean\powerbi\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: ef42087d-d111-56a9-af94-994fd67936f9
+
+	annotation PBI_ResultType = Text

@@ -1,0 +1,82 @@
+{
+  "target": "default (90+ DPD) within 24 months of issue",
+  "development": {
+    "loans": 21428,
+    "bad_rate": 0.0795,
+    "issued": "2021-2022"
+  },
+  "out_of_time": {
+    "loans": 13367,
+    "bad_rate": 0.1006,
+    "issued": "2023"
+  },
+  "scorecard": {
+    "dev": {
+      "auc": 0.6932,
+      "gini": 0.3863,
+      "ks": 0.2851
+    },
+    "oot": {
+      "auc": 0.6893,
+      "gini": 0.3786,
+      "ks": 0.2853
+    }
+  },
+  "lender_grade": {
+    "dev": {
+      "auc": 0.6625,
+      "gini": 0.325,
+      "ks": 0.2349
+    },
+    "oot": {
+      "auc": 0.6604,
+      "gini": 0.3209,
+      "ks": 0.2247
+    }
+  },
+  "gradient_boosting": {
+    "dev": {
+      "auc": 0.725,
+      "gini": 0.45,
+      "ks": 0.3277
+    },
+    "oot": {
+      "auc": 0.6842,
+      "gini": 0.3683,
+      "ks": 0.2744
+    }
+  },
+  "information_value": {
+    "fico_score": 0.232,
+    "dti": 0.093,
+    "revol_util": 0.023,
+    "log_income": 0.038,
+    "inq_last_6mths": 0.012,
+    "delinq_2yrs": 0.021,
+    "term_60": 0.017,
+    "emp_band": 0.003,
+    "home_ownership": 0.004,
+    "verification_status": 0.004,
+    "purpose": 0.023,
+    "channel": 0.006
+  },
+  "points_scaling": {
+    "base_points": 600,
+    "base_odds": 50,
+    "pdo": 20
+  },
+  "calibration_oot": {
+    "predicted_pct": 8.0,
+    "actual_pct": 10.06
+  },
+  "band_spread_oot": 9.7,
+  "grade_c_split": {
+    "low_score_default_pct": 13.39,
+    "high_score_default_pct": 7.06
+  },
+  "truth_check": {
+    "effects": 15,
+    "same_sign": 15,
+    "correlation": 0.969
+  }
+}

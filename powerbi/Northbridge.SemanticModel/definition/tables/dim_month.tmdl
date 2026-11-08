@@ -1,0 +1,80 @@
+table dim_month
+	lineageTag: d06082e4-7d73-5003-a8dc-453b15a650aa
+
+	column month
+		dataType: string
+		isHidden
+		isKey
+		lineageTag: ec094b7a-2a3b-5c1b-9abc-a9ad02470b2c
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column unemployment_rate
+		dataType: double
+		isHidden
+		lineageTag: b8524c86-25fa-5db1-9125-a60fc1012885
+		summarizeBy: none
+		sourceColumn: unemployment_rate
+
+		annotation SummarizationSetBy = User
+
+	column base_rate
+		dataType: double
+		isHidden
+		lineageTag: 46fd427e-2770-5c52-a164-435ffaf37888
+		summarizeBy: none
+		sourceColumn: base_rate
+
+		annotation SummarizationSetBy = User
+
+	column month_date
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 43fe6910-f962-525b-a2b3-f2f1872900b8
+		summarizeBy: none
+		sourceColumn: month_date
+
+		annotation SummarizationSetBy = User
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 2433657f-2eca-5e3d-b7fd-97fa7235d8ae
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column quarter
+		dataType: string
+		lineageTag: 6e274a6d-2fd6-54c4-9f64-cdbaeee0c631
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = User
+
+	column month_label
+		dataType: string
+		sortByColumn: month_date
+		lineageTag: 284a098e-806d-5452-9044-f9f8c457b1ac
+		summarizeBy: none
+		sourceColumn: month_label
+
+		annotation SummarizationSetBy = User
+
+	partition dim_month = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_month.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"month", "unemployment_rate", "base_rate", "month_date", "year", "quarter"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"month", type text}, {"unemployment_rate", type number}, {"base_rate", type number}, {"month_date", type date}, {"year", Int64.Type}, {"quarter", type text}}, "en-US"),
+				    Label = Table.AddColumn(Typed, "month_label", each Date.ToText([month_date], "MMM yyyy", "en-US"), type text)
+				in
+				    Label
+
+	annotation PBI_ResultType = Table

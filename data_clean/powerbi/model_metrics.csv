@@ -1,0 +1,7 @@
+model,sample,auc,gini,ks
+Scorecard,Dev 2021-22,0.6932,0.3863,0.2851
+Scorecard,Test 2023,0.6893,0.3786,0.2853
+Lender grade,Dev 2021-22,0.6625,0.325,0.2349
+Lender grade,Test 2023,0.6604,0.3209,0.2247
+Gradient boosting,Dev 2021-22,0.725,0.45,0.3277
+Gradient boosting,Test 2023,0.6842,0.3683,0.2744

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "a6b53b2db9fc5a9a8cbb",
+  "displayName": "Portfolio",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

@@ -1,0 +1,133 @@
+table fact_ecl
+	lineageTag: 4b154855-8cc3-5c4c-b74c-b6e10aeabc95
+
+	column asof
+		dataType: string
+		isHidden
+		lineageTag: 0bbb2e3b-eff0-5ce3-819d-219e518b9ca0
+		summarizeBy: none
+		sourceColumn: asof
+
+		annotation SummarizationSetBy = User
+
+	column loan_id
+		dataType: string
+		isHidden
+		lineageTag: d7b5d2bf-d181-53ad-bb1e-36ad94d3bd7a
+		summarizeBy: none
+		sourceColumn: loan_id
+
+		annotation SummarizationSetBy = User
+
+	column stage
+		dataType: string
+		lineageTag: b11f86b6-fb16-5275-9466-d666d4b26d46
+		summarizeBy: none
+		sourceColumn: stage
+
+		annotation SummarizationSetBy = User
+
+	column mob
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b11efcbc-2754-5a8d-9027-6355bdf9fa1b
+		summarizeBy: none
+		sourceColumn: mob
+
+		annotation SummarizationSetBy = User
+
+	column ead
+		dataType: double
+		isHidden
+		lineageTag: a862dd1b-4a98-5df0-a8fc-6425cb40cfed
+		summarizeBy: none
+		sourceColumn: ead
+
+		annotation SummarizationSetBy = User
+
+	column lgd
+		dataType: double
+		isHidden
+		lineageTag: 94df119a-562e-58fc-8a09-e5a959326b52
+		summarizeBy: none
+		sourceColumn: lgd
+
+		annotation SummarizationSetBy = User
+
+	column pd12
+		dataType: double
+		isHidden
+		lineageTag: eacf41b6-b422-5ca7-bfc9-1bed262efa0d
+		summarizeBy: none
+		sourceColumn: pd12
+
+		annotation SummarizationSetBy = User
+
+	column pd_life
+		dataType: double
+		isHidden
+		lineageTag: ba1a9f39-4615-5130-b96c-d8f9e344c772
+		summarizeBy: none
+		sourceColumn: pd_life
+
+		annotation SummarizationSetBy = User
+
+	column ecl
+		dataType: double
+		isHidden
+		lineageTag: 84ab2b22-b0e3-5f8f-8d1e-0ab612f3566a
+		summarizeBy: none
+		sourceColumn: ecl
+
+		annotation SummarizationSetBy = User
+
+	column ecl_Base
+		dataType: double
+		isHidden
+		lineageTag: 19e6e1ff-0a5b-5125-a82f-ffaf7ef6ceda
+		summarizeBy: none
+		sourceColumn: ecl_Base
+
+		annotation SummarizationSetBy = User
+
+	column ecl_Upside
+		dataType: double
+		isHidden
+		lineageTag: 165a0d2e-c8bc-5a49-a39e-9b198edb07ac
+		summarizeBy: none
+		sourceColumn: ecl_Upside
+
+		annotation SummarizationSetBy = User
+
+	column ecl_Downside
+		dataType: double
+		isHidden
+		lineageTag: 03d50468-af5e-514e-814f-334f2a1c63ad
+		summarizeBy: none
+		sourceColumn: ecl_Downside
+
+		annotation SummarizationSetBy = User
+
+	column asof_label
+		dataType: string
+		isHidden
+		lineageTag: 6a4f2cd8-6ac1-577f-99fd-b4162b9c0266
+		summarizeBy: none
+		sourceColumn: asof_label
+
+		annotation SummarizationSetBy = User
+
+	partition fact_ecl = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_ecl.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"asof", "loan_id", "stage", "mob", "ead", "lgd", "pd12", "pd_life", "ecl", "ecl_Base", "ecl_Upside", "ecl_Downside", "asof_label"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"asof", type text}, {"loan_id", type text}, {"stage", type text}, {"mob", Int64.Type}, {"ead", type number}, {"lgd", type number}, {"pd12", type number}, {"pd_life", type number}, {"ecl", type number}, {"ecl_Base", type number}, {"ecl_Upside", type number}, {"ecl_Downside", type number}, {"asof_label", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

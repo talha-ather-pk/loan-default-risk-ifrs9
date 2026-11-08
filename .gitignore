@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.vercel
+~$*
+# monthly payment file (64 MB) and the SQLite database (125 MB): recreated exactly by
+# scripts/generate_data.py and scripts/clean.py
+data_raw/loan_months.csv
+data_clean/northbridge.db

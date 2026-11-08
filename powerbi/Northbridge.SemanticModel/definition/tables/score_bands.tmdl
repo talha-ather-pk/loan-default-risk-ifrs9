@@ -1,0 +1,71 @@
+table score_bands
+	lineageTag: 1c9e8c9f-a617-52bc-84f5-b5f6c11cc359
+
+	column score_band
+		dataType: int64
+		formatString: 0
+		lineageTag: f77e1d2b-8a87-5cc5-90a6-04b8e944cfc8
+		summarizeBy: none
+		sourceColumn: score_band
+
+		annotation SummarizationSetBy = User
+
+	column score_range
+		dataType: string
+		lineageTag: b0dd3ca8-e34f-5686-aa10-ba31f92defa9
+		summarizeBy: none
+		sourceColumn: score_range
+
+		annotation SummarizationSetBy = User
+
+	column loans
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 80aae31e-03ba-5f80-9601-dcef1f4fd71f
+		summarizeBy: none
+		sourceColumn: loans
+
+		annotation SummarizationSetBy = User
+
+	column predicted_pd_pct
+		dataType: double
+		isHidden
+		lineageTag: 04a9ba3e-6568-57a7-9b70-d475216547aa
+		summarizeBy: none
+		sourceColumn: predicted_pd_pct
+
+		annotation SummarizationSetBy = User
+
+	column actual_default_pct
+		dataType: double
+		isHidden
+		lineageTag: 6686e6c2-2e5b-5e15-8758-aae8c3321229
+		summarizeBy: none
+		sourceColumn: actual_default_pct
+
+		annotation SummarizationSetBy = User
+
+	column band_label
+		dataType: string
+		sortByColumn: score_band
+		lineageTag: 60e68a00-610a-5616-b249-b1784755b680
+		summarizeBy: none
+		sourceColumn: band_label
+
+		annotation SummarizationSetBy = User
+
+	partition score_bands = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "score_bands.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"score_band", "score_range", "loans", "predicted_pd_pct", "actual_default_pct"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"score_band", Int64.Type}, {"score_range", type text}, {"loans", Int64.Type}, {"predicted_pd_pct", type number}, {"actual_default_pct", type number}}, "en-US"),
+				    BandLabel = Table.AddColumn(Typed, "band_label", each Text.From([score_band]) & " · " & [score_range], type text)
+				in
+				    BandLabel
+
+	annotation PBI_ResultType = Table

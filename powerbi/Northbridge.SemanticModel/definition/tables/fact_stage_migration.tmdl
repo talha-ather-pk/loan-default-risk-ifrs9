@@ -1,0 +1,62 @@
+table fact_stage_migration
+	lineageTag: 5191fd0c-2fa9-5109-a50b-216642812167
+
+	column stage_2024
+		dataType: string
+		lineageTag: d489c270-9f09-5e9f-9833-6cd7930f3d89
+		summarizeBy: none
+		sourceColumn: stage_2024
+
+		annotation SummarizationSetBy = User
+
+	column to_state
+		dataType: string
+		sortByColumn: to_order
+		lineageTag: 0f86e72d-291a-545f-b3f2-219a14e36787
+		summarizeBy: none
+		sourceColumn: to_state
+
+		annotation SummarizationSetBy = User
+
+	column loans
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 41ea5b71-ea67-5a96-9cdf-0f598f8a25e7
+		summarizeBy: none
+		sourceColumn: loans
+
+		annotation SummarizationSetBy = User
+
+	column ead_2024
+		dataType: double
+		isHidden
+		lineageTag: 4e1582c5-d0b1-59ba-8676-601fe9023458
+		summarizeBy: none
+		sourceColumn: ead_2024
+
+		annotation SummarizationSetBy = User
+
+	column to_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f695cdce-4a24-5998-b04a-028d1fbbf8d1
+		summarizeBy: none
+		sourceColumn: to_order
+
+		annotation SummarizationSetBy = User
+
+	partition fact_stage_migration = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_stage_migration.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"stage_2024", "to_state", "loans", "ead_2024", "to_order"}),
+				    Blanks = Table.TransformColumns(Kept, {}, each if _ = "" then null else _),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"stage_2024", type text}, {"to_state", type text}, {"loans", Int64.Type}, {"ead_2024", type number}, {"to_order", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
