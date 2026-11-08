@@ -42,7 +42,8 @@ SLATE = "#5E6B68"
 SLATE_2 = "#93A3A0"
 MIST = "#C9D4D1"
 LINE = "#E4E0D6"
-CANVAS = "#F5F3EE"
+CANVAS = "#E6EDEA"       # soft sage page background
+BAND = "#173A3F"         # teal header band
 WHITE = "#FFFFFF"
 GOLD = "#B8945A"        # brass accent
 PRIMARY = "#1F4A57"     # petrol: main series
@@ -596,7 +597,7 @@ THEME = {
                               "border": True, "borderColor": sc(LINE)}],
         }},
         "page": {"*": {"background": [{"color": sc(CANVAS), "transparency": 0}],
-                       "outspace": [{"color": sc("#EAE6DD"), "transparency": 0}]}},
+                       "outspace": [{"color": sc("#D5DFDB"), "transparency": 0}]}},
         "card": {"*": {"labels": [{"color": sc(INK), "fontSize": 24, "fontFamily": FONT_SB}],
                        "categoryLabels": [{"show": False}],
                        "title": [{"alignment": "center", "fontSize": 9, "fontColor": sc(SLATE),
@@ -961,15 +962,25 @@ def sidebar(p, active):
         [("Right-click a loan to drill through", 7, "#7E948F", False)]]))
 
 
+BAND_H = 128                     # the KPI tiles (y 76-180) overlap the band's lower edge
+
+
+def header_band(p):
+    p.add("hdr_band", SIDEBAR_W, 0, W - SIDEBAR_W, BAND_H, panel(BAND))
+    p.add("hdr_band_rule", SIDEBAR_W, 0, 2, BAND_H, panel(GOLD))
+
+
 def header(p, title):
-    p.add("hdr_title", X0, 10, 760, 38, serif(title, 20, INK))
+    header_band(p)
+    p.add("hdr_title", X0, 10, 760, 38, serif(title, 20, WHITE))
     p.add("hdr_context", X0, 46, 900, 22, visual(
         "card", {"Values": [mea("Blank Text")]},
         objects={"labels": [{"properties": {"fontSize": lit(1), "color": solid(CANVAS)}}],
                  "categoryLabels": [{"properties": {"show": lit(False)}}]},
         container=plain_container(title=[{"properties": {
-            "show": lit(True), "text": {"expr": mea("Filter Context")}, "fontColor": solid(SLATE),
+            "show": lit(True), "text": {"expr": mea("Filter Context")}, "fontColor": solid("#A9C2BC"),
             "fontSize": lit(9), "fontFamily": lit(FONT), "alignment": lit("left")}}])))
+    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(BAND)
     p.add("hdr_date", X1 - 236, 16, 236, 26, pill([("REPORTING DATE   ", 7, SLATE, True), ("31 DEC 2025", 8.5, INK, True)]))
 
 
@@ -1218,23 +1229,24 @@ def page_quality():
 def page_loan():
     p = Page("loan", "Loan Detail", kind="Drillthrough")
     sidebar(p, None)
+    header_band(p)
     p.add("hdr_title", X0 + 48, 14, 900, 34, card("Title Loan", size=1, container=plain_container(
-        title=[{"properties": {"show": lit(True), "text": {"expr": mea("Title Loan")}, "fontColor": solid(INK),
+        title=[{"properties": {"show": lit(True), "text": {"expr": mea("Title Loan")}, "fontColor": solid(WHITE),
                                "fontSize": lit(18), "fontFamily": lit(SERIF), "alignment": lit("left")}}])))
-    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(CANVAS)
+    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(BAND)
     p.add("back", X0, 16, 36, 30, {
         "visualType": "actionButton", "drillFilterOtherVisuals": True,
-        "objects": {"icon": [{"properties": {"shapeType": lit("back"), "lineColor": solid(PRIMARY),
+        "objects": {"icon": [{"properties": {"shapeType": lit("back"), "lineColor": solid(WHITE),
                                              "lineWeight": lit(2)}, "selector": {"id": "default"}}],
-                    "fill": [{"properties": {"show": lit(True), "fillColor": solid(WHITE)}, "selector": {"id": "default"}}],
+                    "fill": [{"properties": {"show": lit(True), "fillColor": solid(NAVY_2)}, "selector": {"id": "default"}}],
                     "outline": [{"properties": {"show": lit(False)}},
                                 {"properties": {"show": lit(False)}, "selector": {"id": "default"}}]},
         "visualContainerObjects": {**plain_container(
-            border=[{"properties": {"show": lit(True), "color": solid(LINE), "radius": lit(8)}}]),
+            border=[{"properties": {"show": lit(True), "color": solid(GOLD), "radius": lit(8)}}]),
             "visualLink": [{"properties": {"show": lit(True), "type": lit("Back")}}]}})
     tmp = Page("tmp", "")
     header(tmp, "")
-    ctx = tmp.visuals[1]
+    ctx = next(v for v in tmp.visuals if v["name"] == hid("tmp", "hdr_context"))
     ctx["name"] = hid("loan", "hdr_context")
     p.visuals.append(ctx)
     kpi_tiles(p, [

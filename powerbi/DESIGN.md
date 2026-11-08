@@ -13,6 +13,8 @@ takeaway on every visual), dressed for a bank's monthly risk committee pack rath
 * **Palette:** deep teal-ink sidebar, brass accent, warm ivory canvas, petrol-blue data series
   (theme `theme/Northbridge_Executive.json`).
 * **Serif titles** (Georgia), as in annual reports and board packs; numbers stay in Segoe UI Semibold.
+* **Teal header band** behind the page title (white serif) and the reporting-date chip, with a brass edge line; the KPI
+  tiles overlap its lower edge, and the page canvas below is a soft sage so the white cards stand out.
 * **Reporting-date chip** on every page: *Reporting date 31 Dec 2025*.
 * **Risk appetite flags:** KPI tiles carry a green / amber / red status against illustrative board limits (24-month default
   rate 9%, net loss 5% of lent, arrears 4% of balance, ECL coverage guide 5%, Stage 2 share 12%, backtest within ±10%), with a
