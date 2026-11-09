@@ -4,10 +4,10 @@
   "position": {
     "x": 200.0,
     "y": 486,
-    "z": 5900,
+    "z": 6100,
     "height": 218,
     "width": 346.67,
-    "tabOrder": 5900
+    "tabOrder": 6100
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -187,6 +187,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'Default falls steadily as the credit score rises'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "ac38511f1a095ed190bd",
+  "displayName": "Tooltip · Segment",
+  "displayOption": "FitToPage",
+  "height": 232,
+  "width": 360,
+  "type": "Tooltip",
+  "visibility": "HiddenInViewMode",
+  "pageBinding": {
+    "name": "07b365406b6e5485bb2a",
+    "type": "Tooltip",
+    "parameters": []
+  }
+}

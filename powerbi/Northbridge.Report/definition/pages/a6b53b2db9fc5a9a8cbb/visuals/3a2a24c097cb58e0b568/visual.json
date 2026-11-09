@@ -4,10 +4,10 @@
   "position": {
     "x": 852,
     "y": 192,
-    "z": 5700,
+    "z": 5900,
     "height": 200,
     "width": 412,
-    "tabOrder": 5700
+    "tabOrder": 5900
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -134,6 +134,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'Grew ~1% a month, with a spring peak, until Dec 2024'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'6f413190cffc5e688157'"
                 }
               }
             }

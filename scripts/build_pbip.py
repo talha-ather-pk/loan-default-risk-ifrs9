@@ -464,6 +464,29 @@ m("Loan Stage Color", f'SWITCH ( SELECTEDVALUE ( dim_loan[stage_2025] ), "Stage 
   None, "8 Formatting", hidden=True)
 
 
+# Step 3: titles and notes for the new tooltips and the Grade Detail page (they only combine existing measures) --------
+def _part(column, prefix=""):
+    return (f'IF ( ISFILTERED ( {column} ) && HASONEVALUE ( {column} ), "{prefix}" & VALUES ( {column} ) & "  ·  " )')
+
+
+m("Title Segment", "VAR t = " + " & ".join([
+    _part("dim_loan[grade]", "Grade "), _part("dim_loan[purpose]"), _part("dim_loan[policy_group]"),
+    _part("dim_loan[fico_band]", "FICO "), _part("dim_loan[dti_band]", "DTI "), _part("dim_loan[income_band]", "Income "),
+    _part("dim_loan[channel]"), _part("dim_loan[vintage_year]", "Issued ")]) +
+  ' RETURN IF ( t = "", "All loans", LEFT ( t, LEN ( t ) - 5 ) )', None, "7 Dynamic text")
+m("Title Grade", '"Grade " & SELECTEDVALUE ( dim_loan[grade] ) & "  ·  " & FORMAT ( [Loans], "#,0" ) & " loans  ·  " '
+  '& FORMAT ( [Amount Lent] / 1e6, "$#,0.0" ) & "M lent"', None, "7 Dynamic text")
+m("Note Grade Rate", '"All grades " & FORMAT ( CALCULATE ( [Avg Rate], REMOVEFILTERS ( dim_loan[grade] ) ), "0.00%" )',
+  None, "9 Helpers", hidden=True)
+m("Note Grade D24", 'VAR b = CALCULATE ( [Default Rate 24m], REMOVEFILTERS ( dim_loan[grade] ) ) '
+  'RETURN "All grades " & FORMAT ( b, "0.0%" ) & "  ·  " & FORMAT ( DIVIDE ( [Default Rate 24m], b ), "0.0" ) & "x"',
+  None, "9 Helpers", hidden=True)
+m("Note Grade Loss", 'FORMAT ( [Net Loss] / 1e6, "$#,0.00" ) & "M  ·  all grades " '
+  '& FORMAT ( CALCULATE ( [Net Loss Rate], REMOVEFILTERS ( dim_loan[grade] ) ), "0.0%" )', None, "9 Helpers", hidden=True)
+m("Note Grade Cov", 'FORMAT ( [ECL] / 1e6, "$#,0.00" ) & "M ECL  ·  all grades " '
+  '& FORMAT ( CALCULATE ( [Coverage], REMOVEFILTERS ( dim_loan[grade] ) ), "0.00%" )', None, "9 Helpers", hidden=True)
+
+
 def q(name):
     return name if name.replace("_", "").isalnum() else f"'{name}'"
 
@@ -931,6 +954,27 @@ def sc(c):
     return {"solid": {"color": c}}
 
 
+PAGE_NAMES.update({k: hid("page", k) for k in ("grade", "tip_loan", "tip_segment")})
+
+
+def action(link, tooltip=None, **extra):
+    """Invisible button laid over a label: the label carries the look (button text/fill props do not render)."""
+    props = {"show": lit(True), "type": lit(link), **{k: lit(v) for k, v in extra.items()}}
+    if tooltip:
+        props["tooltip"] = lit(tooltip)
+    return {"visualType": "actionButton", "drillFilterOtherVisuals": True,
+            "objects": {k: [{"properties": {"show": lit(False)}}, {"properties": {"show": lit(False)}, "selector": {"id": "default"}}]
+                        for k in ("icon", "text", "fill", "outline")},
+            "visualContainerObjects": {**plain_container(), "visualLink": [{"properties": props}]}}
+
+
+def drill_button(p, vid, x, y, w, label, page, hint):
+    """'Open ... detail' chip: enabled once one row is selected in a visual on the page."""
+    p.add(f"{vid}_chip", x, y, w, 24, pill([(label, 8, CYAN, True)], h=24))
+    p.add(vid, x, y, w, 24, action("Drillthrough", drillthroughSection=PAGE_NAMES[page],
+                                   disabledTooltip=hint, enabledTooltip=f"{label.rstrip(' ›')} for the selected row"))
+
+
 THEME = {
     "name": "Northbridge Midnight",
     "dataColors": DATA_COLORS,
@@ -990,8 +1034,8 @@ THEME = {
                         "fontSize": 9}],
             "subTotals": [{"fontFamily": FONT_SB, "backgroundColor": sc(SURFACE_2)}]}},
         "slicer": {"*": {
-            "header": [{"show": True, "fontColor": sc(SLATE), "textSize": 8, "fontFamily": FONT_SB, "outline": "None"}],
-            "items": [{"fontColor": sc(INK), "background": sc(SURFACE_2), "textSize": 9, "outline": "None"}],
+            "header": [{"show": True, "fontColor": sc(SLATE), "textSize": 8, "fontFamily": FONT_SB, "outlineStyle": 0}],
+            "items": [{"fontColor": sc(INK), "background": sc("#13203A"), "textSize": 9, "outlineStyle": 0}],
             "background": [{"show": False}], "border": [{"show": False}], "dropShadow": [{"show": False}],
             "padding": [{"top": 0, "bottom": 0, "left": 0, "right": 0}]}},
         "textbox": {"*": {"background": [{"show": False}], "border": [{"show": False}],
@@ -1062,13 +1106,16 @@ def sidebar(p, active):
         v = visual("slicer", {"Values": [(f, label)]}, objects={
             "data": [{"properties": {"mode": lit("Dropdown")}}],
             "header": [{"properties": {"show": lit(True), "fontColor": solid(SLATE), "textSize": lit(7.5), "fontFamily": lit(FONT_SB)}}],
-            "items": [{"properties": {"fontColor": solid(INK), "background": solid(SURFACE_2), "textSize": lit(9),
-                                      "outline": lit("None"), "outlineColor": solid(LINE)}}],
+            "items": [{"properties": {"fontColor": solid(SLATE), "background": solid("#13203A"), "textSize": lit(9),
+                                      "outlineStyle": lit(0)}}],
             "general": [{"properties": {"outlineColor": solid(LINE), "outlineWeight": lit(1)}}]},
             container=plain_container())
         v["syncGroup"] = {"groupName": g, "fieldChanges": True, "filterChanges": True}
         p.add(f"slicer_{g}", 16, y, w - 32, 48, v)
-    y3 = y2 + 28 + len(SLICERS) * 52 + 6
+    y3 = y2 + 28 + len(SLICERS) * 52 + 2
+    p.add("sb_reset_chip", 16, y3, w - 32, 26, pill([("↺   Reset filters", 8, MIST, True)], h=26))
+    p.add("sb_reset", 16, y3, w - 32, 26, action("ClearAllSlicers", "Clear the year, grade and channel filters on every page"))
+    y3 += 38
     p.add("sb_rule3", 16, y3, w - 32, 1, panel(LINE))
     p.add("sb_appetite", 16, y3 + 10, w - 24, 70, textbox([
         [("RISK APPETITE", 7, SLATE_2, True)],
@@ -1077,7 +1124,7 @@ def sidebar(p, active):
         [("●  ", 8, BAD, True), ("Breach", 7.5, SLATE, False)]]))
     p.add("sb_foot", 16, 672, w - 20, 40, textbox([
         [("Synthetic data · 50,000 loans", 7, SLATE_2, False)],
-        [("Right-click a loan to drill through", 7, SLATE_2, False)]]))
+        [("Hover for detail · right-click to drill", 7, SLATE_2, False)]]))
 
 
 def kpi_tiles(p, tiles, y=76, h=104):
@@ -1177,9 +1224,21 @@ def fit_columns(page):
         v.pop("_ncols", None)
 
 
+TOOLTIPS = {("portfolio", "orig"): "tooltip", ("portfolio", "grades"): "tip_segment",
+            ("risk", "purpose"): "tip_segment", ("risk", "policy"): "tip_segment",
+            ("risk", "band_fico_band"): "tip_segment", ("risk", "band_dti_band"): "tip_segment",
+            ("risk", "band_income_band"): "tip_segment", ("ecl", "top"): "tip_loan",
+            ("grade", "balance"): "tooltip", ("grade", "purpose"): "tip_segment", ("grade", "top"): "tip_loan"}
+
+
 def with_fit(fn):
     def build():
         page = fn()
+        for (pk, vid), tip in TOOLTIPS.items():
+            if pk == page.key:
+                v = next(x for x in page.visuals if x["name"] == hid(pk, vid))
+                v["visual"].setdefault("visualContainerObjects", {})["visualTooltip"] = [{"properties": {
+                    "show": lit(True), "type": lit("ReportPage"), "section": lit(PAGE_NAMES[tip])}}]
         fit_columns(page)
         for v in page.visuals:
             v.pop("_ncols", None)
@@ -1245,6 +1304,7 @@ def page_portfolio():
         sort=[(col("dim_loan", "grade"), "Ascending")],
         objects={"values": [cf(ref(mea("Default Rate 24m")), back="Heat D24"), cf(ref(mea("Coverage")), back="Heat Cov")],
                  "grid": [{"properties": {"rowPadding": lit(3)}}]}))
+    drill_button(p, "grades_open", X1 - 186, 414, 150, "Open grade detail  ›", "grade", "Select a grade row first")
     return p
 
 
@@ -1401,10 +1461,11 @@ def page_ecl():
         "tableEx", {"Values": [(mea("ECL Rank"), "#"), (col("dim_loan", "loan_id"), "Loan"), (col("dim_loan", "sub_grade"), "Grade"),
                                (col("dim_loan", "stage_2025"), "Stage"), (mea("EAD"), "EAD"),
                                (mea("PD 12m (EAD-weighted)"), "PD 12m"), (mea("ECL"), "ECL")]},
-        title="Largest expected losses", subtitle="Right-click a loan → Drill through → Loan Detail",
+        title="Largest expected losses", subtitle="Hover a loan for its profile · select one to open it",
         sort=[(mea("ECL"), "Descending")],
         objects={**NO_TOTALS, "values": [cf(ref(col("dim_loan", "stage_2025")), font="Loan Stage Color"),
                                          cf(ref(mea("ECL")), font="Loan Stage Color")]}))
+    drill_button(p, "top_open", X1 - 162, 464, 146, "Open loan detail  ›", "loan", "Select one loan in the table first")
     return p
 
 
@@ -1439,6 +1500,7 @@ def page_quality():
 
 def page_loan():
     p = Page("loan", "Loan Detail", kind="Drillthrough")
+    p.drill_field, p.drill_default = DRILL_FIELD, DEFAULT_LOAN
     sidebar(p, None)
     header_band(p)
     p.add("hdr_title", X0 + 48, 14, 900, 34, card("Title Loan", size=1, container=plain_container(
@@ -1466,12 +1528,17 @@ def page_loan():
         ("Loan Score", "Application score", "Note LScore", SLATE, "N"),
         ("Loan Balance", "Balance at Dec 2025", "Loan Status", SLATE, "N"),
         ("ECL", "IFRS 9 ECL", "Note LECL", SLATE, "N")])
-    p.add("history", X0, 192, CW, 262, visual(
-        "lineClusteredColumnComboChart", {"Category": [MONTH], "Y": [(mea("Month DPD"), "Days past due")],
-                                          "Y2": [(mea("Month Balance"), "Balance")]},
-        title="Payment history", subtitle="Line: balance owed · bars: days past due",
-        objects={"dataPoint": [{"properties": {"fill": solid(AMBER)}, "selector": {"metadata": ref(mea("Month DPD"))}},
-                               {"properties": {"fill": solid(CYAN)}, "selector": {"metadata": ref(mea("Month Balance"))}}],
+    half = (CW - GAP) / 2
+    p.add("history", X0, 192, half, 262, visual(
+        "lineChart", {"Category": [MONTH], "Y": [(mea("Month Balance"), "Balance")]},
+        title="Balance owed", subtitle="Month-end balance, from issue to Dec 2025",
+        objects={"dataPoint": [{"properties": {"fill": solid(CYAN)}}],
+                 "categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
+                 "legend": [{"properties": {"show": lit(False)}}]}))
+    p.add("dpd", X0 + half + GAP, 192, half, 262, visual(
+        "clusteredColumnChart", {"Category": [MONTH], "Y": [(mea("Month DPD"), "Days past due")]},
+        title="Days past due", subtitle="0 = paid on time · 90+ = in default (Stage 3)",
+        objects={"dataPoint": [{"properties": {"fill": solid(AMBER)}}],
                  "categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
                  "legend": [{"properties": {"show": lit(False)}}]}))
     p.add("profile", X0, 466, 430, 238, visual(
@@ -1484,6 +1551,111 @@ def page_loan():
                                (mea("Month DPD"), "Days late"), (mea("Month Paid"), "Paid"), (mea("Month Balance"), "Balance")]},
         title="Month by month", subtitle="From the loan_months table",
         sort=[(col("dim_month", "month_label"), "Ascending")], objects=NO_TOTALS))
+    return p
+
+
+def back_button():
+    return {
+        "visualType": "actionButton", "drillFilterOtherVisuals": True,
+        "objects": {"icon": [{"properties": {"shapeType": lit("back"), "lineColor": solid(WHITE),
+                                             "lineWeight": lit(2)}, "selector": {"id": "default"}}],
+                    "fill": [{"properties": {"show": lit(True), "fillColor": solid(SURFACE)}, "selector": {"id": "default"}}],
+                    "outline": [{"properties": {"show": lit(False)}},
+                                {"properties": {"show": lit(False)}, "selector": {"id": "default"}}]},
+        "visualContainerObjects": {**plain_container(
+            border=[{"properties": {"show": lit(True), "color": solid(GOLD), "radius": lit(8)}}]),
+            "visualLink": [{"properties": {"show": lit(True), "type": lit("Back")}}]}}
+
+
+def title_card(measure, size, color, width_hint=None):
+    v = card(measure, size=1, container=plain_container(
+        title=[{"properties": {"show": lit(True), "text": {"expr": mea(measure)}, "fontColor": solid(color),
+                               "fontSize": lit(size), "fontFamily": lit(FONT_SB), "alignment": lit("left")}}]))
+    v["objects"]["labels"][0]["properties"]["color"] = solid(SURFACE)
+    return v
+
+
+def page_grade():
+    """Drill-through from any visual showing a grade: the grade against the whole book."""
+    p = Page("grade", "Grade Detail", kind="Drillthrough")
+    p.drill_field, p.drill_default = col("dim_loan", "grade"), "C"
+    sidebar(p, None)
+    p.add("back", X0, 16, 36, 30, back_button())
+    hdr = title_card("Title Grade", 18, WHITE)
+    hdr["objects"]["labels"][0]["properties"]["color"] = solid(CANVAS)
+    p.add("hdr_title", X0 + 48, 14, 900, 34, hdr)
+    tmp = Page("tmp", "")
+    header(tmp, "")
+    ctx = next(v for v in tmp.visuals if v["name"] == hid("tmp", "hdr_context"))
+    ctx["name"] = hid("grade", "hdr_context")
+    p.visuals.append(ctx)
+    kpi_tiles(p, [
+        ("Loans", "Loans issued", "Note Lent", SLATE, "N"),
+        ("Avg Rate", "Average interest rate", "Note Grade Rate", SLATE, ""),
+        ("Default Rate 24m", "Default within 24 months", "Note Grade D24", SLATE, ""),
+        ("Net Loss Rate", "Net loss, % of amount lent", "Note Grade Loss", SLATE, ""),
+        ("Coverage", "IFRS 9 coverage, Dec 2025", "Note Grade Cov", SLATE, "")])
+    STATUS = (col("fact_loan_month", "status"), "Status")
+    p.add("balance", X0, 192, 640, 250, visual(
+        "columnChart", {"Category": [MONTH], "Series": [STATUS], "Y": [(mea("Book Balance"), "Balance")]},
+        title="Open balance by payment status", subtitle="This grade only · hover a month for the book that month",
+        objects={"dataPoint": value_colors(col("fact_loan_month", "status"), STATUS_COLORS),
+                 "categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
+                 "valueAxis": [{"properties": {"labelDisplayUnits": lit(1000000)}}]}))
+    p.add("purpose", X0 + 640 + GAP, 192, CW - 640 - GAP, 250, visual(
+        "clusteredBarChart", {"Category": [(col("dim_loan", "purpose"), "Purpose")],
+                              "Y": [(mea("Default Rate 24m"), "Default within 24 months")]},
+        title="Default rate by purpose, this grade", subtitle="Hover a bar for the segment",
+        sort=[(mea("Default Rate 24m"), "Descending")],
+        objects={"dataPoint": [{"properties": {"fill": solid(PRIMARY)}}], "labels": labels(True, labelPrecision=lit_int(1)),
+                 "categoryAxis": [{"properties": {"innerPadding": lit(12), "fontSize": lit(8)}}]}))
+    YEAR = col("dim_loan", "vintage_year")
+    p.add("vintage", X0, 454, 500, 250, visual(
+        "lineChart", {"Category": [(col("dim_mob", "mob"), "Months on book")], "Series": [(YEAR, "Year issued")],
+                      "Y": [(mea("Cum Default Rate"), "Cumulative default rate")]},
+        title="Cumulative default rate by months on book", subtitle="This grade, by year issued",
+        sort=[(col("dim_mob", "mob"), "Ascending")],
+        objects={"categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
+                 "dataPoint": value_colors(YEAR, {2021: "#5B6B85", 2022: "#8FA3C0", 2023: BAD, 2024: CYAN}, literal=lambda v: f"{v}L")}))
+    p.add("top", X0 + 500 + GAP, 454, CW - 500 - GAP, 250, visual(
+        "tableEx", {"Values": [(mea("ECL Rank"), "#"), (col("dim_loan", "loan_id"), "Loan"), (col("dim_loan", "sub_grade"), "Grade"),
+                               (col("dim_loan", "stage_2025"), "Stage"), (mea("EAD"), "EAD"),
+                               (mea("PD 12m (EAD-weighted)"), "PD 12m"), (mea("ECL"), "ECL")]},
+        title="Largest expected losses in this grade", subtitle="Hover a loan for its profile · select one to open it",
+        sort=[(mea("ECL"), "Descending")],
+        objects={**NO_TOTALS, "values": [cf(ref(col("dim_loan", "stage_2025")), font="Loan Stage Color"),
+                                         cf(ref(mea("ECL")), font="Loan Stage Color")]}))
+    drill_button(p, "top_open", X1 - 162, 464, 146, "Open loan detail  ›", "loan", "Select one loan in the table first")
+    return p
+
+
+def tooltip_cards(p, items, y0, cols_, w_total, h=70):
+    w = (w_total - (cols_ - 1) * 8) / cols_
+    for i, (mname, label, style) in enumerate(items):
+        x, y = 14 + (i % cols_) * (w + 8), y0 + (i // cols_) * (h + 8)
+        p.add(f"t{i}", x, y, w, h, card(mname, size=13, title=label, exact=style == "N", millions=style == "M",
+                                        container={"padding": [{"properties": {"top": lit(8), "bottom": lit(4),
+                                                                               "left": lit(2), "right": lit(2)}}]}))
+
+
+def page_tip_loan():
+    p = Page("tip_loan", "Tooltip · Loan", kind="Tooltip", width=360, height=246)
+    p.add("bg", 0, 0, 360, 246, panel(SURFACE))
+    p.add("title", 14, 8, 332, 46, title_card("Title Loan", 10.5, INK))
+    p.add("status", 14, 52, 332, 20, card("Loan Status", size=8.5, font=FONT_SB, color=WARN, container=plain_container()))
+    p.visuals[-1]["visual"]["objects"]["labels"][0]["properties"]["color"] = solid(mea("Loan Stage Color"))
+    tooltip_cards(p, [("Amount Lent", "LOAN AMOUNT", "N"), ("Loan Balance", "BALANCE DEC 2025", "N"),
+                      ("PD 12m (EAD-weighted)", "PD 12 MONTHS", ""), ("ECL", "IFRS 9 ECL", "N")], 78, 2, 332, h=74)
+    return p
+
+
+def page_tip_segment():
+    p = Page("tip_segment", "Tooltip · Segment", kind="Tooltip", width=360, height=232)
+    p.add("bg", 0, 0, 360, 232, panel(SURFACE))
+    p.add("title", 14, 8, 332, 40, title_card("Title Segment", 11, INK))
+    tooltip_cards(p, [("Loans", "LOANS", "N"), ("Amount Lent", "LENT", "M"), ("Avg Rate", "AVG RATE", ""),
+                      ("Default Rate 24m", "DEFAULT 24M", ""), ("Net Loss Rate", "NET LOSS", ""), ("Coverage", "ECL COVER", "")],
+                  52, 3, 332, h=80)
     return p
 
 
@@ -1502,7 +1674,7 @@ def page_tooltip():
 
 
 PAGES = [with_fit(f) for f in (page_portfolio, page_risk, page_vintage, page_scorecard, page_ecl, page_quality, page_loan,
-                                page_tooltip)]
+                                page_grade, page_tooltip, page_tip_loan, page_tip_segment)]
 DRILL_FIELD = col("dim_loan", "loan_id")
 
 
@@ -1561,24 +1733,24 @@ def build_report():
                 "name": p.name, "displayName": p.title, "displayOption": "FitToPage",
                 "height": p.height, "width": p.width}
         if p.kind == "Drillthrough":
-            fname, pname = hid("filter", "loan"), hid("param", "loan")
+            fname, pname = hid("filter", p.key), hid("param", p.key)
             page.update({
                 "type": "Drillthrough", "visibility": "HiddenInViewMode",
-                "pageBinding": {"name": hid("binding", "loan"), "type": "Drillthrough",
+                "pageBinding": {"name": hid("binding", p.key), "type": "Drillthrough",
                                 "parameters": [{"name": pname, "boundFilter": fname,
-                                                "fieldExpr": DRILL_FIELD}]},
-                "filterConfig": {"filters": [{"name": fname, "field": DRILL_FIELD, "type": "Categorical",
+                                                "fieldExpr": p.drill_field}]},
+                "filterConfig": {"filters": [{"name": fname, "field": p.drill_field, "type": "Categorical",
                                               # default loan when the page is opened directly;
                                               # a drill-through replaces it
                                               "filter": {"Version": 2,
                                                          "From": [{"Name": "s", "Entity": "dim_loan", "Type": 0}],
                                                          "Where": [{"Condition": {"In": {
                                                              "Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "s"}},
-                                                                                         "Property": "loan_id"}}],
-                                                             "Values": [[{"Literal": {"Value": "'" + DEFAULT_LOAN + "'"}}]]}}}]}}]}})
+                                                                                         "Property": p.drill_field["Column"]["Property"]}}],
+                                                             "Values": [[{"Literal": {"Value": "'" + p.drill_default.replace("'", "''") + "'"}}]]}}}]}}]}})
         elif p.kind == "Tooltip":
             page.update({"type": "Tooltip", "visibility": "HiddenInViewMode",
-                         "pageBinding": {"name": hid("binding", "tooltip"), "type": "Tooltip",
+                         "pageBinding": {"name": hid("binding", p.key), "type": "Tooltip",
                                          "parameters": []}})
         write_json(d / "pages" / p.name / "page.json", page)
         for v in p.visuals:

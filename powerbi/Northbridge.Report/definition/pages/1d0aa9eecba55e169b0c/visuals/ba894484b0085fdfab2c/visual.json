@@ -4,10 +4,10 @@
   "position": {
     "x": 726,
     "y": 192,
-    "z": 5800,
+    "z": 6000,
     "height": 282,
     "width": 538,
-    "tabOrder": 5800
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -201,6 +201,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'The newly allowed loans default 1.7x as often; their extra interest covers the extra loss'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }

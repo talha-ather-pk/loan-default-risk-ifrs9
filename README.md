@@ -117,8 +117,9 @@ rather than a behavioural score.
 
 Six pages in a dark **banking risk-intelligence** design: midnight navy surfaces, teal and cyan accents, and **risk
 appetite flags** on the KPI tiles (green / amber / red against board limits, recalculated for any filter). Synced
-Year issued / Grade / Channel filters, a **Loan Detail** drill-through (payment history month by month) and a month
-tooltip. Details: [`powerbi/DESIGN.md`](powerbi/DESIGN.md).
+Year issued / Grade / Channel filters with a one-click **Reset**, hover tooltips for a month, a segment (grade,
+purpose, band) or a loan, and two drill-throughs: **Grade Detail** and **Loan Detail**, so the book → grade → loan path
+takes two clicks. Details: [`powerbi/DESIGN.md`](powerbi/DESIGN.md).
 
 | Portfolio | Risk Drivers |
 |---|---|
@@ -128,9 +129,9 @@ tooltip. Details: [`powerbi/DESIGN.md`](powerbi/DESIGN.md).
 | **IFRS 9 ECL** | **Data Quality** |
 | ![ECL](images/dashboard_ecl.png) | ![Data quality](images/dashboard_quality.png) |
 
-**Loan Detail** (drill-through from any loan): the application, the score, the IFRS 9 numbers and the payment history.
-
-![Loan detail](images/dashboard_loan.png)
+| **Grade Detail** (drill-through from a grade) | **Loan Detail** (drill-through from a loan) |
+|---|---|
+| ![Grade detail](images/dashboard_grade.png) | ![Loan detail](images/dashboard_loan.png) |
 
 * **Model:** a loan table (50,000 rows) and its month-by-month history (1.16M rows) so every filter reaches every page;
   ECL per loan at two dates; scorecard, backtest and data-quality tables; 167 measures. Vintage curves are computed in DAX

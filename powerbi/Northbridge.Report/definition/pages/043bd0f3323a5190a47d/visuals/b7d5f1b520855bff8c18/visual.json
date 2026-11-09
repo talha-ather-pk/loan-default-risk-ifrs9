@@ -4,13 +4,13 @@
   "position": {
     "x": 200,
     "y": 192,
-    "z": 5400,
+    "z": 5600,
     "height": 262,
-    "width": 1064,
-    "tabOrder": 5400
+    "width": 526.0,
+    "tabOrder": 5600
   },
   "visual": {
-    "visualType": "lineClusteredColumnComboChart",
+    "visualType": "lineChart",
     "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
@@ -43,25 +43,6 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Month DPD"
-                }
-              },
-              "queryRef": "_Measures.Month DPD",
-              "nativeQueryRef": "Month DPD",
-              "displayName": "Days past due"
-            }
-          ]
-        },
-        "Y2": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
                   "Property": "Month Balance"
                 }
               },
@@ -82,33 +63,12 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F0934F'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Month DPD"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
                       "Value": "'#22D3EE'"
                     }
                   }
                 }
               }
             }
-          },
-          "selector": {
-            "metadata": "_Measures.Month Balance"
           }
         }
       ],
@@ -153,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Payment history'"
+                  "Value": "'Balance owed'"
                 }
               }
             }
@@ -173,7 +133,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Line: balance owed · bars: days past due'"
+                  "Value": "'Month-end balance, from issue to Dec 2025'"
                 }
               }
             }

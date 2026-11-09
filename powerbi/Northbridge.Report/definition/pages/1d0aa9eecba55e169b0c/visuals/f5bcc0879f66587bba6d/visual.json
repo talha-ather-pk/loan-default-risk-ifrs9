@@ -4,10 +4,10 @@
   "position": {
     "x": 917.33,
     "y": 486,
-    "z": 6100,
+    "z": 6300,
     "height": 218,
     "width": 346.67,
-    "tabOrder": 6100
+    "tabOrder": 6300
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -187,6 +187,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'Higher income, lower risk'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }

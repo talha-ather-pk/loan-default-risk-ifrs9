@@ -969,6 +969,34 @@ table _Measures
 		displayFolder: 8 Formatting
 		lineageTag: 693c162e-decf-5150-a85b-8c0a133aacee
 
+	measure 'Title Segment' = VAR t = IF ( ISFILTERED ( dim_loan[grade] ) && HASONEVALUE ( dim_loan[grade] ), "Grade " & VALUES ( dim_loan[grade] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[purpose] ) && HASONEVALUE ( dim_loan[purpose] ), "" & VALUES ( dim_loan[purpose] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[policy_group] ) && HASONEVALUE ( dim_loan[policy_group] ), "" & VALUES ( dim_loan[policy_group] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[fico_band] ) && HASONEVALUE ( dim_loan[fico_band] ), "FICO " & VALUES ( dim_loan[fico_band] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[dti_band] ) && HASONEVALUE ( dim_loan[dti_band] ), "DTI " & VALUES ( dim_loan[dti_band] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[income_band] ) && HASONEVALUE ( dim_loan[income_band] ), "Income " & VALUES ( dim_loan[income_band] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[channel] ) && HASONEVALUE ( dim_loan[channel] ), "" & VALUES ( dim_loan[channel] ) & "  ·  " ) & IF ( ISFILTERED ( dim_loan[vintage_year] ) && HASONEVALUE ( dim_loan[vintage_year] ), "Issued " & VALUES ( dim_loan[vintage_year] ) & "  ·  " ) RETURN IF ( t = "", "All loans", LEFT ( t, LEN ( t ) - 5 ) )
+		displayFolder: 7 Dynamic text
+		lineageTag: d9146c7c-3d0e-52b8-9cb6-f643e677cb2a
+
+	measure 'Title Grade' = "Grade " & SELECTEDVALUE ( dim_loan[grade] ) & "  ·  " & FORMAT ( [Loans], "#,0" ) & " loans  ·  " & FORMAT ( [Amount Lent] / 1e6, "$#,0.0" ) & "M lent"
+		displayFolder: 7 Dynamic text
+		lineageTag: f7ac5afc-8397-53b2-9220-e166846ccd16
+
+	measure 'Note Grade Rate' = "All grades " & FORMAT ( CALCULATE ( [Avg Rate], REMOVEFILTERS ( dim_loan[grade] ) ), "0.00%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 11df9f82-8213-5ea5-a7dc-6266e33aed67
+
+	measure 'Note Grade D24' = VAR b = CALCULATE ( [Default Rate 24m], REMOVEFILTERS ( dim_loan[grade] ) ) RETURN "All grades " & FORMAT ( b, "0.0%" ) & "  ·  " & FORMAT ( DIVIDE ( [Default Rate 24m], b ), "0.0" ) & "x"
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: b8f48609-5309-55bc-b4f0-173f21e21783
+
+	measure 'Note Grade Loss' = FORMAT ( [Net Loss] / 1e6, "$#,0.00" ) & "M  ·  all grades " & FORMAT ( CALCULATE ( [Net Loss Rate], REMOVEFILTERS ( dim_loan[grade] ) ), "0.0%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 0abd2cc5-f406-57a7-a9d6-f624fbfb9ee5
+
+	measure 'Note Grade Cov' = FORMAT ( [ECL] / 1e6, "$#,0.00" ) & "M ECL  ·  all grades " & FORMAT ( CALCULATE ( [Coverage], REMOVEFILTERS ( dim_loan[grade] ) ), "0.00%" )
+		isHidden
+		displayFolder: 9 Helpers
+		lineageTag: 81db7fb0-933a-502f-abd1-8d2854868b0f
+
 	column Value
 		dataType: string
 		isHidden

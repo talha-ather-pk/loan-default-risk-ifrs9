@@ -4,10 +4,10 @@
   "position": {
     "x": 200,
     "y": 404,
-    "z": 5800,
+    "z": 6000,
     "height": 300,
     "width": 1064,
-    "tabOrder": 5800
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "tableEx",
@@ -424,6 +424,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'Price, realised loss and the IFRS 9 allowance rise together from A to G · shading = risk'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }

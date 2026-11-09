@@ -496,7 +496,7 @@
             },
             "textSize": 8,
             "fontFamily": "Segoe UI Semibold",
-            "outline": "None"
+            "outlineStyle": 0
           }
         ],
         "items": [
@@ -508,11 +508,11 @@
             },
             "background": {
               "solid": {
-                "color": "#0F1A2B"
+                "color": "#13203A"
               }
             },
             "textSize": 9,
-            "outline": "None"
+            "outlineStyle": 0
           }
         ],
         "background": [

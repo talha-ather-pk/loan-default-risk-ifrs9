@@ -4,10 +4,10 @@
   "position": {
     "x": 200,
     "y": 192,
-    "z": 5700,
+    "z": 5900,
     "height": 282,
     "width": 514,
-    "tabOrder": 5700
+    "tabOrder": 5900
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -207,6 +207,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'Small-business and medical loans are the riskiest; car loans the safest'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }

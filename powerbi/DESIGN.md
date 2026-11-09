@@ -68,9 +68,25 @@ with `USERELATIONSHIP`.
 | Risk Drivers | default rate by purpose, credit score, DTI and income band; the July 2023 DTI policy change |
 | Vintages & Economy | cumulative default curves by year issued; roll-rate matrix; default starts vs unemployment |
 | Scorecard | calibration by score band; model comparison (AUC, Gini, KS); the points table; truth check |
-| IFRS 9 ECL | ECL by stage (PD, LGD, EAD, coverage); scenarios; stage migration; largest expected losses (drill-through) |
+| IFRS 9 ECL | ECL by stage (PD, LGD, EAD, coverage, Dec 2024 coverage); scenarios; stage migration; largest expected losses (loan tooltip, drill-through) |
 | Data Quality | every cleaning fix next to the number of problems injected |
 | Loan Detail | drill-through on a loan: payment history (balance and days past due), applicant profile, month-by-month table |
+| Grade Detail | drill-through on a grade: the grade against all grades, balance by status, default by purpose, vintage curves, its largest expected losses |
+
+## Interactivity
+
+* **Reset filters**: a sidebar button using Power BI's *Clear all slicers* action. The year, grade and channel slicers
+  are synced across pages, so one click clears them everywhere. (A bookmark would hard-code each slicer's state and
+  silently stop resetting a slicer added later.)
+* **Report-page tooltips**: *Month* on the monthly charts (balance, new lending, unemployment, Grade Detail balance);
+  *Segment* on the grade table and every Risk Drivers chart (loans, lent, rate, default, net loss, ECL coverage for the
+  hovered grade, purpose, policy group or band); *Loan* on both largest-loss tables (loan, status, amount, balance,
+  PD, ECL).
+* **Drill-through**: right-click a grade → Grade Detail; right-click a loan → Loan Detail (also from Grade Detail, so
+  book → grade → loan works in two clicks). *Open grade detail* / *Open loan detail* buttons do the same once a row is
+  selected; until then their tooltip says what to select.
+* **Cross-filtering** is on for every visual: clicking a bar, a grade row or a matrix cell filters the rest of the page.
+* **Whole-book tiles** are tagged so nobody expects them to follow the slicers.
 
 ## Validation
 

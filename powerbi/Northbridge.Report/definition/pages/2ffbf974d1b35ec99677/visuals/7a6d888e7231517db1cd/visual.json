@@ -4,10 +4,10 @@
   "position": {
     "x": 712,
     "y": 454,
-    "z": 6000,
+    "z": 6200,
     "height": 250,
     "width": 552,
-    "tabOrder": 6000
+    "tabOrder": 6200
   },
   "visual": {
     "visualType": "tableEx",
@@ -365,7 +365,34 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Right-click a loan → Drill through → Loan Detail'"
+                  "Value": "'Hover a loan for its profile · select one to open it'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'3be18ef23071579aa2dd'"
                 }
               }
             }

@@ -4,10 +4,10 @@
   "position": {
     "x": 16,
     "y": 672,
-    "z": 2700,
+    "z": 2900,
     "height": 40,
     "width": 164,
-    "tabOrder": 2700
+    "tabOrder": 2900
   },
   "visual": {
     "visualType": "textbox",
@@ -34,7 +34,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "Right-click a loan to drill through",
+                    "value": "Hover for detail · right-click to drill",
                     "textStyle": {
                       "fontSize": "7pt",
                       "color": "#6B7D98",

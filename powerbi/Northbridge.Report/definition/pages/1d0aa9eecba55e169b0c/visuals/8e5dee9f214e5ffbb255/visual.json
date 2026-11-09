@@ -4,10 +4,10 @@
   "position": {
     "x": 558.67,
     "y": 486,
-    "z": 6000,
+    "z": 6200,
     "height": 218,
     "width": 346.67,
-    "tabOrder": 6000
+    "tabOrder": 6200
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -187,6 +187,33 @@
               "expr": {
                 "Literal": {
                   "Value": "'More of income already owed = more defaults'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ac38511f1a095ed190bd'"
                 }
               }
             }
