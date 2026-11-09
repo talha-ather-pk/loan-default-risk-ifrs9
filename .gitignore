@@ -8,3 +8,4 @@ __pycache__/
 # scripts/generate_data.py and scripts/clean.py
 data_raw/loan_months.csv
 data_clean/northbridge.db
+.env*
