@@ -165,7 +165,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "214D"
+                  "Value": "204D"
                 }
               }
             }
@@ -193,7 +193,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "62D"
+                  "Value": "64D"
                 }
               }
             }
@@ -207,7 +207,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "44D"
+                  "Value": "56D"
                 }
               }
             }
@@ -221,13 +221,26 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "150D"
+                  "Value": "156D"
                 }
               }
             }
           },
           "selector": {
             "metadata": "dq_log.action"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
           }
         }
       ]

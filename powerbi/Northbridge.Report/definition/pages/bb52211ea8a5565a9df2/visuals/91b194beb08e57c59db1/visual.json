@@ -5,7 +5,7 @@
     "x": 852,
     "y": 192,
     "z": 5700,
-    "height": 250,
+    "height": 282,
     "width": 412,
     "tabOrder": 5700
   },
@@ -123,7 +123,7 @@
             "innerPadding": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "6D"
                 }
               }
             },
@@ -131,6 +131,19 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

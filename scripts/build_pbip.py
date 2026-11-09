@@ -1231,9 +1231,37 @@ TOOLTIPS = {("portfolio", "orig"): "tooltip", ("portfolio", "grades"): "tip_segm
             ("grade", "balance"): "tooltip", ("grade", "purpose"): "tip_segment", ("grade", "top"): "tip_loan"}
 
 
+NO_AXIS = {"valueAxis": [{"properties": {"show": lit(False)}}]}
+POLISH = {
+    # bar charts that carry data labels: the value axis only repeats them
+    ("risk", "purpose"): NO_AXIS,
+    ("risk", "policy"): {**NO_AXIS, "categoryAxis": [{"properties": {"maxMarginFactor": lit(45), "fontSize": lit(8)}}]},
+    **{("risk", f"band_{c}"): {**NO_AXIS, "categoryAxis": [{"properties": {"fontSize": lit(7.5), "innerPadding": lit(14)}}]}
+       for c in ("fico_band", "dti_band", "income_band")},
+    ("ecl", "scen"): NO_AXIS,
+    ("quality", "fixes"): NO_AXIS,
+    ("grade", "purpose"): {**NO_AXIS, "categoryAxis": [{"properties": {"innerPadding": lit(6), "fontSize": lit(8)}}]},
+    # data-quality log: compact rows so all 14 checks show
+    ("quality", "log"): {"grid": [{"properties": {"rowPadding": lit(3)}}]},
+    # roll-rate matrix: larger cells now that the panel is shorter and fuller
+    ("vintage", "roll"): {"grid": [{"properties": {"rowPadding": lit(7)}}]},
+}
+
+
 def with_fit(fn):
     def build():
         page = fn()
+        for (pk, vid), objs in POLISH.items():
+            if pk == page.key:
+                v = next(x for x in page.visuals if x["name"] == hid(pk, vid))["visual"]
+                o = dict(v.get("objects", {}))
+                for k, val in objs.items():
+                    if k == "categoryAxis" and k in o:           # keep axisType etc., add the new properties
+                        merged = dict(o[k][0]["properties"]); merged.update(val[0]["properties"])
+                        o[k] = [{"properties": merged}]
+                    else:
+                        o[k] = val
+                v["objects"] = o
         for (pk, vid), tip in TOOLTIPS.items():
             if pk == page.key:
                 v = next(x for x in page.visuals if x["name"] == hid(pk, vid))
@@ -1360,19 +1388,19 @@ def page_vintage():
     p.add("vintage", X0, 192, 600, 512, visual(
         "lineChart", {"Category": [(col("dim_mob", "mob"), "Months on book")], "Series": [(YEAR, "Year issued")],
                       "Y": [(mea("Cum Default Rate"), "Cumulative default rate")]},
-        title=mea("Title Vintage"),
-        subtitle="Each line stops at the age its youngest loans have reached · 2023 loans met the 2024 unemployment peak early in life",
+        title="Cumulative default rate by months on book",
+        subtitle="Lines stop at the youngest loans' age · 2023 loans (red) met the 2024 unemployment peak early",
         sort=[(col("dim_mob", "mob"), "Ascending")],
         objects={"categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
                  "dataPoint": value_colors(YEAR, {2021: "#5B6B85", 2022: "#8FA3C0", 2023: BAD, 2024: CYAN}, literal=lambda v: f"{v}L")}))
-    p.add("roll", X0 + 600 + GAP, 192, CW - 600 - GAP, 240, visual(
+    p.add("roll", X0 + 600 + GAP, 192, CW - 600 - GAP, 212, visual(
         "pivotTable", {"Rows": [(col("fact_loan_month", "status"), "This month")],
                        "Columns": [(col("fact_loan_month", "next_status"), "Next month")],
                        "Values": [(mea("Roll Rate"), "Share")]},
         title="Roll rates: where loans are next month", subtitle="Half of 30-day-late loans cure; half roll on toward default",
         objects={"values": heat_cf("Roll Rate", "Roll Heat", "Roll Heat Font"), **NO_SUBTOTALS,
                  "columnHeaders": [{"properties": {"fontSize": lit(8)}}]}))
-    p.add("macro", X0 + 600 + GAP, 444, CW - 600 - GAP, 260, visual(
+    p.add("macro", X0 + 600 + GAP, 416, CW - 600 - GAP, 288, visual(
         "lineClusteredColumnComboChart", {"Category": [MONTH], "Y": [(mea("Defaults per 1,000"), "New defaults per 1,000 performing loans")],
                                           "Y2": [(mea("Unemployment"), "Unemployment")]},
         title="Default starts follow unemployment", subtitle="Bars: new defaults per 1,000 performing loans · line: unemployment",
@@ -1493,8 +1521,8 @@ def page_quality():
         sort=[(col("dq_log", "issue"), "Ascending")],
         objects={"values": [cf(ref(mea("DQ Match")), font="Match Color")], **NO_TOTALS,
                  "columnWidth": [{"properties": {"value": lit(w_)}, "selector": {"metadata": r}} for r, w_ in [
-                     (ref(col("dq_log", "issue")), 214), (ref(mea("DQ Rows")), 58), (ref(mea("DQ Injected")), 62),
-                     (ref(mea("DQ Match")), 44), (ref(col("dq_log", "action")), 150)]]}))
+                     (ref(col("dq_log", "issue")), 204), (ref(mea("DQ Rows")), 58), (ref(mea("DQ Injected")), 64),
+                     (ref(mea("DQ Match")), 56), (ref(col("dq_log", "action")), 156)]]}))
     return p
 
 
@@ -1596,13 +1624,13 @@ def page_grade():
         ("Net Loss Rate", "Net loss, % of amount lent", "Note Grade Loss", SLATE, ""),
         ("Coverage", "IFRS 9 coverage, Dec 2025", "Note Grade Cov", SLATE, "")])
     STATUS = (col("fact_loan_month", "status"), "Status")
-    p.add("balance", X0, 192, 640, 250, visual(
+    p.add("balance", X0, 192, 640, 282, visual(
         "columnChart", {"Category": [MONTH], "Series": [STATUS], "Y": [(mea("Book Balance"), "Balance")]},
         title="Open balance by payment status", subtitle="This grade only · hover a month for the book that month",
         objects={"dataPoint": value_colors(col("fact_loan_month", "status"), STATUS_COLORS),
                  "categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
                  "valueAxis": [{"properties": {"labelDisplayUnits": lit(1000000)}}]}))
-    p.add("purpose", X0 + 640 + GAP, 192, CW - 640 - GAP, 250, visual(
+    p.add("purpose", X0 + 640 + GAP, 192, CW - 640 - GAP, 282, visual(
         "clusteredBarChart", {"Category": [(col("dim_loan", "purpose"), "Purpose")],
                               "Y": [(mea("Default Rate 24m"), "Default within 24 months")]},
         title="Default rate by purpose, this grade", subtitle="Hover a bar for the segment",
@@ -1610,14 +1638,14 @@ def page_grade():
         objects={"dataPoint": [{"properties": {"fill": solid(PRIMARY)}}], "labels": labels(True, labelPrecision=lit_int(1)),
                  "categoryAxis": [{"properties": {"innerPadding": lit(12), "fontSize": lit(8)}}]}))
     YEAR = col("dim_loan", "vintage_year")
-    p.add("vintage", X0, 454, 500, 250, visual(
+    p.add("vintage", X0, 486, 500, 218, visual(
         "lineChart", {"Category": [(col("dim_mob", "mob"), "Months on book")], "Series": [(YEAR, "Year issued")],
                       "Y": [(mea("Cum Default Rate"), "Cumulative default rate")]},
         title="Cumulative default rate by months on book", subtitle="This grade, by year issued",
         sort=[(col("dim_mob", "mob"), "Ascending")],
         objects={"categoryAxis": [{"properties": {"axisType": lit("Scalar")}}],
                  "dataPoint": value_colors(YEAR, {2021: "#5B6B85", 2022: "#8FA3C0", 2023: BAD, 2024: CYAN}, literal=lambda v: f"{v}L")}))
-    p.add("top", X0 + 500 + GAP, 454, CW - 500 - GAP, 250, visual(
+    p.add("top", X0 + 500 + GAP, 486, CW - 500 - GAP, 218, visual(
         "tableEx", {"Values": [(mea("ECL Rank"), "#"), (col("dim_loan", "loan_id"), "Loan"), (col("dim_loan", "sub_grade"), "Grade"),
                                (col("dim_loan", "stage_2025"), "Stage"), (mea("EAD"), "EAD"),
                                (mea("PD 12m (EAD-weighted)"), "PD 12m"), (mea("ECL"), "ECL")]},
@@ -1625,7 +1653,7 @@ def page_grade():
         sort=[(mea("ECL"), "Descending")],
         objects={**NO_TOTALS, "values": [cf(ref(col("dim_loan", "stage_2025")), font="Loan Stage Color"),
                                          cf(ref(mea("ECL")), font="Loan Stage Color")]}))
-    drill_button(p, "top_open", X1 - 162, 464, 146, "Open loan detail  ›", "loan", "Select one loan in the table first")
+    drill_button(p, "top_open", X1 - 162, 496, 146, "Open loan detail  ›", "loan", "Select one loan in the table first")
     return p
 
 

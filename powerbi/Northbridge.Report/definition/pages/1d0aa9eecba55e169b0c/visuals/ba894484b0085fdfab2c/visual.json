@@ -164,6 +164,39 @@
             }
           }
         }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "maxMarginFactor": {
+              "expr": {
+                "Literal": {
+                  "Value": "45D"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {

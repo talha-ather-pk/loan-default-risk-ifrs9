@@ -5,7 +5,7 @@
     "x": 812,
     "y": 192,
     "z": 6200,
-    "height": 240,
+    "height": 212,
     "width": 452,
     "tabOrder": 6200
   },
@@ -149,6 +149,19 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "7D"
                 }
               }
             }

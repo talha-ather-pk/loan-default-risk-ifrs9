@@ -285,13 +285,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Title Vintage"
+                "Literal": {
+                  "Value": "'Cumulative default rate by months on book'"
                 }
               }
             }
@@ -311,7 +306,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Each line stops at the age its youngest loans have reached · 2023 loans met the 2024 unemployment peak early in life'"
+                  "Value": "'Lines stop at the youngest loans'' age · 2023 loans (red) met the 2024 unemployment peak early'"
                 }
               }
             }

@@ -150,6 +150,39 @@
             }
           }
         }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "7.5D"
+                }
+              }
+            },
+            "innerPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {

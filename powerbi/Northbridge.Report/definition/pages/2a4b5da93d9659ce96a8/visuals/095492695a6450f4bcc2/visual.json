@@ -169,6 +169,19 @@
             }
           }
         }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
